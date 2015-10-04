@@ -5,4 +5,5 @@
 <h2>Autorzy:</h2>
 <ul>
 	<li>Natalia Jastrzębska</li>
+	<li>Marcin Proniakin</li>
 </ul>
