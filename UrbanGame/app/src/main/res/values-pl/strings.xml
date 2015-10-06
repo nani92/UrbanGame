@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">UrbanGame</string>
+    <string name="btn_createGame">Stwórz Grę</string>
+    <string name="btn_playGame">Graj</string>
+    <string name="btn_settings">Ustawienia</string>
+    <string name="btn_about">O aplikacji</string>
 </resources>

@@ -1,11 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:layout_height="wrap_content" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity"
+    android:background="@drawable/back" >
 
-    <TextView android:text="Hello World!" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/app_name"
+        android:id="@+id/tv_activityMain_title"
+        android:textSize="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textColor="#263276" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/btn_createGame"
+        android:id="@+id/btn_activityMain_createGame"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/tv_activityMain_title"
+        android:layout_alignStart="@+id/tv_activityMain_title"
+        android:layout_alignEnd="@+id/tv_activityMain_title" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/btn_playGame"
+        android:id="@+id/btn_activityMain_playGame"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/btn_activityMain_createGame"
+        android:layout_alignStart="@+id/tv_activityMain_title"
+        android:layout_alignEnd="@+id/tv_activityMain_title" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/btn_settings"
+        android:id="@+id/btn_activityMain_settings"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/btn_activityMain_playGame"
+        android:layout_alignStart="@+id/tv_activityMain_title"
+        android:layout_alignEnd="@+id/tv_activityMain_title" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/btn_about"
+        android:id="@+id/btn_activityMain_about"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/btn_activityMain_settings"
+        android:layout_alignStart="@+id/tv_activityMain_title"
+        android:layout_alignEnd="@+id/tv_activityMain_title" />
+
+
 </RelativeLayout>
