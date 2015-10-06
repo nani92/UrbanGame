@@ -6,4 +6,5 @@
 <ul>
 	<li>Natalia Jastrzębska</li>
 	<li>Marcin Proniakin</li>
+	<li>Przemyslaw Lewandowski</li>
 </ul>
