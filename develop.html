@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <p>Co by pisać spójnie i jednym stylem.</p>
+        <p>Cały kod piszemy po angielsku! Komentarze we wstępnej wersji mogą być po polsku. Zmienna o nazwie <code>guzik_dodaj</code> lub <code>btn_dodaj</code> jest grzechem ciężkim</p>
+        <h1>Nazewnictwo</h1>
+        <h3>Klasy:</h3>
+        <p>Do nazewnictwa klas używamy PascalCase (wszystkie wyrazy wielką literą) np.: <code>ToJestKlasa</code></p>
+        <h3>Metody:</h3>
+        <p>Do nazewnictwa metod używamy camelCase np.: <code>toJestMetoda</code></p>
+        <p>Ponadto metoda powinna robić tylko jedną rzecz np.: wczytanie obrazu z pliku, a nie wczytanie obrazu z pliku i wyświetlenie go w ImageView. Nazwa metody powinna wskazywać na to, co się w tej metodzie dzieje - jeżeli nie da się krócej ująć, może być długa.</p>
+        <h3>R.id....</h3>
+        <p>Identyfikatory do rożnych elementów GUI</p>
+        <h4>Button</h4>
+        <p>Dla buttonów w layoucie o nazwie: <code>activity_main.xml</code> button wywołujący metodę <code>back</code> powinien mieć np. takie id:  <code>btn_activityMain_back</code>.</p>
+        <p>Dla RadioButton analogicznie <code>rb_...</code>, TextView <code>tv_...</code>, EditText <code>et_...</code>, ImageView <code>iv_...</code>.</p>
+        <p>Oczywiście nie wszystko robi cokolwiek po za wyświetlaniem się. Generalnie chodzi o to, żeby trzeci człon identyfikował jakoś element. Np.: <code>tv_activityMain_descriptionOfApplication</code></p>
+        <h3>Treści pisane w apce</h3>
+        <p>Dla elementu GUI nie przypisujemy na twardo tekstu tylko odwołując się do resources tj.: <code>R.string.nazwa_stringa</code></p>
+        <p>Nazwy stringów powinny być intuicyjne np.: 
+        <ul>
+            <li><code>playGameActivity_Title</code> - dla tytułu ekranu rozgrywania gry,</li>
+            <li><code>btn_ok</code> - dla buttona z tekstem ok nie zależnie w jakim ekranie jest</li>
+        </ul>
+        </p>
+        <h4>Tworzenie stringów dla apki</h4>
+        <p>KatalogProjektu/ </br>&nbsp; res/</br>&nbsp;&nbsp; values/ </br>&nbsp;&nbsp;&nbsp; strings.xml</br>&nbsp;&nbsp; values_pl/</br>&nbsp;&nbsp;&nbsp; strings.xml </p>
+        <p>Stringi zapisuejmy w plikach <code>strings.xml</code>. Tworząc jakiś string umieszczamy go w obu plikach: w pierwszym po angielsku w drugim po polsku. Plik wygląda w sposób następujący: </p>
+        <code>
+            <xmp>
+            <?xml version="1.0" encoding="utf-8"?>
+            <resources>
+                <string name="title">My Application</string>
+            </resources></xmp>
+        </code>
+        <h4>Używanie w kodzie</h4>
+        <h5>W pliku xml</h5>
+        <code><xmp>
+            android:text="@string/title" />
+            </xmp>
+        </code>
+        <h5>W .java</h5>
+        <code>
+            <xmp>
+            tv_title.setText(R.string.title);
+            </xmp>
+        </code>
+        <hr />
+        <h1>Inne wskazówki</h1>
+        <hr />
+    </body>
+</html>
