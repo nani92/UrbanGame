@@ -1,6 +1,7 @@
 package com.example.nataliajastrzebska.urbangame;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void createGameClicked(View v){
+    public void createGameClicked(View v) {
         showChooseCreatingModeDialog();
     }
 
@@ -24,4 +25,10 @@ public class MainActivity extends AppCompatActivity {
         chooseCreatingModeDialog.show(fm, "dialog_choose_creating_mode");
     }
 
+
+    public void aboutClicked(View v) {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
+    }
 }
+
