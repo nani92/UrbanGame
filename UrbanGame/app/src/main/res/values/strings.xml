@@ -1,4 +1,5 @@
 <resources>
+    <!--MAIN WINDOW-->
     <string name="app_name">UrbanGame</string>
     <string name="btn_createGame">Create Game</string>
     <string name="btn_playGame">Play Game</string>
@@ -9,4 +10,14 @@
     <string name="dialog_chooseCreatingMode_btnClassic">Classic</string>
     <string name="dialog_chooseCreatingMode_btnRemote">Remote</string>
     <string name="btn_cancel">Cancel</string>
+    <string name="title_activity_about">About</string>
+
+
+    <!--ABOUT ACTIVITY-->
+    <string name="authors">Game produced by:
+             Natalia Jastrzębska, Paulina Wójcik, Marcin Proniakin oraz Przemysław Lewandowski.</string>
+    <string name="version">Version: 0.1</string>
+    <string name="supervisor">Supervisor: PhD MEng Krzysztof Bikonis</string>
+    <string name="rights">All rights reserved.</string>
+
 </resources>
