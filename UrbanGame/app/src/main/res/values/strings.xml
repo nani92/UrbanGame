@@ -16,10 +16,9 @@
     <!--ABOUT ACTIVITY-->
 
     <string name="title_activity_about">About</string>
-    <string name="authors">Game produced by:\n
-             Natalia Jastrzębska,\n Paulina Wójcik,\n Marcin Proniakin oraz \n Przemysław Lewandowski.</string>
+    <string name="authors">Game produced by:\nNatalia Jastrzębska,\nPaulina Wójcik,\nMarcin Proniakin oraz \nPrzemysław Lewandowski.</string>
     <string name="version">Version: 0.1</string>
-    <string name="supervisor">Supervisor:\n PhD MEng Krzysztof Bikonis</string>
+    <string name="supervisor">Supervisor:\nPhD MEng Krzysztof Bikonis</string>
     <string name="rights">All rights reserved.</string>
 
 

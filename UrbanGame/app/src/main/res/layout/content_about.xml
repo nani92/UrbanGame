@@ -20,7 +20,9 @@
     android:layout_height="wrap_content"
     tools:showIn="@layout/activity_about"
     tools:context="com.example.nataliajastrzebska.urbangame.AboutActivity"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="#99FFFFFF">
+
 
 
     <TextView
