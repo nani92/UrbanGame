@@ -14,10 +14,10 @@
 
 
     <!--ABOUT ACTIVITY-->
-    <string name="authors">Game produced by:
-             Natalia Jastrzębska, Paulina Wójcik, Marcin Proniakin oraz Przemysław Lewandowski.</string>
+    <string name="authors">Game produced by:\n
+             Natalia Jastrzębska,\n Paulina Wójcik,\n Marcin Proniakin oraz \n Przemysław Lewandowski.</string>
     <string name="version">Version: 0.1</string>
-    <string name="supervisor">Supervisor: PhD MEng Krzysztof Bikonis</string>
+    <string name="supervisor">Supervisor:\n PhD MEng Krzysztof Bikonis</string>
     <string name="rights">All rights reserved.</string>
 
 </resources>
