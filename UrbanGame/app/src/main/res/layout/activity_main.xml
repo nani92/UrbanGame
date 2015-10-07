@@ -31,7 +31,8 @@
         android:layout_alignStart="@+id/tv_activityMain_title"
         android:layout_alignEnd="@+id/tv_activityMain_title"
         android:background="@color/btnColor"
-        android:layout_marginBottom="10px" />
+        android:layout_marginBottom="10px"
+        android:onClick="createGameClicked"/>
 
     <Button
         android:layout_width="wrap_content"

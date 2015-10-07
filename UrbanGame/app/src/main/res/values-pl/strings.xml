@@ -4,4 +4,9 @@
     <string name="btn_playGame">Graj</string>
     <string name="btn_settings">Ustawienia</string>
     <string name="btn_about">O aplikacji</string>
+    <string name="dialog_chooseCreatingMode_title">Tworzysz grę miejską</string>
+    <string name="dialog_chooseCreatingMode_msg">Proszę wybrać tryb tworzenia gry.</string>
+    <string name="dialog_chooseCreatingMode_btnClassic">Klasyczny</string>
+    <string name="dialog_chooseCreatingMode_btnRemote">Zdalny</string>
+    <string name="btn_cancel">Anuluj</string>
 </resources>
