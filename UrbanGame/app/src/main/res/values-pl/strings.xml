@@ -16,13 +16,13 @@
 
     <!--ABOUT ACTIVITY-->
     <string name="title_activity_about">O aplikacji</string>
-    <string name="authors">Gra utworzona jako projekt inżynierski przez:
-             Natalię Jastrzębską, Paulinę Wójcik, Marcina Proniakina oraz Przemysława Lewandowskigo.</string>
+    <string name="authors">Gra utworzona jako projekt inżynierski przez:\n
+             Natalię Jastrzębską,\n Paulinę Wójcik,\n Marcina Proniakina oraz \nPrzemysława Lewandowskigo.</string>
     <string name="version">Wersja programu: 0.1</string>
-    <string name="supervisor">Opiekun pracy inżynierskiej: dr. inż. Krzysztof Bikonis</string>
+    <string name="supervisor">Opiekun pracy inżynierskiej:\n dr. inż. Krzysztof Bikonis</string>
     <string name="rights">Wszelkie prawa zastrzeżone</string>
 
-    <!--ABOUT ACTIVITY-->
+    <!--SETTINGS ACTIVITY-->
 
     <string name="title_activity_settings">Ustawienia</string>
 
