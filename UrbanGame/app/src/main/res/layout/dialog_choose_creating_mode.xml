@@ -1,29 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:id="@+id/dialogChooseCreatingMode">
+    android:id="@+id/dialogChooseCreatingMode"
+    android:background="@color/colorAccent">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_dialogChooseCreatingMode_title"
+        android:text="@string/dialog_chooseCreatingMode_title"
+        android:background="@color/colorPrimary"
+        android:textSize="25sp"
+        android:textAlignment="center"/>
     <LinearLayout
         android:orientation="vertical"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorAccent"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-
+<!--
         <TextView
             style="@style/DialogText.Title"
             android:text="@string/dialog_chooseCreatingMode_title"
             android:id="@+id/title"
             android:paddingRight="8dip"
             android:paddingLeft="8dip"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorAccent"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"/> -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_chooseCreatingMode_btnClassic"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_chooseCreatingMode_btnRemote"/>
+        </LinearLayout>
+
 
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20sp"
         android:text="@string/dialog_chooseCreatingMode_msg"
         android:id="@+id/tv_dialogChooseCreatingMode_msg" />
 </LinearLayout>
