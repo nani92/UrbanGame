@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#216b28</color>
     <color name="colorAccent">#b5eabc</color>
     <color name="btnColor">#7fd9f1d6</color>
+    <color name="btnColorNotTransparent">#d9f1d6</color>
     <color name="grayTransparent">#7ffce6e6</color>
+    <color name="dialogTitleColor">#7cc685</color>
 </resources>
