@@ -8,11 +8,11 @@ import android.support.v7.app.AppCompatActivity;
  * Created by Przemysław on 2015-10-08.
  */
 
-public class Player extends AppCompatActivity {
+public class SoundPlayer extends AppCompatActivity {
 
-    private static Player instance;
+    private static SoundPlayer instance;
 
-    private Player() {
+    private SoundPlayer() {
     }
 
     public void playSound(Context context, Sound track) {
@@ -38,9 +38,9 @@ public class Player extends AppCompatActivity {
         });
     }
 
-    public static Player getInstance() {
+    public static SoundPlayer getInstance() {
         if (instance == null) {
-            instance = new Player();
+            instance = new SoundPlayer();
         }
         return instance;
     }
