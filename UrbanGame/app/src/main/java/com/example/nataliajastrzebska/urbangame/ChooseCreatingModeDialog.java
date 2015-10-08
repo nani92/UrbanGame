@@ -20,6 +20,7 @@ public class ChooseCreatingModeDialog extends DialogFragment {
         View v = inflater.inflate(R.layout.dialog_choose_creating_mode, container, false);
         setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogTheme);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.dialog_background);
         return v;
     }
 
