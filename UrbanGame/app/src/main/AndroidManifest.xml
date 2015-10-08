@@ -35,5 +35,5 @@
                 android:value="com.example.nataliajastrzebska.urbangame.MainActivity" />
         </activity>
     </application>
-
+    <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>
