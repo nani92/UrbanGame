@@ -6,6 +6,8 @@ import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -16,6 +18,15 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Switch switchVibration = (Switch) findViewById(R.id.switch_settings_enabledVibration);
+        switchVibration.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+                Settings.getInstance().setVibrationEnabled(isChecked);
+            }
+        });
     }
 
     public void testSound(View v){
@@ -25,5 +36,6 @@ public class SettingsActivity extends AppCompatActivity {
         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE) ;
         vibe.vibrate(150);
     };
+
 
 }
