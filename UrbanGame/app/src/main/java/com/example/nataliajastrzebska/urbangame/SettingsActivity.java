@@ -1,7 +1,6 @@
 package com.example.nataliajastrzebska.urbangame;
 
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
@@ -20,12 +19,11 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void testSound(View v){
-        Effects sound = new Effects(this);
-        sound.playSound(Sound.gun);
+        Player.getInstance().playSound(this,Sound.pierd);
     };
     public void testVibrate(View v){
-        Effects vibrate = new Effects(this);
-        vibrate.vibrate();
+        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE) ;
+        vibe.vibrate(150);
     };
 
 }

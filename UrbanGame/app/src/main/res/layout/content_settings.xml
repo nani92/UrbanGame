@@ -16,7 +16,7 @@
     tools:showIn="@layout/activity_settings">
 
 
-    <LinearLayout
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#66FFFFFF"
@@ -39,5 +39,5 @@
 
 
 
-    </LinearLayout>
+    </GridLayout>
 </ScrollView>
