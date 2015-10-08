@@ -10,6 +10,10 @@
     <string name="dialog_chooseCreatingMode_btnClassic">Classic</string>
     <string name="dialog_chooseCreatingMode_btnRemote">Remote</string>
     <string name="btn_cancel">Cancel</string>
+    <string name="preference_file_key">PREFERENCES</string>
+    <string name="preference_sound">preference_sound</string>
+    <string name="preference_vibration">preference_vibration</string>
+
 
 
 

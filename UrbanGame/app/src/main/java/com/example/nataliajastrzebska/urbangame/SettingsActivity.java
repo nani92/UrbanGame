@@ -19,27 +19,44 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        //Setting up listener to vibration switch in case of change it will send new value
+        //to Settings and it will be put into Shared prederences
         Switch switchVibration = (Switch) findViewById(R.id.switch_settings_enabledVibration);
+        switchVibration.setChecked(Settings.getInstance().getVibrationEnabled());
         switchVibration.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // do something, the isChecked will be
-                // true if the switch is in the On position
                 Settings.getInstance().setVibrationEnabled(isChecked);
             }
         });
+
+
+        //Setting up listener to sound switch in case of change it will send new value
+        //to Settings and it will be put into Shared prederences
+        Switch switchSound = (Switch) findViewById(R.id.switch_settings_enabledSound);
+        switchSound.setChecked(Settings.getInstance().getSoundEnabled());
+        switchSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Settings.getInstance().setSoundEnabled(isChecked);
+            }
+        });
+
+
     }
 
-    public void testSound1(View v){
+
+    //TEST METHODS
+    public void testSound1(View v) {
         SoundPlayer.getInstance().playSound(this, Sound.pierd);
-    };
+    }
 
-    public void testSound2(View v){
-        SoundPlayer.getInstance().playSound(this,Sound.gun);
-    };
-    public void testVibrate(View v){
-        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE) ;
+    public void testSound2(View v) {
+        SoundPlayer.getInstance().playSound(this, Sound.gun);
+    }
+
+    public void testVibrate(View v) {
+        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibe.vibrate(150);
-    };
-
-
+    }
+    //END OF TEST METHODS
 }

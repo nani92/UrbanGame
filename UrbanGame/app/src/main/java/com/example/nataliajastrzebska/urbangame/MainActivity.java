@@ -1,11 +1,16 @@
 package com.example.nataliajastrzebska.urbangame;
 
-import android.app.DialogFragment;
+
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Switch;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        Settings.getInstance().init(sharedPref);
     }
 
     public void createGameClicked(View v) {
@@ -31,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void settingsClicked(View v){
+    public void settingsClicked(View v) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
