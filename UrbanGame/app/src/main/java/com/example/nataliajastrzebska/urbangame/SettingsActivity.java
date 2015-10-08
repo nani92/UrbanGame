@@ -29,8 +29,12 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
-    public void testSound(View v){
-        SoundPlayer.getInstance().playSound(this,Sound.pierd);
+    public void testSound1(View v){
+        SoundPlayer.getInstance().playSound(this, Sound.pierd);
+    };
+
+    public void testSound2(View v){
+        SoundPlayer.getInstance().playSound(this,Sound.gun);
     };
     public void testVibrate(View v){
         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE) ;

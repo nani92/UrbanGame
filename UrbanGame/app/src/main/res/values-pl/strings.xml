@@ -24,8 +24,11 @@
     <!--SETTINGS ACTIVITY-->
 
     <string name="title_activity_settings">Ustawienia</string>
-    <string name="switch_vibrationOn">Włącz Wibracje</string>
-    <string name="switch_vibrationOff">Wyłącz Wibracje</string>
-    <string name="switch_vibrationHint">Włączanie wibracji dla notyfikacji</string>
+    <string name="switch_vibrationOn">Włączone</string>
+    <string name="switch_vibrationOff">Wyłączone</string>
+    <string name="switch_vibrationHint">Wibracje notyfikacji</string>
+    <string name="switch_soundOn">Włączony</string>
+    <string name="switch_soundOff">Wyłączony</string>
+    <string name="switch_soundHint">Dźwięk</string>
 
 </resources>

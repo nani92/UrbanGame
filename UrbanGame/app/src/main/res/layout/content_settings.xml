@@ -21,20 +21,52 @@
         android:layout_height="wrap_content"
         android:background="#66FFFFFF"
         android:orientation="vertical"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:padding="10dp">
+
 
         <Switch
+            android:id="@+id/switch_settings_enabledVibration"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:checked="false"
+            android:enabled="true"
+            android:text="@string/switch_vibrationHint"
+            android:textOff="@string/switch_vibrationOff"
+            android:textOn="@string/switch_vibrationOn"
+            android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/settings_test_button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/switch_vibrationHint"
-            android:textSize="20dp"
-            android:id="@+id/switch_settings_enabledVibration"
-            android:layout_row="0"
-            android:layout_column="3"
-            android:enabled="true"
-            android:textOff="@string/switch_vibrationOff"
-            android:textOn="@string/switch_vibrationOn" />
+            android:layout_column="0"
+            android:layout_row="3"
+            android:text="Test2"
+            android:onClick="testSound1"/>
 
+
+        <Switch
+            android:id="@+id/switch_settings_enabledSound"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:text="@string/switch_soundHint"
+            android:textOff="@string/switch_vibrationOff"
+            android:textOn="@string/switch_vibrationOn"
+            android:textSize="12dp"/>
+
+        <Button
+            android:id="@+id/settings_test_button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="2"
+            android:text="Test1"
+            android:onClick="testSound2"/>
 
     </GridLayout>
 </ScrollView>

@@ -19,9 +19,11 @@ public class SoundPlayer extends AppCompatActivity {
         switch (track) {
             case gun: {
                 play(MediaPlayer.create(context, R.raw.gun));
+                return;
             }
             case pierd: {
                 play(MediaPlayer.create(context, R.raw.pierd));
+                return;
             }
 
         }
