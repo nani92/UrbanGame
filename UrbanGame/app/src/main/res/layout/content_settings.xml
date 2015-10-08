@@ -23,20 +23,17 @@
         android:orientation="vertical"
         android:weightSum="1">
 
-        <Button
+        <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vibrate"
-            android:id="@+id/btn_vibrate"
-            android:onClick="testVibrate"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sound"
-            android:id="@+id/btn_sound"
-            android:onClick="testSound" />
-
+            android:text="@string/switch_vibrationHint"
+            android:textSize="20dp"
+            android:id="@+id/switch_settings_enabledVibration"
+            android:layout_row="0"
+            android:layout_column="3"
+            android:enabled="true"
+            android:textOff="@string/switch_vibrationOff"
+            android:textOn="@string/switch_vibrationOn" />
 
 
     </GridLayout>
