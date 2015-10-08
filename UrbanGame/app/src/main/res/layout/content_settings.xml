@@ -27,15 +27,15 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/vibrator"
+            android:text="Vibrate"
+            android:id="@+id/btn_vibrate"
             android:onClick="testVibrate"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/sound"
+            android:text="Sound"
+            android:id="@+id/btn_sound"
             android:onClick="testSound" />
 
 
