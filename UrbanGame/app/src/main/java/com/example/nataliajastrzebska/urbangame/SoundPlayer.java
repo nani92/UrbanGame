@@ -37,7 +37,7 @@ public class SoundPlayer extends AppCompatActivity {
         }
     }
 
-
+    Context context = this;
     //Play method needs to put up a OnCompletionListener to release MediaPlayer after
     //plaiyng a sound.
     private void play(MediaPlayer mp) {

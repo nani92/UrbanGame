@@ -1,16 +1,17 @@
 package com.example.nataliajastrzebska.urbangame;
 
 
-import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Switch;
-import android.widget.Toast;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +42,24 @@ public class MainActivity extends AppCompatActivity {
     public void settingsClicked(View v) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
+        sendNotification("Brawo, notyfikacja działa");
+
+    }
+
+    public void sendNotification(String text) {
+        Integer mId = 0;
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.notification_icon_small)
+                        .setContentTitle("Urban Game")
+                        .setContentText(text);
+        Notification note = mBuilder.build();
+        if (Settings.getInstance().getVibrationEnabled())
+            note.defaults |= Notification.DEFAULT_VIBRATE;
+        note.defaults |= Notification.DEFAULT_SOUND;
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(mId, note);
     }
 }
 
