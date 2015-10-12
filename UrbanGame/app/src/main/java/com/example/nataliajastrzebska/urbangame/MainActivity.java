@@ -24,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createGameClicked(View v) {
-        showChooseCreatingModeDialog();
+        //showChooseCreatingModeDialog();
+        Intent i = new Intent(this, CreateRemoteGame.class);
+        startActivity(i);
     }
 
     void showChooseCreatingModeDialog() {
