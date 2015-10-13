@@ -35,5 +35,6 @@
     <string name="switch_soundOn">Enabled</string>
     <string name="switch_soundOff">Disabled</string>
     <string name="switch_soundHint">Sound</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
