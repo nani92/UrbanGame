@@ -31,4 +31,9 @@
     <string name="switch_soundOff">Wyłączony</string>
     <string name="switch_soundHint">Dźwięk</string>
 
+
+    <!--CREATE REMOTE GAME ACTIVITY-->
+    <string name="searchLocation_hint">Wyszukaj lokalizację</string>
+
+
 </resources>
