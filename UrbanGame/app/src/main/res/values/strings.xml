@@ -40,5 +40,7 @@
 
     <!--CREATE REMOTE GAME ACTIVITY-->
     <string name="searchLocation_hint">Search location</string>
+    <string name="saveGame_btn">Save game</string>
+    <string name="tv_routeLength">Route Length: </string>
 
 </resources>

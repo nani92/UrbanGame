@@ -159,4 +159,9 @@ public class CreateRemoteGame extends AppCompatActivity
     public void onMapClick(LatLng latLng) {
         mMap.addMarker(new MarkerOptions().position(latLng).title("Start"));
     }
+
+    public void saveGameButtonClicked(View view) {
+        //TODO
+        finish();
+    }
 }
