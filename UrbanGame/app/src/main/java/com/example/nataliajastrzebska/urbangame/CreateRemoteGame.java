@@ -23,8 +23,10 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class CreateRemoteGame extends AppCompatActivity  implements GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
+public class CreateRemoteGame extends AppCompatActivity
+        implements GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
 
     protected GoogleApiClient mGoogleApiClient;
@@ -51,7 +53,7 @@ public class CreateRemoteGame extends AppCompatActivity  implements GoogleApiCli
         mAutocompleteView.setOnItemClickListener(mAutocompleteClickListener);
         mAutocompleteView.setAdapter(mAdapter);
 
-
+        setOnMapClicked();
 
     }
 
@@ -126,6 +128,10 @@ public class CreateRemoteGame extends AppCompatActivity  implements GoogleApiCli
         mapFragment.getMapAsync(this);
     }
 
+    void setOnMapClicked() {
+        mMap.setOnMapClickListener(this);
+    }
+
     private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback
             = new ResultCallback<PlaceBuffer>() {
         @Override
@@ -149,4 +155,8 @@ public class CreateRemoteGame extends AppCompatActivity  implements GoogleApiCli
     };
 
 
+    @Override
+    public void onMapClick(LatLng latLng) {
+        mMap.addMarker(new MarkerOptions().position(latLng).title("Start"));
+    }
 }
