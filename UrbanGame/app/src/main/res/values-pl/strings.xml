@@ -32,6 +32,15 @@
     <string name="switch_soundHint">Dźwięk</string>
 
 
+    <!--GAME SETTINGS ACTIVITY-->
+    <string name="checkBox_enabledRPG">Gra fabularna</string>
+    <string name="checkBox_enabledDirection">Pokazywanie kierunku podczas gry</string>
+    <string name="textView_gameName">Nazwa gry:</string>
+    <string-array name="spinner_gameMode">
+        <item>Gra na czas</item>
+        <item>Gra na punkty</item>
+    </string-array>
+
     <!--CREATE REMOTE GAME ACTIVITY-->
     <string name="searchLocation_hint">Wyszukaj lokalizację</string>
     <string name="saveGame_btn">Zapisz grę</string>
