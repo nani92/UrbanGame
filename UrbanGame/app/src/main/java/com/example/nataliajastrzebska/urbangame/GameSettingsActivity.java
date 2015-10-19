@@ -3,11 +3,13 @@ package com.example.nataliajastrzebska.urbangame;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class GameSettingsActivity extends AppCompatActivity {
     CreatingModeEnum creatingModeEnum;
@@ -17,14 +19,15 @@ public class GameSettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_settings);
-
         setCreatingModeEnum(savedInstanceState);
         setTypeOfGame_spinner();
         setTypeOfGameSpinnerListener();
     }
 
     void setCreatingModeEnum(Bundle b) {
-        creatingModeEnum = (CreatingModeEnum) b.get("mode");
+        if(b == null) {
+            creatingModeEnum = (CreatingModeEnum) getIntent().getExtras().get("mode");
+        }
     }
 
     void setTypeOfGame_spinner() {
