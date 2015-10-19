@@ -1,5 +1,6 @@
 package com.example.nataliajastrzebska.urbangame;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -79,5 +80,11 @@ public class GameSettingsActivity extends AppCompatActivity {
         else {
 
         }
+    }
+
+    public void onCreateGameClicked(View view){
+        //TODO Put extra with settings
+        Intent i = new Intent(this, CreateRemoteGame.class);
+        startActivity(i);
     }
 }
