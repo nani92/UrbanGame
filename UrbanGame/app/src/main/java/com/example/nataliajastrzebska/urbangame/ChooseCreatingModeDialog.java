@@ -32,7 +32,7 @@ public class ChooseCreatingModeDialog extends DialogFragment implements View.OnC
         return v;
     }
 
-    public void onRemoteModeClicked(View view){
+    public void onRemoteModeClicked(){
         Intent i = new Intent(getActivity(), GameSettingsActivity.class).putExtra("mode", CreatingModeEnum.REMOTE);
         startActivity(i);
     }
@@ -44,7 +44,8 @@ public class ChooseCreatingModeDialog extends DialogFragment implements View.OnC
             //TODO
         }
         if(v.getId() == R.id.btn_chooseCreatingModeDialog_modeRemote){
-            onRemoteModeClicked(v);
+            onRemoteModeClicked();
         }
+        this.dismiss();
     }
 }

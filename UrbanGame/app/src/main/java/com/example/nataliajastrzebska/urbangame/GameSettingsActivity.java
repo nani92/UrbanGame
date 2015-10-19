@@ -28,6 +28,7 @@ public class GameSettingsActivity extends AppCompatActivity {
         setCreatingModeEnum(savedInstanceState);
         setTypeOfGame_spinner();
         setTypeOfGameSpinnerListener();
+
     }
 
     void setCreatingModeEnum(Bundle b) {
