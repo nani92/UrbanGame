@@ -37,7 +37,16 @@
     <string name="switch_soundHint">Sound</string>
     <string name="title_activity_maps">Map</string>
 
-
+   <!--GAME SETTINGS ACTIVITY-->
+    <string name="title_activity_gameSettings">Game Settings</string>
+    <string name="checkBox_enabledRPG">Role-playing game</string>
+    <string name="checkBox_enabledDirection">Showing the direction during the game</string>
+    <string name="textView_gameName">Name:</string>
+    <string-array name="spinner_gameMode">
+        <item>Game for time</item>
+        <item>Game for points</item>
+    </string-array>
+    
     <!--CREATE REMOTE GAME ACTIVITY-->
     <string name="searchLocation_hint">Search location</string>
     <string name="saveGame_btn">Save game</string>
