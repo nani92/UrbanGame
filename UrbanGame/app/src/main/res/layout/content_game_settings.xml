@@ -24,6 +24,7 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:weightSum="1"
+        android:id="@+id/gridl_gameSettingsAvctivity"
         android:focusable="true"
         android:focusableInTouchMode="true">
 
@@ -36,7 +37,8 @@
             android:layout_column="0"
             android:layout_gravity="center"
             android:textSize="25dp"
-            android:hint="New game name"/>
+            android:hint="New game name"
+            android:nextFocusUp="@id/gridl_gameSettingsAvctivity"/>
 
         <CheckBox
             android:layout_width="match_parent"
