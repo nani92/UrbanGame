@@ -11,28 +11,31 @@ import android.widget.Spinner;
 
 public class GameSettingsActivity extends AppCompatActivity {
     CreatingModeEnum creatingModeEnum;
+    Spinner typeOfGame_spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_settings);
 
+        setCreatingModeEnum(savedInstanceState);
+        setTypeOfGame_spinner();
+        setTypeOfGameSpinnerListener();
+    }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    void setCreatingModeEnum(Bundle b) {
+        creatingModeEnum = (CreatingModeEnum) b.get("mode");
+    }
 
-
-        //Setting up Spinner to choose from the list type of the game (for points/for time)
-        Spinner spinner = (Spinner)findViewById(R.id.spinner_gameSettingsActivity_mode);
+    void setTypeOfGame_spinner() {
+        typeOfGame_spinner = (Spinner)findViewById(R.id.spinner_gameSettingsActivity_mode);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.spinner_gameMode, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeOfGame_spinner.setAdapter(adapter);
+    }
 
-        spinner.setAdapter(adapter);
-
-        //Checking if the game is for points or for time
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
+    void setTypeOfGameSpinnerListener() {
+        typeOfGame_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
@@ -44,15 +47,8 @@ public class GameSettingsActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-
         });
-
     }
-
-    void setCreatingModeEnum(Bundle b){
-        creatingModeEnum = (CreatingModeEnum) b.get("mode");
-    }
-
 
     //Checking if Role-playing Game is enabled
     public void RPGEnabled(View view) {
@@ -64,13 +60,10 @@ public class GameSettingsActivity extends AppCompatActivity {
         else {
 
         }
-
     }
-
 
     //Checking if Showing The Direction during the game is allowed
     public void showingDirectionEnabled(View view) {
-
         final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox_gameSettingsActivity_enabledDirection);
         if(checkBox.isChecked()){
 
@@ -78,8 +71,5 @@ public class GameSettingsActivity extends AppCompatActivity {
         else {
 
         }
-
     }
-
-
 }
