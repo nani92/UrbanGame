@@ -10,11 +10,14 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 
 public class GameSettingsActivity extends AppCompatActivity {
+    CreatingModeEnum creatingModeEnum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_settings);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -44,6 +47,10 @@ public class GameSettingsActivity extends AppCompatActivity {
 
         });
 
+    }
+
+    void setCreatingModeEnum(Bundle b){
+        creatingModeEnum = (CreatingModeEnum) b.get("mode");
     }
 
 

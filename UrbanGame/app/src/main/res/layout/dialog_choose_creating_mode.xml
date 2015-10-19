@@ -49,7 +49,8 @@
                 android:layout_marginRight="5dp"
                 android:textSize="20dp"
                 android:paddingLeft="7dp"
-                android:paddingRight="7dp"/>
+                android:paddingRight="7dp"
+                android:id="@+id/btn_chooseCreatingModeDialog_modeClassic"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -59,6 +60,7 @@
                 android:textSize="20dp"
                 android:paddingLeft="7dp"
                 android:paddingRight="7dp"
+                android:id="@+id/btn_chooseCreatingModeDialog_modeRemote"
                 />
         </LinearLayout>
 
