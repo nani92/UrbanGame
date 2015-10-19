@@ -33,6 +33,7 @@
 
 
     <!--GAME SETTINGS ACTIVITY-->
+    <string name="title_activity_gameSettings">Ustawienia Gry</string>
     <string name="checkBox_enabledRPG">Gra fabularna</string>
     <string name="checkBox_enabledDirection">Pokazywanie kierunku podczas gry</string>
     <string name="textView_gameName">Nazwa gry:</string>
