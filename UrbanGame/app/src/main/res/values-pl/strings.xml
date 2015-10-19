@@ -46,4 +46,10 @@
     <string name="searchLocation_hint">Wyszukaj lokalizację</string>
     <string name="saveGame_btn">Zapisz grę</string>
     <string name="tv_routeLength">Długość trasy: </string>
+
+    <!--ENABLE INTERNET CONNECTION DIALOG-->
+    <string name="dialog_enableInternet_title">BRAK INTERNETU!</string>
+    <string name="dialog_enableInternet_msg">Bez internetu nie jestem w stanie wyświetlić Tobie mapy.\n
+        Czy chcesz przejść do ustawień by ururchomić WiFi?</string>
+    <string name="btn_ok">OK</string>
 </resources>

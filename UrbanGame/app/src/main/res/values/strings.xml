@@ -52,4 +52,11 @@
     <string name="saveGame_btn">Save game</string>
     <string name="tv_routeLength">Route Length: </string>
 
+    <!--ENABLE INTERNET CONNECTION DIALOG-->
+    <string name="dialog_enableInternet_title">NO INTERNET!</string>
+    <string name="dialog_enableInternet_msg">Without Internet connection I am not able to display maps.\n
+        Do You want to visit Settings and enable WiFi connection?</string>
+    <string name="btn_ok">OK</string>
+
+
 </resources>

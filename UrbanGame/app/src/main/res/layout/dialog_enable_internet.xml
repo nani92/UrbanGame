@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:id="@+id/dialogChooseCreatingMode"
+    android:background="@color/colorAccent"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_dialogEnableInternet_title"
+        android:text="@string/dialog_enableInternet_title"
+        android:background="@color/dialogTitleColor"
+        android:textSize="28dp"
+        android:textAlignment="center"
+        android:paddingTop="15dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/colorAccent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingBottom="15dp">
+
+        <TextView
+            android:textAlignment="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:text="@string/dialog_enableInternet_msg"
+            android:id="@+id/tv_dialogEnableInternet_msg"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+
+        <LinearLayout
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_ok"
+                android:background="@color/btnColorNotTransparent"
+                android:layout_marginRight="5dp"
+                android:textSize="20dp"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:id="@+id/btn_enbaleInternetDialog_OK"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_cancel"
+                android:background="@color/btnColorNotTransparent"
+                android:textSize="20dp"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:id="@+id/btn_chooseEnableInternetDialog_CANCEL"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

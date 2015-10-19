@@ -7,9 +7,6 @@ import android.content.SharedPreferences;
  * Created by nataliajastrzebska on 08/10/15.
  */
 
-/*Singletone object to hold and change permision of vibration and sound effects
- *thanks to it we dont have to make a new object of setting every time.
- */
 public class Settings {
 
     private static Settings mInstance = null;
