@@ -12,6 +12,9 @@ public class GameInformation {
     private int numberOfPoints;
     private String name;
     private String author;
+    private boolean shouldShowDirection = false;
+    private boolean isRPG = false;
+    private GameTypeEnum gameType = GameTypeEnum.GAME_FOR_TIME;
 
     public GameInformation() {
         points = new ArrayList<GamePoint>();
@@ -47,6 +50,30 @@ public class GameInformation {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public void setShouldShowDirection(boolean shouldShowDirection){
+        this.shouldShowDirection = shouldShowDirection;
+    }
+
+    public boolean getShouldShowDirection(){
+        return shouldShowDirection;
+    }
+
+    public void setIsRPG(boolean isRPG){
+        this.isRPG = isRPG;
+    }
+
+    public boolean getIsRPG(){
+        return isRPG;
+    }
+
+    public void setGameType(GameTypeEnum gameType){
+        this.gameType = gameType;
+    }
+
+    public GameTypeEnum getGameType (){
+        return gameType;
     }
 
     @Override
