@@ -1,0 +1,19 @@
+13-10-2015
+
+- Utworzono szkielet aplikacji
+  * Glówny ekran
+  * O aplikacji
+  * Ustawienia
+  * Dialog do wyboru trybu gry
+- Dodano funkcjonalnosci
+  * MediaPlayer pozwalajacy na odtwarzanie zadanych dźwiekow
+  * Możliwosc wyciszenia aplikacji oraz wylaczenia wibracji
+  * Wysyalanie podstawowych notyfikacji
+  
+20-10-2015
+
+- Dodano mozliwosc tworzenia gry zdalnie
+ * Zaimplementowano mape do wskazywania punktow
+ * Dodano aktywnosc do wyboru parametrow gry
+- Utworzono serializator klasy zawierajacej informacje o grze
+- Utworzono parser plikow xml do klasy zawierajacej informacje o grze

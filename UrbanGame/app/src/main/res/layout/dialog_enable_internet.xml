@@ -7,8 +7,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_dialogChooseCreatingMode_title"
-        android:text="@string/dialog_chooseCreatingMode_title"
+        android:id="@+id/tv_dialogEnableInternet_title"
+        android:text="@string/dialog_enableInternet_title"
         android:background="@color/dialogTitleColor"
         android:textSize="28dp"
         android:textAlignment="center"
@@ -29,8 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25dp"
-            android:text="@string/dialog_chooseCreatingMode_msg"
-            android:id="@+id/tv_dialogChooseCreatingMode_msg"
+            android:text="@string/dialog_enableInternet_msg"
+            android:id="@+id/tv_dialogEnableInternet_msg"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"/>
 
@@ -44,23 +44,23 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dialog_chooseCreatingMode_btnClassic"
+                android:text="@string/btn_ok"
                 android:background="@color/btnColorNotTransparent"
                 android:layout_marginRight="5dp"
                 android:textSize="20dp"
                 android:paddingLeft="7dp"
                 android:paddingRight="7dp"
-                android:id="@+id/btn_chooseCreatingModeDialog_modeClassic"/>
+                android:id="@+id/btn_enbaleInternetDialog_OK"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dialog_chooseCreatingMode_btnRemote"
+                android:text="@string/btn_cancel"
                 android:background="@color/btnColorNotTransparent"
                 android:textSize="20dp"
                 android:paddingLeft="7dp"
                 android:paddingRight="7dp"
-                android:id="@+id/btn_chooseCreatingModeDialog_modeRemote"
+                android:id="@+id/btn_chooseEnableInternetDialog_CANCEL"
                 />
         </LinearLayout>
 

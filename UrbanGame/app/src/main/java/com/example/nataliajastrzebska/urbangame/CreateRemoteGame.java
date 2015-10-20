@@ -1,6 +1,7 @@
 package com.example.nataliajastrzebska.urbangame;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -43,6 +44,8 @@ public class CreateRemoteGame extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_remote_game);
+
+        checkInternetConnection();
 
         setmGoogleApiClient();
         setmAdapter();
@@ -163,5 +166,17 @@ public class CreateRemoteGame extends AppCompatActivity
     public void saveGameButtonClicked(View view) {
         //TODO
         finish();
+    }
+
+    void checkInternetConnection(){
+        if(!Services.getInstance().isNetworkAvailable(this)){
+            showEnableInternetModeDialog();
+        }
+    }
+
+    void showEnableInternetModeDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        EnableInternetDialog enableInternetDialog = new EnableInternetDialog();
+        enableInternetDialog.show(fm, "dialog_enable_internet");
     }
 }

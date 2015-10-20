@@ -42,6 +42,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.nataliajastrzebska.urbangame.MainActivity" />
         </activity>
+         <activity 
+            android:name=".GameSettingsActivity"
+            android:label="@string/title_activity_gameSettings"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.nataliajastrzebska.urbangame.MainActivity" />
+        </activity>
+        
         <activity android:name=".CreateRemoteGame" >
         </activity>
         <!--
