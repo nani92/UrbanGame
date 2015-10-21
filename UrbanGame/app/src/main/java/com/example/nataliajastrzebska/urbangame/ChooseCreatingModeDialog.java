@@ -37,11 +37,16 @@ public class ChooseCreatingModeDialog extends DialogFragment implements View.OnC
         startActivity(i);
     }
 
+    public void onClassicModeClicked(){
+        Intent i = new Intent(getActivity(),CreateClassicGame.class);
+        startActivity(i);
+    }
+
 
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btn_chooseCreatingModeDialog_modeClassic){
-            //TODO
+            onClassicModeClicked();
         }
         if(v.getId() == R.id.btn_chooseCreatingModeDialog_modeRemote){
             onRemoteModeClicked();
