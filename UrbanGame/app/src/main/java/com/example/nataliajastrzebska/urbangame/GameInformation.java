@@ -78,6 +78,8 @@ public class GameInformation {
 
     @Override
     public String toString() {
+        //TODO
+        // add newly added in object shouldShow..., isRPG, gameType
         return "GameInformation{" +
                 "points=" + points.toString() +
                 ", numberOfPoints=" + numberOfPoints +
