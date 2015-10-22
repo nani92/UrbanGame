@@ -52,4 +52,9 @@
     <string name="dialog_enableInternet_msg">Bez internetu nie jestem w stanie wyświetlić Tobie mapy.\n
         Czy chcesz przejść do ustawień by ururchomić WiFi?</string>
     <string name="btn_ok">OK</string>
+
+    <!--ENABLE GPS CONNECTION DIALOG-->
+    <string name="dialog_enableGPS_title">BRAK GPS</string>
+    <string name="dialog_enableGPS_msg">Bez GPS nie jestem w stanie śledzić Twojej pozycji\n
+        Czy chcesz przejść do ustawień by uruchomić GPS?</string>
 </resources>

@@ -58,5 +58,10 @@
         Do You want to visit Settings and enable WiFi connection?</string>
     <string name="btn_ok">OK</string>
 
+    <!--ENABLE GPS CONNECTION DIALOG-->
+    <string name="dialog_enableGPS_title">NO GPS ACCESS</string>
+    <string name="dialog_enableGPS_msg">Without GPS enabled I am not able to track position.\n
+        Would You like to visit Settings and enable GPS tracking?</string>
+
 
 </resources>
