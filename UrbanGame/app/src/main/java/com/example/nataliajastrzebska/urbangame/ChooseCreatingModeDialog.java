@@ -1,9 +1,6 @@
 package com.example.nataliajastrzebska.urbangame;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
-import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;

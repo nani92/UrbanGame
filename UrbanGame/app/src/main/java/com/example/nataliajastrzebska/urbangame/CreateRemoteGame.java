@@ -179,4 +179,6 @@ public class CreateRemoteGame extends AppCompatActivity
         EnableInternetDialog enableInternetDialog = new EnableInternetDialog();
         enableInternetDialog.show(fm, "dialog_enable_internet");
     }
+
+
 }
