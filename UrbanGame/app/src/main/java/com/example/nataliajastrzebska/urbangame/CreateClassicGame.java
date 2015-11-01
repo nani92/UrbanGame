@@ -1,7 +1,6 @@
 package com.example.nataliajastrzebska.urbangame;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.GpsStatus;
 import android.location.Location;
@@ -31,13 +30,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class CreateClassicGame extends AppCompatActivity
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener, OnMapReadyCallback, LocationListener, GpsStatus.Listener {
 
-    private GoogleApiClient mGoogleApiClient;
+    protected GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
     private Location myLocation;
     private LatLng myPosition;
     private LocationRequest mLocationRequest;
     private LocationManager mLocationManager;
+    private Marker myPositionMarker;
+    private float mZoom;
 
+    //TO DO onResume and onPause activities implementation
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class CreateClassicGame extends AppCompatActivity
         setContentView(R.layout.activity_create_classic_game);
 
         mLocationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+        //google api client doesn't have implemented gps monitoring and on gps status change information, that's why location manager needs to be used
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -71,52 +74,66 @@ public class CreateClassicGame extends AppCompatActivity
     public void onConnected(Bundle bundle) {
         setLocationUpdates();
         startLocationUpdates();
-        getLocation();}
+        getLocation();
+    }
     @Override
-    public void onConnectionSuspended(int i) {
-        mGoogleApiClient.connect();   }
+    public void onConnectionSuspended(int i) {//temporary connection cut with google api
+        stopLocationUpdates();
+        mGoogleApiClient.connect();
+    }
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Toast.makeText(getApplicationContext(),"nie dziala",Toast.LENGTH_SHORT).show();}//////////////////////TO DO
+    public void onConnectionFailed(ConnectionResult connectionResult) {//TO DO(?)
+        //contains all possible errors while connecting to google play services
+        //https://developers.google.com/android/reference/com/google/android/gms/common/ConnectionResult
+        Toast.makeText(getApplicationContext(),"Google Api Connection Fail",Toast.LENGTH_SHORT).show();finish();}
     @Override
     public boolean onMarkerClick(Marker marker) {
-        marker.remove();
+        if(marker.equals(myPositionMarker))
+            marker.showInfoWindow();
+        else
+            marker.remove();
         return false;
     }
     @Override
-    public void onMapReady(GoogleMap googleMap) { }//????????????????????????????????
+    public void onMapReady(GoogleMap googleMap) {
+    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(54.3516273,18.6426237),15));
+    }
 
     @Override
     public void onLocationChanged(Location location) {
+        if(myPositionMarker != null){
+            myPositionMarker.remove();
+            myPositionMarker = null;
+        }
+        mZoom = mMap.getCameraPosition().zoom;
         myLocation = location;
         showMyPosition();
     }
 
     @Override
-    public void onGpsStatusChanged(int event) {/////////////////////////TO DO
-
+    public void onGpsStatusChanged(int event) {
+        // works only when gps was active during activity
+        //if activity starts with gps off it posts nothing
         switch(event){
             case GpsStatus.GPS_EVENT_FIRST_FIX:
-                //???????????????????????????
+                //this case shows up right before start (posting that problem is solved and gps should start) or some time after gps is off
                 break;
             case GpsStatus.GPS_EVENT_SATELLITE_STATUS:
-                //???????????????????????????
+                //this case works constantly when gps got connection with satellite
                 break;
             case GpsStatus.GPS_EVENT_STARTED:
-                //???????????????????????????
+                //this case shows up when gps is turned on, NOT WHEN ACTIVITY STARTS
                 break;
             case GpsStatus.GPS_EVENT_STOPPED:
 
                 showEnableGPSModeDialog();
                 break;
-
         }
 
     }
 
-
     void checkInternetConnection(){
-        if(!Services.getInstance().isNetworkAvailable(this)){
+        if(!Services.getInstance().isNetworkAvailable(this)){//do i need this ???
             showEnableInternetModeDialog();
         }
         if(!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || !mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
@@ -165,18 +182,26 @@ public class CreateClassicGame extends AppCompatActivity
         mMap = mapFragment.getMap();
         mapFragment.getMapAsync(this);
         mMap.setOnMarkerClickListener(this);
-        //mMap.setMyLocationEnabled(true);//whats the location source ??
-
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setAllGesturesEnabled(false);//blocks every touch reaction on map
+        mMap.setMyLocationEnabled(true);
     }
 
     void showMyPosition() {
+        mZoom = mMap.getCameraPosition().zoom;
         myPosition = null;
         if(myLocation != null) {
             myPosition = new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
         }
         if (myPosition != null) {
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 18));
-            mMap.addMarker(new MarkerOptions().position(myPosition).alpha(0.9f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myPosition, mZoom));
+            myPositionMarker = mMap.addMarker(new MarkerOptions()
+                    .position(myPosition)
+                    .alpha(0.9f)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                    .rotation(180.0f)
+                    .title("Your location"));//cannot see strings wtf
+
         }
     }
 
@@ -188,7 +213,6 @@ public class CreateClassicGame extends AppCompatActivity
 
     void getLocation(){
         myLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-
     }
 
 

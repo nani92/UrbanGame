@@ -52,6 +52,9 @@
     <string name="saveGame_btn">Save game</string>
     <string name="tv_routeLength">Route Length: </string>
 
+    <!--CREATE CLASSIC GAME ACTIVITY-->
+    <string name="googleMap_marker_title">Your position</string>
+
     <!--ENABLE INTERNET CONNECTION DIALOG-->
     <string name="dialog_enableInternet_title">NO INTERNET!</string>
     <string name="dialog_enableInternet_msg">Without Internet connection I am not able to display maps.\n
@@ -60,7 +63,7 @@
 
     <!--ENABLE GPS CONNECTION DIALOG-->
     <string name="dialog_enableGPS_title">NO GPS ACCESS</string>
-    <string name="dialog_enableGPS_msg">Without GPS enabled I am not able to track position.\n
+    <string name="dialog_enableGPS_msg">Without GPS enabled I am not able to track Your position.\n
         Would You like to visit Settings and enable GPS tracking?</string>
 
 

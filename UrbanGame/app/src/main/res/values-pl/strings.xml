@@ -47,6 +47,9 @@
     <string name="saveGame_btn">Zapisz grę</string>
     <string name="tv_routeLength">Długość trasy: </string>
 
+    <!--CREATE CLASSIC GAME ACTIVITY-->
+    <string name="googleMap_marker_title">Twoja pozycja</string>
+
     <!--ENABLE INTERNET CONNECTION DIALOG-->
     <string name="dialog_enableInternet_title">BRAK INTERNETU!</string>
     <string name="dialog_enableInternet_msg">Bez internetu nie jestem w stanie wyświetlić Tobie mapy.\n
