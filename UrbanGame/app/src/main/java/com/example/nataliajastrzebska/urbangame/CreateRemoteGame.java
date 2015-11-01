@@ -67,13 +67,7 @@ public class CreateRemoteGame extends AppCompatActivity
         setOnMapClicked();
 
         pointItems = new ArrayList<>();
-        pointItems.add(new PointListItem("Natalia"));
-
-        leftSideList = (RelativeLayout) findViewById(R.id.activityCreateRemoteGame_leftSidePointList);
-        listView = (ListView) findViewById(R.id.activityCreateRemoteGame_pointListView);
-        listAdapter = new PointListAdapter(this, pointItems);
-        listView.setAdapter(listAdapter);
-
+        setLeftSideMenu();
     }
 
 
@@ -131,6 +125,13 @@ public class CreateRemoteGame extends AppCompatActivity
                 .build();
     }
 
+    void setLeftSideMenu(){
+        leftSideList = (RelativeLayout) findViewById(R.id.activityCreateRemoteGame_leftSidePointList);
+        listView = (ListView) findViewById(R.id.activityCreateRemoteGame_pointListView);
+        listAdapter = new PointListAdapter(this, pointItems);
+        listView.setAdapter(listAdapter);
+    }
+
     void setmAdapter() {
         mAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient, BOUNDS, null);
     }
@@ -173,10 +174,17 @@ public class CreateRemoteGame extends AppCompatActivity
         }
     };
 
+    void addPoint(LatLng latLng){
+        mMap.addMarker(new MarkerOptions().position(latLng).title("Start"));
+        pointItems.add(new PointListItem("Point"));
+        listAdapter = new PointListAdapter(this, pointItems);
+        listView.setAdapter(listAdapter);
+    }
+
 
     @Override
     public void onMapClick(LatLng latLng) {
-        mMap.addMarker(new MarkerOptions().position(latLng).title("Start"));
+        addPoint(latLng);
     }
 
     public void saveGameButtonClicked(View view) {
