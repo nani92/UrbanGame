@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -26,6 +28,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class CreateRemoteGame extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
@@ -36,6 +40,10 @@ public class CreateRemoteGame extends AppCompatActivity
     private GoogleMap mMap;
     InputMethodManager inputMethodManager;
     View view;
+    private RelativeLayout leftSideList;
+    private ListView listView;
+    PointListAdapter listAdapter;
+    ArrayList<PointListItem> pointItems;
     private static final LatLngBounds BOUNDS = new LatLngBounds(
             new LatLng(-34.041458, 150.790100), new LatLng(-33.682247, 151.383362));
 
@@ -57,6 +65,14 @@ public class CreateRemoteGame extends AppCompatActivity
         mAutocompleteView.setAdapter(mAdapter);
 
         setOnMapClicked();
+
+        pointItems = new ArrayList<>();
+        pointItems.add(new PointListItem("Natalia"));
+
+        leftSideList = (RelativeLayout) findViewById(R.id.activityCreateRemoteGame_leftSidePointList);
+        listView = (ListView) findViewById(R.id.activityCreateRemoteGame_pointListView);
+        listAdapter = new PointListAdapter(this, pointItems);
+        listView.setAdapter(listAdapter);
 
     }
 
