@@ -11,6 +11,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -27,6 +29,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class CreateClassicGame extends AppCompatActivity
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener, OnMapReadyCallback, LocationListener, GpsStatus.Listener {
 
@@ -38,6 +42,11 @@ public class CreateClassicGame extends AppCompatActivity
     private LocationManager mLocationManager;
     private Marker myPositionMarker;
     private float mZoom;
+
+    private RelativeLayout leftSideList;
+    private ListView listView;
+    PointListAdapter listAdapter;
+    ArrayList<PointListItem> pointItems;
 
     //TO DO onResume and onPause activities implementation
 
@@ -68,6 +77,15 @@ public class CreateClassicGame extends AppCompatActivity
         setMap();
 
         mGoogleApiClient.connect();
+        pointItems = new ArrayList<>();
+        setLeftSideMenu();
+    }
+
+    private void setLeftSideMenu() {
+        leftSideList = (RelativeLayout) findViewById(R.id.activityCreateClassicGame_leftSidePointList);
+        listView = (ListView) findViewById(R.id.activityCreateClassicGame_pointListView);
+        listAdapter = new PointListAdapter(this, pointItems);
+        listView.setAdapter(listAdapter);
     }
 
     @Override
@@ -96,7 +114,7 @@ public class CreateClassicGame extends AppCompatActivity
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
-    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(54.3516273,18.6426237),15));
+    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(54.3516273, 18.6426237), 15));
     }
 
     @Override
@@ -174,7 +192,7 @@ public class CreateClassicGame extends AppCompatActivity
     }
 
     protected void stopLocationUpdates(){
-        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,this);
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
     void setMap() {
@@ -205,10 +223,18 @@ public class CreateClassicGame extends AppCompatActivity
         }
     }
 
+    void addPoint(LatLng latLng){
+        mMap.addMarker(new MarkerOptions().position(latLng).title("Start"));
+        pointItems.add(new PointListItem("Point"));
+        listAdapter = new PointListAdapter(this, pointItems);
+        listView.setAdapter(listAdapter);
+    }
+
     public void putMarkerOnMyPosition(View view){
         getLocation();
-        if(myPosition != null)
-            mMap.addMarker(new MarkerOptions().position(myPosition));
+        if(myPosition != null) {
+            addPoint(myPosition);
+        }
     }
 
     void getLocation(){
