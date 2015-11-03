@@ -40,7 +40,6 @@ public class CreateClassicGame extends AppCompatActivity
     private LatLng myPosition;
     private LocationRequest mLocationRequest;
     private LocationManager mLocationManager;
-    private Marker myPositionMarker;
     private float mZoom;
 
     private RelativeLayout leftSideList;
@@ -81,37 +80,35 @@ public class CreateClassicGame extends AppCompatActivity
         setLeftSideMenu();
     }
 
-    private void setLeftSideMenu() {
-        leftSideList = (RelativeLayout) findViewById(R.id.activityCreateClassicGame_leftSidePointList);
-        listView = (ListView) findViewById(R.id.activityCreateClassicGame_pointListView);
-        listAdapter = new PointListAdapter(this, pointItems);
-        listView.setAdapter(listAdapter);
-    }
-
     @Override
     public void onConnected(Bundle bundle) {
         setLocationUpdates();
         startLocationUpdates();
         getLocation();
     }
+
     @Override
     public void onConnectionSuspended(int i) {//temporary connection cut with google api
         stopLocationUpdates();
         mGoogleApiClient.connect();
     }
+
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {//TO DO(?)
         //contains all possible errors while connecting to google play services
         //https://developers.google.com/android/reference/com/google/android/gms/common/ConnectionResult
-        Toast.makeText(getApplicationContext(),"Google Api Connection Fail",Toast.LENGTH_SHORT).show();finish();}
+        Toast.makeText(getApplicationContext(),"Google Api Connection Fail",Toast.LENGTH_SHORT).show();finish();
+    }
+
     @Override
     public boolean onMarkerClick(Marker marker) {
-        if(marker.equals(myPositionMarker))
-            marker.showInfoWindow();
-        else
-            marker.remove();
+//        if(marker.equals(myPositionMarker))
+//            marker.showInfoWindow();
+//        else
+//            marker.remove();
         return false;
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(54.3516273, 18.6426237), 15));
@@ -119,12 +116,9 @@ public class CreateClassicGame extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        if(myPositionMarker != null){
-            myPositionMarker.remove();
-            myPositionMarker = null;
-        }
         mZoom = mMap.getCameraPosition().zoom;
         myLocation = location;
+        myPosition = new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
         showMyPosition();
     }
 
@@ -144,7 +138,7 @@ public class CreateClassicGame extends AppCompatActivity
                 break;
             case GpsStatus.GPS_EVENT_STOPPED:
 
-                showEnableGPSModeDialog();
+                checkInternetConnection();
                 break;
         }
 
@@ -169,6 +163,23 @@ public class CreateClassicGame extends AppCompatActivity
         FragmentManager fm2 = getSupportFragmentManager();
         EnableGpsDialog enableGpsDialog = new EnableGpsDialog();
         enableGpsDialog.show(fm2, "dialog_enable_gps");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(mGoogleApiClient.isConnected()) {
+            checkInternetConnection();
+            startLocationUpdates();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mGoogleApiClient.isConnected())
+            stopLocationUpdates();
     }
 
     protected synchronized void setmGoogleApiClient(){
@@ -205,22 +216,16 @@ public class CreateClassicGame extends AppCompatActivity
         mMap.setMyLocationEnabled(true);
     }
 
+    private void setLeftSideMenu() {
+        leftSideList = (RelativeLayout) findViewById(R.id.activityCreateClassicGame_leftSidePointList);
+        listView = (ListView) findViewById(R.id.activityCreateClassicGame_pointListView);
+        listAdapter = new PointListAdapter(this, pointItems);
+        listView.setAdapter(listAdapter);
+    }
+
     void showMyPosition() {
         mZoom = mMap.getCameraPosition().zoom;
-        myPosition = null;
-        if(myLocation != null) {
-            myPosition = new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
-        }
-        if (myPosition != null) {
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myPosition, mZoom));
-            myPositionMarker = mMap.addMarker(new MarkerOptions()
-                    .position(myPosition)
-                    .alpha(0.9f)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-                    .rotation(180.0f)
-                    .title("Your location"));//cannot see strings wtf
-
-        }
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myPosition, mZoom));
     }
 
     void addPoint(LatLng latLng){
@@ -232,15 +237,16 @@ public class CreateClassicGame extends AppCompatActivity
 
     public void putMarkerOnMyPosition(View view){
         getLocation();
-        if(myPosition != null) {
+        if(myPosition != null)
             addPoint(myPosition);
-        }
     }
 
     void getLocation(){
+        myPosition = null;
         myLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if(myLocation != null)
+            myPosition = new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
+
     }
-
-
 
 }
