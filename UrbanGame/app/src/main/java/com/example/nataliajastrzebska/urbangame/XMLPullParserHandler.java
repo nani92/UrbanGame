@@ -34,6 +34,8 @@ public class XMLPullParserHandler {
                             gameInformation = new GameInformation();
                             gameInformation.setName(xmlPullParser.getAttributeValue(null, "name"));
                             gameInformation.setAuthor(xmlPullParser.getAttributeValue(null, "author"));
+                            gameInformation.setIsRPG(Integer.parseInt(xmlPullParser.getAttributeValue(null, "isRPG")));
+                            gameInformation.setShouldShowDirection(Integer.parseInt(xmlPullParser.getAttributeValue(null, "shouldShowDirection")));
                             gameInformation.setNumberOfPoints(Integer.parseInt(xmlPullParser.getAttributeValue(null, "pointsNumber")));
                         } else if (tagname.equalsIgnoreCase("point")) {
                             gamePoint = new GamePoint();
