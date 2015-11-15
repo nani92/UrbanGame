@@ -80,6 +80,10 @@
 
     <string name="task_provideQuestion">Here should be your question.</string>
     <string name="task_provideAnswer">Here should be proper answer.</string>
+    <string name="task_whatShouldAnswerBe">What answer should be?</string>
+    <string name="task_answer_text">Text</string>
+    <string name="task_answer_number">Number</string>
+    <string name="task_answer_date">Date</string>
 
     <string name="task_add_button">Add task</string>
 </resources>

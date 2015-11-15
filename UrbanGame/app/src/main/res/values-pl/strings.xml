@@ -71,7 +71,11 @@
     <string name="task_findAndAnswer_hint">Możesz wgrać obrazek i umieścić go na jakimś budynku używając modułu rozszerzonej rzeczywistości.</string>
 
     <string name="task_provideQuestion">Tutaj powinno znaleźć się pytanie.</string>
-    <string name="task_provideAnswer">Tutaj powinna być prawidłowa odpowiedź.</string>
+    <string name="task_provideAnswer">Tutaj powinna być odpowiedź.</string>
+    <string name="task_whatShouldAnswerBe">Jak powinna wyglądać odpowiedź</string>
+    <string name="task_answer_text">Tekst</string>
+    <string name="task_answer_number">Liczba</string>
+    <string name="task_answer_date">Data</string>
 
     <string name="task_add_button">Dodaj zadanie</string>
 </resources>
