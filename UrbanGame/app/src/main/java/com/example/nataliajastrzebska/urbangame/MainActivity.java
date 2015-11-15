@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         Settings.getInstance().init(sharedPref);
+        GameStorage.getInstance().init(this);
     }
 
     public void createGameClicked(View v) {
@@ -39,11 +40,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void playGameClicked(View v) {
+        Intent intent = new Intent(this, PlayGameActivity.class);
+        startActivity(intent);
+    }
+
     public void settingsClicked(View v) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
-        sendNotification("Brawo, notyfikacja działa");
-
     }
 
     public void sendNotification(String text) {

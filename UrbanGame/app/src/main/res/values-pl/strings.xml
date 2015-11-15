@@ -12,8 +12,6 @@
     <string name="btn_cancel">Anuluj</string>
 
 
-
-
     <!--ABOUT ACTIVITY-->
     <string name="title_activity_about">O aplikacji</string>
     <string name="authors">Gra utworzona jako projekt inżynierski przez:\nNatalię Jastrzębską,\nPaulinę Wójcik,\nMarcina Proniakina oraz \nPrzemysława Lewandowskigo.</string>
@@ -49,6 +47,11 @@
 
     <!--CREATE CLASSIC GAME ACTIVITY-->
     <string name="googleMap_marker_title">Twoja pozycja</string>
+
+    <!--PLAY GAME ACTICITY-->
+    <string name="title_activity_play_game">Graj</string>
+    <string name="choose_game">Wybierz Grę</string>
+    <string name="btn_startGame">Start</string>
 
     <!--ENABLE INTERNET CONNECTION DIALOG-->
     <string name="dialog_enableInternet_title">BRAK INTERNETU!</string>

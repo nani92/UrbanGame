@@ -11,7 +11,7 @@ import java.io.InputStream;
 /**
  * Created by Przemysław on 2015-10-20.
  */
-public class XMLPullParserHandler {
+public class XMLPullParser {
 
     private GameInformation gameInformation;
     private GamePoint gamePoint;

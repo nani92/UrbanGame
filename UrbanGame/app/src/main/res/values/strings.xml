@@ -15,8 +15,6 @@
     <string name="preference_vibration">preference_vibration</string>
 
 
-
-
     <!--ABOUT ACTIVITY-->
 
     <string name="title_activity_about">About</string>
@@ -24,7 +22,6 @@
     <string name="version">Version: 0.1</string>
     <string name="supervisor">Supervisor:\nPhD MEng Krzysztof Bikonis</string>
     <string name="rights">All rights reserved.</string>
-
 
 
     <!--SETTINGS ACTIVITY-->
@@ -37,7 +34,7 @@
     <string name="switch_soundHint">Sound</string>
     <string name="title_activity_maps">Map</string>
 
-   <!--GAME SETTINGS ACTIVITY-->
+    <!--GAME SETTINGS ACTIVITY-->
     <string name="title_activity_gameSettings">Game Settings</string>
     <string name="checkBox_enabledRPG">Role-playing game</string>
     <string name="checkBox_enabledDirection">Showing the direction during the game</string>
@@ -46,7 +43,7 @@
         <item>Game for time</item>
         <item>Game for points</item>
     </string-array>
-    
+
     <!--CREATE REMOTE GAME ACTIVITY-->
     <string name="searchLocation_hint">Search location</string>
     <string name="saveGame_btn">Save game</string>
@@ -54,6 +51,13 @@
 
     <!--CREATE CLASSIC GAME ACTIVITY-->
     <string name="googleMap_marker_title">Your position</string>
+
+
+    <!--PLAY GAME ACTICITY-->
+    <string name="title_activity_play_game">Play Game</string>
+    <string name="choose_game">Choose Game</string>
+    <string name="btn_startGame">Start</string>
+
 
     <!--ENABLE INTERNET CONNECTION DIALOG-->
     <string name="dialog_enableInternet_title">NO INTERNET!</string>

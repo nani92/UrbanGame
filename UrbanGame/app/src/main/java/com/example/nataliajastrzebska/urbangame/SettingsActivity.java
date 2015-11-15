@@ -61,13 +61,23 @@ public class SettingsActivity extends AppCompatActivity {
         vibe.vibrate(150);
 
         GameInformation game = new GameInformation();
-        XMLPullParserHandler parser = new XMLPullParserHandler();
+        XMLPullParser parser = new XMLPullParser();
         InputStream is = getResources().openRawResource(getResources().getIdentifier("raw/example","raw", getPackageName()));
+
+
         game = parser.parse(is);
         System.out.println(game.toString());
 
         XMLSerializer serializer = new XMLSerializer();
         System.out.println(serializer.serialize(game));
+
+
+        GameStorage.getInstance().saveGame(game);
+        System.out.println("Zapisane gry: ");
+        System.out.println(GameStorage.getInstance().loadGamesNames().toString());
+        System.out.println(GameStorage.getInstance().loadGame("nazwaGry.ginf").toString());
+
+
 
     }
     //END OF TEST METHODS

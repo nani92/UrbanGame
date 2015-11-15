@@ -72,6 +72,15 @@
 
         <activity android:name=".CreateClassicGame" >
         </activity>
+        <activity
+            android:name=".PlayGameActivity"
+            android:label="@string/title_activity_play_game"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.nataliajastrzebska.urbangame.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
