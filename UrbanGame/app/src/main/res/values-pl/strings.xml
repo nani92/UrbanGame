@@ -11,9 +11,6 @@
     <string name="dialog_chooseCreatingMode_btnRemote">Zdalny</string>
     <string name="btn_cancel">Anuluj</string>
 
-
-
-
     <!--ABOUT ACTIVITY-->
     <string name="title_activity_about">O aplikacji</string>
     <string name="authors">Gra utworzona jako projekt inżynierski przez:\nNatalię Jastrzębską,\nPaulinę Wójcik,\nMarcina Proniakina oraz \nPrzemysława Lewandowskigo.</string>
@@ -60,4 +57,21 @@
     <string name="dialog_enableGPS_title">BRAK GPS</string>
     <string name="dialog_enableGPS_msg">Bez GPS nie jestem w stanie śledzić Twojej pozycji\n
         Czy chcesz przejść do ustawień by uruchomić GPS?</string>
+
+    <!--TASK TYPES-->
+    <string name="task_thinkAndAnswer_name">Odpowiedz</string>
+    <string name="task_thinkAndAnswer_hint">Możesz napisać pytanie i prawidłową odpowiedź.</string>
+    <string name="task_lookAndAnswer_name">Zobacz i odpowiedz</string>
+    <string name="task_lookAndAnswer_hint">Możesz wgrać obrazek, zadać pytanie i podać prawidłową odpowiedź.</string>
+    <string name="task_hearAndAnswer_name">Słuchaj i odpowiedz</string>
+    <string name="task_hearAndAnswer_hint">Możesz wgrać dźwięk, zadać pytanie i podać prawidłową odpowiedź.</string>
+    <string name="task_watchAndAnswer_name">Obejrzyj i odpowiedz</string>
+    <string name="task_watchAndAnswer_hint">Możesz wgrać plik wideo, zadać pytanie i podać prawidłową odpowiedź.</string>
+    <string name="task_findAndAnswer_name">Znajdź i odpowiedz</string>
+    <string name="task_findAndAnswer_hint">Możesz wgrać obrazek i umieścić go na jakimś budynku używając modułu rozszerzonej rzeczywistości.</string>
+
+    <string name="task_provideQuestion">Tutaj powinno znaleźć się pytanie.</string>
+    <string name="task_provideAnswer">Tutaj powinna być prawidłowa odpowiedź.</string>
+
+    <string name="task_add_button">Dodaj zadanie</string>
 </resources>

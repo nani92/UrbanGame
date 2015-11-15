@@ -66,5 +66,20 @@
     <string name="dialog_enableGPS_msg">Without GPS enabled I am not able to track Your position.\n
         Would You like to visit Settings and enable GPS tracking?</string>
 
+    <!--TAKS TYPES-->
+    <string name="task_thinkAndAnswer_name">Think and Answer</string>
+    <string name="task_thinkAndAnswer_hint">You can write a question for player and provide proper answer.</string>
+    <string name="task_lookAndAnswer_name">Look and Answer</string>
+    <string name="task_lookAndAnswer_hint">You can upload an image, write a question and provide proper answer.</string>
+    <string name="task_hearAndAnswer_name">Hear and Answer</string>
+    <string name="task_hearAndAnswer_hint">You can upload a sound, write a question and provide proper answer.</string>
+    <string name="task_watchAndAnswer_name">Watch and Answer</string>
+    <string name="task_watchAndAnswer_hint">You can upload a video, write a question and provide proper answer.</string>
+    <string name="task_findAndAnswer_name">Find and Answer</string>
+    <string name="task_findAndAnswer_hint">You can upload an image and place it on a building using AR. You can write a question and provide proper answer.</string>
 
+    <string name="task_provideQuestion">Here should be your question.</string>
+    <string name="task_provideAnswer">Here should be proper answer.</string>
+
+    <string name="task_add_button">Add task</string>
 </resources>

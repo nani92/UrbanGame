@@ -72,6 +72,12 @@
 
         <activity android:name=".CreateClassicGame" >
         </activity>
+        <activity android:name=".GameTaskActivity" >
+        </activity>
+        <activity android:name=".ChooseGameTaskTypeActivity" >
+        </activity>
+        <activity android:name=".createTaskActivites.TaskThinkAndAnswer" >
+        </activity>
     </application>
 
 </manifest>
