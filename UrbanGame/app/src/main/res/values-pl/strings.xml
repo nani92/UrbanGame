@@ -11,10 +11,7 @@
     <string name="dialog_chooseCreatingMode_btnRemote">Zdalny</string>
     <string name="btn_cancel">Anuluj</string>
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 33648cb0ab7aa7eedc2ff9548d9f6e75c91a877e
     <!--ABOUT ACTIVITY-->
     <string name="title_activity_about">O aplikacji</string>
     <string name="authors">Gra utworzona jako projekt inżynierski przez:\nNatalię Jastrzębską,\nPaulinę Wójcik,\nMarcina Proniakina oraz \nPrzemysława Lewandowskigo.</string>
