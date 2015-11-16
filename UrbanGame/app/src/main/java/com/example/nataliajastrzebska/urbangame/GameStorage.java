@@ -2,6 +2,8 @@ package com.example.nataliajastrzebska.urbangame;
 
 import android.content.Context;
 
+import com.google.android.gms.games.Game;
+
 import java.io.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,6 +23,10 @@ public class GameStorage {
 
     public void init(Context context) {
         this.context = context;
+        XMLPullParser parser = new XMLPullParser();
+        InputStream is = context.getResources().openRawResource(context.getResources().getIdentifier("raw/example", "raw", context.getPackageName()));
+        GameInformation game = parser.parse(is);
+        GameStorage.getInstance().saveGame(game);
     }
 
     //Instance getter

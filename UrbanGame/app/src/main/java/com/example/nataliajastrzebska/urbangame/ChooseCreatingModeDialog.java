@@ -35,7 +35,8 @@ public class ChooseCreatingModeDialog extends DialogFragment implements View.OnC
     }
 
     public void onClassicModeClicked(){
-        Intent i = new Intent(getActivity(),CreateClassicGame.class);
+        //Intent i = new Intent(getActivity(),CreateClassicGame.class).putExtra("mode", CreatingModeEnum.CLASSIC);
+        Intent i = new Intent(getActivity(), ChooseGameTaskTypeActivity.class);
         startActivity(i);
     }
 
