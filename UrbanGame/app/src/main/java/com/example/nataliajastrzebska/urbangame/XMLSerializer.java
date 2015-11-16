@@ -21,6 +21,8 @@ public class XMLSerializer {
             serializer.startTag("", "Game");
             serializer.attribute("", "name", game.getName());
             serializer.attribute("", "author", game.getAuthor());
+            serializer.attribute("", "isRPG", String.valueOf(game.getIsRPG()));
+            serializer.attribute("", "shouldShowDirection", String.valueOf(game.getShouldShowDirection()));
             serializer.attribute("", "pointsNumber", String.valueOf(game.getNumberOfPoints()));
 
             for (GamePoint point : game.getPoints()) {

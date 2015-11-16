@@ -22,8 +22,6 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
-
         //Setting up listener to vibration switch in case of change it will send new value
         //to Settings and it will be put into Shared prederences
         Switch switchVibration = (Switch) findViewById(R.id.switch_settings_enabledVibration);
@@ -44,14 +42,9 @@ public class SettingsActivity extends AppCompatActivity {
                 Settings.getInstance().setSoundEnabled(isChecked);
             }
         });
-
-
     }
 
-
     //TEST METHODS
-
-
     public void testSound2(View v) {
         SoundPlayer.getInstance().playSound(this, Sound.gun);
     }
@@ -59,16 +52,6 @@ public class SettingsActivity extends AppCompatActivity {
     public void testVibrate(View v) {
         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibe.vibrate(150);
-
-        GameInformation game = new GameInformation();
-        XMLPullParserHandler parser = new XMLPullParserHandler();
-        InputStream is = getResources().openRawResource(getResources().getIdentifier("raw/example","raw", getPackageName()));
-        game = parser.parse(is);
-        System.out.println(game.toString());
-
-        XMLSerializer serializer = new XMLSerializer();
-        System.out.println(serializer.serialize(game));
-
     }
     //END OF TEST METHODS
 }

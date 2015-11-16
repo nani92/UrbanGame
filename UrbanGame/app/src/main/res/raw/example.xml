@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>  
-	<Game name="nazwaGry" author="autor" pointsNumber="7">
+	<Game name="nazwaGry2" author="autor" pointsNumber="7" isRPG="1" shouldShowDirection="1" >
 		<Point number="1" name ="Posąg" xCoordinate="3.8998" yCoordinate="2.55555" plot="Znajdujesz się teraz pod posągiem władcy mórz i ocenaów" hint="Udaj się tam gdzie jest trójząb">
 			<Task question="Kto jest na posągu?" answer="1" a="Kopernik" b="Neptun" c="Adam Mickiewicz" d="Jagiełło"></Task>
 		</Point>

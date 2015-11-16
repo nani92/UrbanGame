@@ -12,8 +12,8 @@ public class GameInformation {
     private int numberOfPoints;
     private String name;
     private String author;
-    private boolean shouldShowDirection = false;
-    private boolean isRPG = false;
+    private int shouldShowDirection = 0;
+    private int isRPG = 1;
     private GameTypeEnum gameType = GameTypeEnum.GAME_FOR_TIME;
 
     public GameInformation() {
@@ -27,7 +27,6 @@ public class GameInformation {
     public void setPoints(ArrayList<GamePoint> points) {
         this.points = points;
     }
-
     public int getNumberOfPoints() {
         return numberOfPoints;
     }
@@ -52,19 +51,19 @@ public class GameInformation {
         this.author = author;
     }
 
-    public void setShouldShowDirection(boolean shouldShowDirection){
+    public void setShouldShowDirection(int shouldShowDirection){
         this.shouldShowDirection = shouldShowDirection;
     }
 
-    public boolean getShouldShowDirection(){
+    public int getShouldShowDirection(){
         return shouldShowDirection;
     }
 
-    public void setIsRPG(boolean isRPG){
+    public void setIsRPG(int isRPG){
         this.isRPG = isRPG;
     }
 
-    public boolean getIsRPG(){
+    public int getIsRPG(){
         return isRPG;
     }
 
@@ -78,10 +77,10 @@ public class GameInformation {
 
     @Override
     public String toString() {
-        //TODO
-        // add newly added in object shouldShow..., isRPG, gameType
         return "GameInformation{" +
                 "points=" + points.toString() +
+                "RPG=" + isRPG +
+                "ShowDirection" + shouldShowDirection +
                 ", numberOfPoints=" + numberOfPoints +
                 ", name='" + name + '\'' +
                 ", author='" + author + '\'' +
