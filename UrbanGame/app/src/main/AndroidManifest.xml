@@ -91,10 +91,8 @@
                 android:value="com.example.nataliajastrzebska.urbangame.MainActivity" />
         </activity>
         <activity android:name=".createTaskActivites.TaskFindAndAnswer"
-                android:screenOrientation="landscape" >
+                android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="com.google.intent.category.CARDBOARD" />
             </intent-filter>
         </activity>
