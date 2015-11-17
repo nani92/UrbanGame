@@ -1,12 +1,14 @@
 package com.example.nataliajastrzebska.urbangame.createTaskActivites;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.vrtoolkit.cardboard.*;
 
@@ -25,6 +27,7 @@ public class TaskFindAndAnswer extends CardboardActivity implements CardboardVie
     private Camera camera;
     private int texture;
     private static final int GL_TEXTURE_EXTERNAL_OES = 0x8D65;
+    Context ctx;
 
 
 
@@ -32,6 +35,9 @@ public class TaskFindAndAnswer extends CardboardActivity implements CardboardVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_find_and_answer);
+
+        ctx = this;
+
         cardboardView = (CardboardView) findViewById(R.id.cardboardView_findAndAnswerCreateTask);
         cardboardView.setRenderer(this);
         setCardboardView(cardboardView);
@@ -63,50 +69,56 @@ public class TaskFindAndAnswer extends CardboardActivity implements CardboardVie
 
     @Override
     public void onSurfaceCreated(EGLConfig eglConfig) {
+        showToast("Creating surface");
         texture = createTexture();
         startCamera(texture);
     }
-
 
     @Override
     public void onRendererShutdown() {
 
     }
 
-    public void startCamera(int texture)
-    {
+    public void startCamera(int texture) {
         surface = new SurfaceTexture(texture);
         surface.setOnFrameAvailableListener(this);
 
         camera = Camera.open();
 
-        try
-        {
+        try {
             camera.setPreviewTexture(surface);
             camera.startPreview();
-        }
-        catch (IOException ioe)
-        {
-            Log.w("MainActivity","CAM LAUNCH FAILED");
+        } catch (IOException ioe) {
+            Log.w("MainActivity", "CAM LAUNCH FAILED");
         }
     }
 
-    static private int createTexture()
-    {
+    static private int createTexture() {
         int[] texture = new int[1];
 
-        GLES20.glGenTextures(1,texture, 0);
+        GLES20.glGenTextures(1, texture, 0);
         GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, texture[0]);
         GLES20.glTexParameterf(GL_TEXTURE_EXTERNAL_OES,
-                GL10.GL_TEXTURE_MIN_FILTER,GL10.GL_LINEAR);
-        GLES20.glTexParameterf(GL_TEXTURE_EXTERNAL_OES,
-                GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
-        GLES20.glTexParameteri(GL_TEXTURE_EXTERNAL_OES,
-                GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
-        GLES20.glTexParameteri(GL_TEXTURE_EXTERNAL_OES,
-                GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
+                        GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
+                GLES20.glTexParameterf(GL_TEXTURE_EXTERNAL_OES,
+                        GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+                GLES20.glTexParameteri(GL_TEXTURE_EXTERNAL_OES,
+                        GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
+                GLES20.glTexParameteri(GL_TEXTURE_EXTERNAL_OES,
+                        GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
 
         return texture[0];
     }
+
+    public void showToast(final String text){
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(ctx, text, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+    
 
 }
