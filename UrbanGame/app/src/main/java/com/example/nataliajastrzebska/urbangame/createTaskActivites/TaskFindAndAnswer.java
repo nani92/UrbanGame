@@ -39,6 +39,10 @@ public class TaskFindAndAnswer extends CardboardActivity implements CardboardVie
     private int mProgram;
     private FloatBuffer vertexBuffer, textureVerticesBuffer;
     private ShortBuffer drawListBuffer;
+    private int mPositionHandle;
+    private int mTextureCoordHandle;
+    private final int vertexStride = COORDS_PER_VERTEX * 4;
+    private int mColorHandle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public class TaskFindAndAnswer extends CardboardActivity implements CardboardVie
         ctx = this;
 
         cardboardView = (CardboardView) findViewById(R.id.cardboardView_findAndAnswerCreateTask);
+        cardboardView.setRestoreGLStateEnabled(false);
         cardboardView.setRenderer(this);
         setCardboardView(cardboardView);
 
@@ -64,7 +69,6 @@ public class TaskFindAndAnswer extends CardboardActivity implements CardboardVie
     @Override
     public void onNewFrame(HeadTransform headTransform) {
         Log.d ("Natalia", "new Frame");
-        showToast("new Frame");
         float[] mtx = new float[16];
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         surface.updateTexImage();
@@ -72,11 +76,40 @@ public class TaskFindAndAnswer extends CardboardActivity implements CardboardVie
     }
 
     @Override
-    public void onDrawEye(EyeTransform eyeTransform) {
+    public void onDrawEye(Eye eyeTransform) {
+        Log.d ("Natalia", "draw Eye");
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         GLES20.glUseProgram(mProgram);
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length,
                 GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
+
+
+
+        GLES20.glActiveTexture(GL_TEXTURE_EXTERNAL_OES);
+        GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, texture);
+
+
+        mPositionHandle = GLES20.glGetAttribLocation(mProgram, "position");
+        GLES20.glEnableVertexAttribArray(mPositionHandle);
+        GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT,
+                false, vertexStride, vertexBuffer);
+
+
+        mTextureCoordHandle = GLES20.glGetAttribLocation(mProgram, "inputTextureCoordinate");
+        GLES20.glEnableVertexAttribArray(mTextureCoordHandle);
+        GLES20.glVertexAttribPointer(mTextureCoordHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT,
+                false, vertexStride, textureVerticesBuffer);
+
+
+        mColorHandle = GLES20.glGetAttribLocation(mProgram, "s_texture");
+
+
+
+        GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length,
+                GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
+
+        GLES20.glDisableVertexAttribArray(mPositionHandle);
+        GLES20.glDisableVertexAttribArray(mTextureCoordHandle);
 
         Matrix.multiplyMM(mView, 0, eyeTransform.getEyeView(), 0, mCamera, 0);
     }
@@ -167,6 +200,8 @@ public class TaskFindAndAnswer extends CardboardActivity implements CardboardVie
             0.0f, 0.0f,  // C. left-top
             1.0f, 0.0f   // D. right-top
     };
+
+    static final int COORDS_PER_VERTEX = 2;
 
     private short drawOrder[] =  {0, 2, 1, 1, 2, 3 }; // order to draw vertices
     private short drawOrder2[] = {2, 0, 3, 3, 0, 1};
