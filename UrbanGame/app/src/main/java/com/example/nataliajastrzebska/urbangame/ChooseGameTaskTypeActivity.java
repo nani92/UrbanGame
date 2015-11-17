@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.nataliajastrzebska.urbangame.createTaskActivites.TaskFindAndAnswer;
 import com.example.nataliajastrzebska.urbangame.createTaskActivites.TaskThinkAndAnswer;
 
 public class ChooseGameTaskTypeActivity extends AppCompatActivity {
@@ -32,11 +33,14 @@ public class ChooseGameTaskTypeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(ctx, "Clicked "  + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ctx, "Clicked " + position, Toast.LENGTH_SHORT).show();
                 switch (typeList[position]) {
-                    case THINKandANSWER: {
+                    case THINKandANSWER:
                         startActivity(new Intent(ctx, TaskThinkAndAnswer.class));
-                    }
+                        break;
+                    case AR_FINDandANSWER:
+                        startActivity(new Intent(ctx, TaskFindAndAnswer.class));
+                        break;
                 }
             }
         });
