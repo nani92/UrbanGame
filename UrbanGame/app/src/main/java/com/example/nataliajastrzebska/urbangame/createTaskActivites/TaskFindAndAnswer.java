@@ -1,11 +1,15 @@
 package com.example.nataliajastrzebska.urbangame.createTaskActivites;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.graphics.SurfaceTexture;
 import android.os.Bundle;
+
+import com.google.vrtoolkit.cardboard.*;
+
 
 import com.example.nataliajastrzebska.urbangame.R;
 
-public class TaskFindAndAnswer extends AppCompatActivity {
+public class TaskFindAndAnswer extends CardboardActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
