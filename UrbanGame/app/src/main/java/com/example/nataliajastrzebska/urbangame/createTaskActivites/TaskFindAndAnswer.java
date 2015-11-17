@@ -16,6 +16,10 @@ import com.google.vrtoolkit.cardboard.*;
 import com.example.nataliajastrzebska.urbangame.R;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+import java.nio.ShortBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -30,6 +34,11 @@ public class TaskFindAndAnswer extends CardboardActivity implements CardboardVie
     Context ctx;
 
 
+    private float[] mView;
+    private float[] mCamera;
+    private int mProgram;
+    private FloatBuffer vertexBuffer, textureVerticesBuffer;
+    private ShortBuffer drawListBuffer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +51,34 @@ public class TaskFindAndAnswer extends CardboardActivity implements CardboardVie
         cardboardView.setRenderer(this);
         setCardboardView(cardboardView);
 
+        mCamera = new float[16];
+        mView = new float[16];
+
     }
 
     @Override
     public void onFrameAvailable(SurfaceTexture surfaceTexture) {
-
+        this.cardboardView.requestRender();
     }
 
     @Override
     public void onNewFrame(HeadTransform headTransform) {
+        Log.d ("Natalia", "new Frame");
+        showToast("new Frame");
+        float[] mtx = new float[16];
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+        surface.updateTexImage();
+        surface.getTransformMatrix(mtx);
     }
 
     @Override
     public void onDrawEye(EyeTransform eyeTransform) {
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+        GLES20.glUseProgram(mProgram);
+        GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length,
+                GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
+
+        Matrix.multiplyMM(mView, 0, eyeTransform.getEyeView(), 0, mCamera, 0);
     }
 
     @Override
@@ -70,6 +94,37 @@ public class TaskFindAndAnswer extends CardboardActivity implements CardboardVie
     @Override
     public void onSurfaceCreated(EGLConfig eglConfig) {
         showToast("Creating surface");
+
+        GLES20.glClearColor(0.1f, 0.1f, 0.1f, 0.5f); // Dark background so text shows up well
+
+        ByteBuffer bb = ByteBuffer.allocateDirect(squareVertices.length * 4);
+        bb.order(ByteOrder.nativeOrder());
+        vertexBuffer = bb.asFloatBuffer();
+        vertexBuffer.put(squareVertices);
+        vertexBuffer.position(0);
+
+
+        ByteBuffer dlb = ByteBuffer.allocateDirect(drawOrder.length * 2);
+        dlb.order(ByteOrder.nativeOrder());
+        drawListBuffer = dlb.asShortBuffer();
+        drawListBuffer.put(drawOrder);
+        drawListBuffer.position(0);
+
+
+        ByteBuffer bb2 = ByteBuffer.allocateDirect(textureVertices.length * 4);
+        bb2.order(ByteOrder.nativeOrder());
+        textureVerticesBuffer = bb2.asFloatBuffer();
+        textureVerticesBuffer.put(textureVertices);
+        textureVerticesBuffer.position(0);
+
+        int vertexShader = loadGLShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode);
+        int fragmentShader = loadGLShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode);
+
+        mProgram = GLES20.glCreateProgram();             // create empty OpenGL ES Program
+        GLES20.glAttachShader(mProgram, vertexShader);   // add the vertex shader to program
+        GLES20.glAttachShader(mProgram, fragmentShader); // add the fragment shader to program
+        GLES20.glLinkProgram(mProgram);
+
         texture = createTexture();
         startCamera(texture);
     }
@@ -78,6 +133,43 @@ public class TaskFindAndAnswer extends CardboardActivity implements CardboardVie
     public void onRendererShutdown() {
 
     }
+
+    private final String vertexShaderCode =
+            "attribute vec4 position;" +
+                    "attribute vec2 inputTextureCoordinate;" +
+                    "varying vec2 textureCoordinate;" +
+                    "void main()" +
+                    "{"+
+                    "gl_Position = position;"+
+                    "textureCoordinate = inputTextureCoordinate;" +
+                    "}";
+
+    private final String fragmentShaderCode =
+            "#extension GL_OES_EGL_image_external : require\n"+
+                    "precision mediump float;" +
+                    "varying vec2 textureCoordinate;                            \n" +
+                    "uniform samplerExternalOES s_texture;               \n" +
+                    "void main(void) {" +
+                    "  gl_FragColor = texture2D( s_texture, textureCoordinate );\n" +
+                    //"  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n" +
+                    "}";
+
+    static float squareVertices[] = { // in counterclockwise order:
+            -1.0f, -1.0f,   // 0.left - mid
+            1.0f, -1.0f,   // 1. right - mid
+            -1.0f, 1.0f,   // 2. left - top
+            1.0f, 1.0f,   // 3. right - top
+    };
+
+    static float textureVertices[] = {
+            0.0f, 1.0f,  // A. left-bottom
+            1.0f, 1.0f,  // B. right-bottom
+            0.0f, 0.0f,  // C. left-top
+            1.0f, 0.0f   // D. right-top
+    };
+
+    private short drawOrder[] =  {0, 2, 1, 1, 2, 3 }; // order to draw vertices
+    private short drawOrder2[] = {2, 0, 3, 3, 0, 1};
 
     public void startCamera(int texture) {
         surface = new SurfaceTexture(texture);
@@ -119,6 +211,28 @@ public class TaskFindAndAnswer extends CardboardActivity implements CardboardVie
         });
 
     }
-    
+
+    private int loadGLShader(int type, String code) {
+        int shader = GLES20.glCreateShader(type);
+        GLES20.glShaderSource(shader, code);
+        GLES20.glCompileShader(shader);
+
+        // Get the compilation status.
+        final int[] compileStatus = new int[1];
+        GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
+
+        // If the compilation failed, delete the shader.
+        if (compileStatus[0] == 0) {
+            GLES20.glDeleteShader(shader);
+            shader = 0;
+        }
+
+        if (shader == 0) {
+            throw new RuntimeException("Error creating shader.");
+        }
+
+        return shader;
+    }
+
 
 }
