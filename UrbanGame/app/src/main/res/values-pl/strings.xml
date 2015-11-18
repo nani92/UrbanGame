@@ -10,6 +10,7 @@
     <string name="dialog_chooseCreatingMode_btnClassic">Klasyczny</string>
     <string name="dialog_chooseCreatingMode_btnRemote">Zdalny</string>
     <string name="btn_cancel">Anuluj</string>
+    <string name="add_button">Dodaj</string>
 
     
     <!--ABOUT ACTIVITY-->
