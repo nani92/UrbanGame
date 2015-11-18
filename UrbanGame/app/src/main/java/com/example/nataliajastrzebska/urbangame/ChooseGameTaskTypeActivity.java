@@ -6,12 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.nataliajastrzebska.urbangame.createTaskActivites.TaskFindAndAnswer;
-import com.example.nataliajastrzebska.urbangame.createTaskActivites.TaskThinkAndAnswer;
+import com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskFindAndAnswer_AddToScene_Cardboard;
+import com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskThinkAndAnswer;
 
 public class ChooseGameTaskTypeActivity extends AppCompatActivity {
 
@@ -36,10 +35,10 @@ public class ChooseGameTaskTypeActivity extends AppCompatActivity {
                 Toast.makeText(ctx, "Clicked " + position, Toast.LENGTH_SHORT).show();
                 switch (typeList[position]) {
                     case THINKandANSWER:
-                        startActivity(new Intent(ctx, TaskThinkAndAnswer.class));
+                        startActivity(new Intent(ctx, CreateTaskThinkAndAnswer.class));
                         break;
                     case AR_FINDandANSWER:
-                        startActivity(new Intent(ctx, TaskFindAndAnswer.class));
+                        startActivity(new Intent(ctx, CreateTaskFindAndAnswer_AddToScene_Cardboard.class));
                         break;
                 }
             }

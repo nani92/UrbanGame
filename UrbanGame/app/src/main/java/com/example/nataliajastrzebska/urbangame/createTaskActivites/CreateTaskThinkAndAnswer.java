@@ -6,19 +6,17 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.example.nataliajastrzebska.urbangame.R;
 
-public class TaskThinkAndAnswer extends AppCompatActivity {
+public class CreateTaskThinkAndAnswer extends AppCompatActivity {
 
     CheckBox text,date,number;
     EditText answer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_think_and_answer);
+        setContentView(R.layout.activity_create_task_think_and_answer);
         answer = (EditText) findViewById(R.id.et_taskThinkAndAnswer_answer);
         setCheckBoxes();
     }

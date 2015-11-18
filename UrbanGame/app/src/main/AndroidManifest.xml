@@ -79,7 +79,7 @@
         </activity>
         <activity android:name=".ChooseGameTaskTypeActivity" >
         </activity>
-        <activity android:name=".createTaskActivites.TaskThinkAndAnswer" >
+        <activity android:name=".createTaskActivites.CreateTaskThinkAndAnswer" >
         </activity>
         <activity
             android:name=".PlayGameActivity"
@@ -90,7 +90,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.nataliajastrzebska.urbangame.MainActivity" />
         </activity>
-        <activity android:name=".createTaskActivites.TaskFindAndAnswer"
+        <activity android:name=".createTaskActivites.CreateTaskFindAndAnswer_AddToScene_Cardboard"
                 android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <category android:name="com.google.intent.category.CARDBOARD" />

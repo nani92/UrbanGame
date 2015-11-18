@@ -1,6 +1,5 @@
 package com.example.nataliajastrzebska.urbangame.createTaskActivites;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
@@ -24,7 +23,8 @@ import java.nio.ShortBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class TaskFindAndAnswer extends CardboardActivity implements CardboardView.StereoRenderer, SurfaceTexture.OnFrameAvailableListener {
+public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActivity
+        implements CardboardView.StereoRenderer, SurfaceTexture.OnFrameAvailableListener {
 
     CardboardView cardboardView;
     private SurfaceTexture surface;
@@ -47,7 +47,7 @@ public class TaskFindAndAnswer extends CardboardActivity implements CardboardVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_find_and_answer);
+        setContentView(R.layout.activity_create_task_find_and_answer_addtoscene_cardboard);
 
         ctx = this;
 
