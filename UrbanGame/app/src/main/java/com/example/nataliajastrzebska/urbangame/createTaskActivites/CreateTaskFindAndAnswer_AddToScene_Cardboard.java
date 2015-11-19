@@ -36,6 +36,7 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
 
     private float[] mView;
     private float[] mCamera;
+    private float[] mModelCube;
     private int mProgram;
     private FloatBuffer vertexBuffer, textureVerticesBuffer;
     private ShortBuffer drawListBuffer;
@@ -43,6 +44,9 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
     private int mTextureCoordHandle;
     private final int vertexStride = COORDS_PER_VERTEX * 4;
     private int mColorHandle;
+    private int mMVPMatrixHandle;
+    private float[] color;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,9 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
 
         mCamera = new float[16];
         mView = new float[16];
+        mModelCube = new float[16];
+
+        color = new float[]{1.0f, 0.0f, 0.0f, 1.0f};
 
     }
 
@@ -77,13 +84,11 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
 
     @Override
     public void onDrawEye(Eye eyeTransform) {
-        Log.d ("Natalia", "draw Eye");
+        Log.d("Natalia", "draw Eye");
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         GLES20.glUseProgram(mProgram);
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length,
                 GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
-
-
 
         GLES20.glActiveTexture(GL_TEXTURE_EXTERNAL_OES);
         GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, texture);
@@ -99,11 +104,8 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
         GLES20.glEnableVertexAttribArray(mTextureCoordHandle);
         GLES20.glVertexAttribPointer(mTextureCoordHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT,
                 false, vertexStride, textureVerticesBuffer);
-
-
+        
         mColorHandle = GLES20.glGetAttribLocation(mProgram, "s_texture");
-
-
 
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length,
                 GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
@@ -112,6 +114,7 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
         GLES20.glDisableVertexAttribArray(mTextureCoordHandle);
 
         Matrix.multiplyMM(mView, 0, eyeTransform.getEyeView(), 0, mCamera, 0);
+
     }
 
     @Override
@@ -121,7 +124,6 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
 
     @Override
     public void onSurfaceChanged(int i, int i1) {
-
     }
 
     @Override
@@ -227,8 +229,8 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
         GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, texture[0]);
         GLES20.glTexParameterf(GL_TEXTURE_EXTERNAL_OES,
                         GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
-                GLES20.glTexParameterf(GL_TEXTURE_EXTERNAL_OES,
-                        GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+        GLES20.glTexParameterf(GL_TEXTURE_EXTERNAL_OES,
+                GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
                 GLES20.glTexParameteri(GL_TEXTURE_EXTERNAL_OES,
                         GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
                 GLES20.glTexParameteri(GL_TEXTURE_EXTERNAL_OES,
@@ -268,6 +270,8 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
 
         return shader;
     }
+
+
 
 
 }
