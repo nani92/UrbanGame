@@ -47,6 +47,8 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
     private int mMVPMatrixHandle;
     private float[] color;
 
+    private Triangle mTriangle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +106,7 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
         GLES20.glEnableVertexAttribArray(mTextureCoordHandle);
         GLES20.glVertexAttribPointer(mTextureCoordHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT,
                 false, vertexStride, textureVerticesBuffer);
-        
+
         mColorHandle = GLES20.glGetAttribLocation(mProgram, "s_texture");
 
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length,
@@ -112,6 +114,8 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
 
         GLES20.glDisableVertexAttribArray(mPositionHandle);
         GLES20.glDisableVertexAttribArray(mTextureCoordHandle);
+
+        mTriangle.draw();
 
         Matrix.multiplyMM(mView, 0, eyeTransform.getEyeView(), 0, mCamera, 0);
 
@@ -159,6 +163,8 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
         GLES20.glAttachShader(mProgram, vertexShader);   // add the vertex shader to program
         GLES20.glAttachShader(mProgram, fragmentShader); // add the fragment shader to program
         GLES20.glLinkProgram(mProgram);
+
+        mTriangle = new Triangle();
 
         texture = createTexture();
         startCamera(texture);
@@ -272,6 +278,19 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
     }
 
 
+    public static int loadShader(int type, String shaderCode){
+
+        // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
+        // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
+        int shader = GLES20.glCreateShader(type);
+
+        // add the source code to the shader and compile it
+        GLES20.glShaderSource(shader, shaderCode);
+        GLES20.glCompileShader(shader);
+
+        return shader;
+    }
 
 
 }
+
