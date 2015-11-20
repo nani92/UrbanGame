@@ -13,6 +13,7 @@
     <string name="preference_file_key">PREFERENCES</string>
     <string name="preference_sound">preference_sound</string>
     <string name="preference_vibration">preference_vibration</string>
+    <string name="add_button">Add</string>
 
 
     <!--ABOUT ACTIVITY-->
@@ -90,4 +91,7 @@
     <string name="task_answer_date">Date</string>
 
     <string name="task_add_button">Add task</string>
+    <string name="dialog_choose_using_cardboard">Do you want to use cardboard?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
 </resources>
