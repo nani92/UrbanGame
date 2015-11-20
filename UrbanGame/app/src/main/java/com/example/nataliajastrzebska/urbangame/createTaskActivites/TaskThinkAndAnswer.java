@@ -23,7 +23,6 @@ public class TaskThinkAndAnswer extends AppCompatActivity {
         setCheckBoxes();
     }
 
-
     void setCheckBoxes(){
         text = (CheckBox) findViewById(R.id.cB_createThinkAndAnswerTask_isAnswerText);
         date = (CheckBox) findViewById(R.id.cB_createThinkAndAnswerTask_isAnswerDate);
@@ -35,8 +34,6 @@ public class TaskThinkAndAnswer extends AppCompatActivity {
         cb1.setChecked(false);
         cb2.setChecked(false);
     }
-
-
 
 
     public void onCheckBoxClicked (View view){
