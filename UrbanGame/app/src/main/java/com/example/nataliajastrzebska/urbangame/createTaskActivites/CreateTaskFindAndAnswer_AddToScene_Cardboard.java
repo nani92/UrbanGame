@@ -6,6 +6,7 @@ import android.hardware.Camera;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,6 +24,8 @@ import java.nio.ShortBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import com.example.nataliajastrzebska.urbangame.shaderObjects.*;
+
 public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActivity
         implements CardboardView.StereoRenderer, SurfaceTexture.OnFrameAvailableListener {
 
@@ -37,6 +40,8 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
     private float[] mView;
     private float[] mCamera;
     private float[] mModelCube;
+    private float[] headView;
+    private float[] cameraFloat;
     private int mProgram;
     private FloatBuffer vertexBuffer, textureVerticesBuffer;
     private ShortBuffer drawListBuffer;
@@ -48,7 +53,11 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
     private float[] color;
 
     private Triangle mTriangle;
-
+    private Vibrator mVibrator;
+    private float objectDistance = 12f;
+    private static final float TIME_DELTA = 0.3f;
+    private static final float CAMERA_Z = 0.01f;
+    HeadTransform mHeadTransform;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +74,11 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
         mCamera = new float[16];
         mView = new float[16];
         mModelCube = new float[16];
+        headView = new float[16];
+        cameraFloat = new float[16];
 
         color = new float[]{1.0f, 0.0f, 0.0f, 1.0f};
+        mVibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 
     }
 
@@ -77,16 +89,16 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
 
     @Override
     public void onNewFrame(HeadTransform headTransform) {
-        Log.d ("Natalia", "new Frame");
         float[] mtx = new float[16];
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         surface.updateTexImage();
         surface.getTransformMatrix(mtx);
+        mHeadTransform = headTransform;
+        headTransform.getHeadView(headView, 0);
     }
 
     @Override
     public void onDrawEye(Eye eyeTransform) {
-        Log.d("Natalia", "draw Eye");
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         GLES20.glUseProgram(mProgram);
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length,
@@ -115,7 +127,9 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
         GLES20.glDisableVertexAttribArray(mPositionHandle);
         GLES20.glDisableVertexAttribArray(mTextureCoordHandle);
 
-        mTriangle.draw();
+
+
+        mTriangle.draw(eyeTransform.getEyeView());
 
         Matrix.multiplyMM(mView, 0, eyeTransform.getEyeView(), 0, mCamera, 0);
 
@@ -173,6 +187,14 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
     @Override
     public void onRendererShutdown() {
 
+    }
+
+    @Override
+    public void onCardboardTrigger() {
+        float [] e= new  float[16];
+        mHeadTransform.getEulerAngles(e, 10);
+        Log.d("natalia", "cardboard trig " + String.valueOf(e[0]));
+        mVibrator.vibrate(50);
     }
 
     private final String vertexShaderCode =
@@ -290,6 +312,10 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
 
         return shader;
     }
+
+
+
+
 
 
 }
