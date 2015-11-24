@@ -44,6 +44,8 @@ public class Triangle {
     private float[] modelTrian;
     private int mMVPMatrixHandle;
 
+    public float[] mModelMatrix = new float[16];
+
     public Triangle() {
         // initialize vertex byte buffer for shape coordinates
         ByteBuffer bb = ByteBuffer.allocateDirect(
@@ -77,6 +79,9 @@ public class Triangle {
 
         // creates OpenGL ES program executables
         GLES20.glLinkProgram(mProgram);
+
+
+        Matrix.setIdentityM(mModelMatrix, 0);
     }
 
     private int mPositionHandle;
@@ -112,6 +117,9 @@ public class Triangle {
 
         // Apply the projection and view transformation
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
+
+        float[] mTempMatrix =mvpMatrix.clone();
+        Matrix.multiplyMM(mvpMatrix, 0, mTempMatrix, 0, mModelMatrix, 0);
 
         // Draw the triangle
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);

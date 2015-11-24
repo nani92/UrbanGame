@@ -1,4 +1,4 @@
-package com.example.nataliajastrzebska.urbangame.createTaskActivites;
+package com.example.nataliajastrzebska.urbangame.taskGame;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
@@ -10,12 +10,18 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.vrtoolkit.cardboard.*;
-
-
 import com.example.nataliajastrzebska.urbangame.R;
+import com.example.nataliajastrzebska.urbangame.shaderObjects.Triangle;
+import com.google.vrtoolkit.cardboard.CardboardActivity;
+import com.google.vrtoolkit.cardboard.CardboardView;
+import com.google.vrtoolkit.cardboard.Eye;
+import com.google.vrtoolkit.cardboard.HeadTransform;
+import com.google.vrtoolkit.cardboard.Viewport;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -24,9 +30,7 @@ import java.nio.ShortBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import com.example.nataliajastrzebska.urbangame.shaderObjects.*;
-
-public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActivity
+public class TaskGameActivity extends CardboardActivity
         implements CardboardView.StereoRenderer, SurfaceTexture.OnFrameAvailableListener {
 
     CardboardView cardboardView;
@@ -58,6 +62,9 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
     private static final float TIME_DELTA = 0.3f;
     private static final float CAMERA_Z = 0.01f;
     HeadTransform mHeadTransform;
+    private float[] modelView;
+    private static final float Z_NEAR = 0.1f;
+    private static final float Z_FAR = 100.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +84,10 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
         headView = new float[16];
         cameraFloat = new float[16];
 
+        modelView = new float[16];
+
+        modelViewProjection = new float[16];
+
         color = new float[]{1.0f, 0.0f, 0.0f, 1.0f};
         mVibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -94,6 +105,13 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
         surface.updateTexImage();
         surface.getTransformMatrix(mtx);
         mHeadTransform = headTransform;
+        headTransform.getHeadView(headView, 0);
+
+        Matrix.rotateM(mModelCube, 0, TIME_DELTA, 0.5f, 0.5f, 1.0f);
+
+        // Build the camera matrix and apply it to the ModelView.
+        Matrix.setLookAtM(mCamera, 0, 0.0f, 0.0f, CAMERA_Z, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+
         headTransform.getHeadView(headView, 0);
     }
 
@@ -127,12 +145,14 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
         GLES20.glDisableVertexAttribArray(mPositionHandle);
         GLES20.glDisableVertexAttribArray(mTextureCoordHandle);
 
-
-        Matrix.translateM(mTriangle.mModelMatrix, 0, -0.5f, 0f, 0f);
-        Matrix.translateM(mTriangle.mModelMatrix, 0, -20.5f, 0f, 0f);
-        mTriangle.draw(eyeTransform.getEyeView());
-
         Matrix.multiplyMM(mView, 0, eyeTransform.getEyeView(), 0, mCamera, 0);
+        Matrix.multiplyMV(lightPosInEyeSpace, 0, mView, 0, LIGHT_POS_IN_WORLD_SPACE, 0);
+
+
+        float[] perspective = eyeTransform.getPerspective(Z_NEAR, Z_FAR);
+        Matrix.multiplyMM(modelView, 0, mView, 0, mModelCube, 0);
+        Matrix.multiplyMM(modelViewProjection, 0, perspective, 0, modelView, 0);
+        drawCube();
 
     }
 
@@ -179,10 +199,58 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
         GLES20.glAttachShader(mProgram, fragmentShader); // add the fragment shader to program
         GLES20.glLinkProgram(mProgram);
 
-        mTriangle = new Triangle();
+        ByteBuffer bbVertices = ByteBuffer.allocateDirect(WorldLayoutData.CUBE_COORDS.length * 4);
+        bbVertices.order(ByteOrder.nativeOrder());
+        cubeVertices = bbVertices.asFloatBuffer();
+        cubeVertices.put(WorldLayoutData.CUBE_COORDS);
+        cubeVertices.position(0);
+
+        ByteBuffer bbColors = ByteBuffer.allocateDirect(WorldLayoutData.CUBE_COLORS.length * 4);
+        bbColors.order(ByteOrder.nativeOrder());
+        cubeColors = bbColors.asFloatBuffer();
+        cubeColors.put(WorldLayoutData.CUBE_COLORS);
+        cubeColors.position(0);
+
+        ByteBuffer bbFoundColors = ByteBuffer.allocateDirect(
+                WorldLayoutData.CUBE_FOUND_COLORS.length * 4);
+        bbFoundColors.order(ByteOrder.nativeOrder());
+        cubeFoundColors = bbFoundColors.asFloatBuffer();
+        cubeFoundColors.put(WorldLayoutData.CUBE_FOUND_COLORS);
+        cubeFoundColors.position(0);
+
+        ByteBuffer bbNormals = ByteBuffer.allocateDirect(WorldLayoutData.CUBE_NORMALS.length * 4);
+        bbNormals.order(ByteOrder.nativeOrder());
+        cubeNormals = bbNormals.asFloatBuffer();
+        cubeNormals.put(WorldLayoutData.CUBE_NORMALS);
+        cubeNormals.position(0);
+
+        int vertexShaderCube = loadGLShader(GLES20.GL_VERTEX_SHADER, R.raw.light_vertex);
+        int passthroughShader = loadGLShader(GLES20.GL_FRAGMENT_SHADER, R.raw.passthrough_fragment);
+
+        cubeProgram = GLES20.glCreateProgram();
+        GLES20.glAttachShader(cubeProgram, vertexShaderCube);
+        GLES20.glAttachShader(cubeProgram, passthroughShader);
+        GLES20.glLinkProgram(cubeProgram);
+        GLES20.glUseProgram(cubeProgram);
+
+        cubePositionParam = GLES20.glGetAttribLocation(cubeProgram, "a_Position");
+        cubeNormalParam = GLES20.glGetAttribLocation(cubeProgram, "a_Normal");
+        cubeColorParam = GLES20.glGetAttribLocation(cubeProgram, "a_Color");
+
+        cubeModelParam = GLES20.glGetUniformLocation(cubeProgram, "u_Model");
+        cubeModelViewParam = GLES20.glGetUniformLocation(cubeProgram, "u_MVMatrix");
+        cubeModelViewProjectionParam = GLES20.glGetUniformLocation(cubeProgram, "u_MVP");
+        cubeLightPosParam = GLES20.glGetUniformLocation(cubeProgram, "u_LightPos");
+
+        GLES20.glEnableVertexAttribArray(cubePositionParam);
+        GLES20.glEnableVertexAttribArray(cubeNormalParam);
+        GLES20.glEnableVertexAttribArray(cubeColorParam);
 
         texture = createTexture();
         startCamera(texture);
+
+        Matrix.setIdentityM(mModelCube, 0);
+        Matrix.translateM(mModelCube, 0, 0, 0, -objectDistance);
     }
 
     @Override
@@ -233,6 +301,7 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
     };
 
     static final int COORDS_PER_VERTEX = 2;
+    static final int COORDS_PER_VERTEX_CUBE = 3;
 
     private short drawOrder[] =  {0, 2, 1, 1, 2, 3 }; // order to draw vertices
     private short drawOrder2[] = {2, 0, 3, 3, 0, 1};
@@ -278,7 +347,47 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
 
     }
 
+    private String readRawTextFile(int resId) {
+        InputStream inputStream = getResources().openRawResource(resId);
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            reader.close();
+            return sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private int loadGLShader(int type, String code) {
+        int shader = GLES20.glCreateShader(type);
+        GLES20.glShaderSource(shader, code);
+        GLES20.glCompileShader(shader);
+
+        // Get the compilation status.
+        final int[] compileStatus = new int[1];
+        GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
+
+        // If the compilation failed, delete the shader.
+        if (compileStatus[0] == 0) {
+            GLES20.glDeleteShader(shader);
+            shader = 0;
+        }
+
+        if (shader == 0) {
+            throw new RuntimeException("Error creating shader.");
+        }
+
+        return shader;
+    }
+
+    private int loadGLShader(int type, int resId) {
+        String code = readRawTextFile(resId);
         int shader = GLES20.glCreateShader(type);
         GLES20.glShaderSource(shader, code);
         GLES20.glCompileShader(shader);
@@ -314,6 +423,50 @@ public class CreateTaskFindAndAnswer_AddToScene_Cardboard extends CardboardActiv
         return shader;
     }
 
+    private int cubeProgram;
+    private int cubePositionParam;
+    private int cubeNormalParam;
+    private int cubeColorParam;
+    private int cubeModelParam;
+    private int cubeModelViewParam;
+    private int cubeModelViewProjectionParam;
+    private int cubeLightPosParam;
+
+    private final float[] lightPosInEyeSpace = new float[4];
+    private static final float[] LIGHT_POS_IN_WORLD_SPACE = new float[] { 0.0f, 2.0f, 0.0f, 1.0f };
+
+    private FloatBuffer cubeVertices;
+    private FloatBuffer cubeColors;
+    private FloatBuffer cubeFoundColors;
+    private FloatBuffer cubeNormals;
+    private float[] modelViewProjection;
+
+    public void drawCube() {
+
+        Log.d("Natalia", "draw Cube");
+        GLES20.glUseProgram(cubeProgram);
+
+        GLES20.glUniform3fv(cubeLightPosParam, 1, lightPosInEyeSpace, 0);
+
+        // Set the Model in the shader, used to calculate lighting
+        GLES20.glUniformMatrix4fv(cubeModelParam, 1, false, mModelCube, 0);
+
+        // Set the ModelView in the shader, used to calculate lighting
+        GLES20.glUniformMatrix4fv(cubeModelViewParam, 1, false, modelView, 0);
+
+        // Set the position of the cube
+        GLES20.glVertexAttribPointer(cubePositionParam, COORDS_PER_VERTEX_CUBE, GLES20.GL_FLOAT,
+                false, 0, cubeVertices);
+
+        // Set the ModelViewProjection matrix in the shader.
+        GLES20.glUniformMatrix4fv(cubeModelViewProjectionParam, 1, false, modelViewProjection, 0);
+
+        // Set the normal positions of the cube, again for shading
+        GLES20.glVertexAttribPointer(cubeNormalParam, 3, GLES20.GL_FLOAT, false, 0, cubeNormals);
+        GLES20.glVertexAttribPointer(cubeColorParam, 4, GLES20.GL_FLOAT, false, 0, cubeColors);
+
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 36);
+    }
 
 
 

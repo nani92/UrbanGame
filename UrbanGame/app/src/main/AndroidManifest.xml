@@ -101,6 +101,14 @@
                 <category android:name="com.google.intent.category.CARDBOARD" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".taskGame.TaskGameActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <category android:name="com.google.intent.category.CARDBOARD" />
+            </intent-filter>
+        </activity>
         <activity android:name=".createTaskActivites.CreateTaskFindAndAnswer_AugmentScene" >
         </activity>
     </application>

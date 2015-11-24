@@ -82,6 +82,9 @@
     <string name="task_watchAndAnswer_hint">You can upload a video, write a question and provide proper answer.</string>
     <string name="task_findAndAnswer_name">Find and Answer</string>
     <string name="task_findAndAnswer_hint">You can upload an image and place it on a building using AR. You can write a question and provide proper answer.</string>
+    <string name="task_game_name">Game</string>
+    <string name="task_game_hint">You can let user to play game and score some points.</string>
+
 
     <string name="task_provideQuestion">Here should be your question.</string>
     <string name="task_provideAnswer">Here should be proper answer.</string>

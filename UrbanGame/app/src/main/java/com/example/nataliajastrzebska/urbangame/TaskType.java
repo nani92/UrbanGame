@@ -10,5 +10,6 @@ public enum TaskType {
     HEARandANSWER,
     AR_FINDandANSWER,
     MAKEaPHOTO,
-    AR_FIND
+    AR_FIND,
+    AR_GAME
 }
