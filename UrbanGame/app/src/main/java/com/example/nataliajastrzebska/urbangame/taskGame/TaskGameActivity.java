@@ -100,12 +100,6 @@ public class TaskGameActivity extends CardboardActivity
 
     @Override
     public void onNewFrame(HeadTransform headTransform) {
-        float[] mtx = new float[16];
-        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-        surface.updateTexImage();
-        surface.getTransformMatrix(mtx);
-        mHeadTransform = headTransform;
-        headTransform.getHeadView(headView, 0);
 
         Matrix.rotateM(mModelCube, 0, TIME_DELTA, 0.5f, 0.5f, 1.0f);
 
@@ -113,42 +107,65 @@ public class TaskGameActivity extends CardboardActivity
         Matrix.setLookAtM(mCamera, 0, 0.0f, 0.0f, CAMERA_Z, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
         headTransform.getHeadView(headView, 0);
+
+        checkGLError("onReadyToDraw");
+
+        float[] mtx = new float[16];
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+        surface.updateTexImage();
+        surface.getTransformMatrix(mtx);
+        mHeadTransform = headTransform;
+        headTransform.getHeadView(headView, 0);
+
+
     }
 
     @Override
     public void onDrawEye(Eye eyeTransform) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+
+        checkGLError("colorParam");
+
         GLES20.glUseProgram(mProgram);
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length,
                 GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
 
-        GLES20.glActiveTexture(GL_TEXTURE_EXTERNAL_OES);
+        checkGLError("befor activeTex");
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
+        checkGLError("after activeTex");
         GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, texture);
+        checkGLError("bind Text");
 
-
+        checkGLError("mPostionHandle");
         mPositionHandle = GLES20.glGetAttribLocation(mProgram, "position");
         GLES20.glEnableVertexAttribArray(mPositionHandle);
         GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT,
                 false, vertexStride, vertexBuffer);
 
 
+        checkGLError("mTexture Handle");
         mTextureCoordHandle = GLES20.glGetAttribLocation(mProgram, "inputTextureCoordinate");
         GLES20.glEnableVertexAttribArray(mTextureCoordHandle);
         GLES20.glVertexAttribPointer(mTextureCoordHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT,
                 false, vertexStride, textureVerticesBuffer);
+        checkGLError("after mTexture Handle");
 
         mColorHandle = GLES20.glGetAttribLocation(mProgram, "s_texture");
+        checkGLError("mColor Handel");
 
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length,
                 GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
 
+        checkGLError("Disable");
         GLES20.glDisableVertexAttribArray(mPositionHandle);
         GLES20.glDisableVertexAttribArray(mTextureCoordHandle);
 
+
+        checkGLError("before Cube 2");
         Matrix.multiplyMM(mView, 0, eyeTransform.getEyeView(), 0, mCamera, 0);
         Matrix.multiplyMV(lightPosInEyeSpace, 0, mView, 0, LIGHT_POS_IN_WORLD_SPACE, 0);
 
-
+        checkGLError("before Cube");
         float[] perspective = eyeTransform.getPerspective(Z_NEAR, Z_FAR);
         Matrix.multiplyMM(modelView, 0, mView, 0, mModelCube, 0);
         Matrix.multiplyMM(modelViewProjection, 0, perspective, 0, modelView, 0);
@@ -165,11 +182,74 @@ public class TaskGameActivity extends CardboardActivity
     public void onSurfaceChanged(int i, int i1) {
     }
 
+    private static void checkGLError(String label) {
+        int error;
+        while ((error = GLES20.glGetError()) != GLES20.GL_NO_ERROR) {
+            Log.e("Natalia", label + ": glError " + error);
+            throw new RuntimeException(label + ": glError " + error);
+        }
+    }
+
     @Override
     public void onSurfaceCreated(EGLConfig eglConfig) {
         showToast("Creating surface");
 
         GLES20.glClearColor(0.1f, 0.1f, 0.1f, 0.5f); // Dark background so text shows up well
+
+        ByteBuffer bbVertices = ByteBuffer.allocateDirect(WorldLayoutData.CUBE_COORDS.length * 4);
+        bbVertices.order(ByteOrder.nativeOrder());
+        cubeVertices = bbVertices.asFloatBuffer();
+        cubeVertices.put(WorldLayoutData.CUBE_COORDS);
+        cubeVertices.position(0);
+
+        ByteBuffer bbColors = ByteBuffer.allocateDirect(WorldLayoutData.CUBE_COLORS.length * 4);
+        bbColors.order(ByteOrder.nativeOrder());
+        cubeColors = bbColors.asFloatBuffer();
+        cubeColors.put(WorldLayoutData.CUBE_COLORS);
+        cubeColors.position(0);
+
+        ByteBuffer bbFoundColors = ByteBuffer.allocateDirect(
+                WorldLayoutData.CUBE_FOUND_COLORS.length * 4);
+        bbFoundColors.order(ByteOrder.nativeOrder());
+        cubeFoundColors = bbFoundColors.asFloatBuffer();
+        cubeFoundColors.put(WorldLayoutData.CUBE_FOUND_COLORS);
+        cubeFoundColors.position(0);
+
+        ByteBuffer bbNormals = ByteBuffer.allocateDirect(WorldLayoutData.CUBE_NORMALS.length * 4);
+        bbNormals.order(ByteOrder.nativeOrder());
+        cubeNormals = bbNormals.asFloatBuffer();
+        cubeNormals.put(WorldLayoutData.CUBE_NORMALS);
+        cubeNormals.position(0);
+
+
+        int vertexShaderCube = loadGLShader(GLES20.GL_VERTEX_SHADER, R.raw.light_vertex);
+        int passthroughShader = loadGLShader(GLES20.GL_FRAGMENT_SHADER, R.raw.passthrough_fragment);
+
+        cubeProgram = GLES20.glCreateProgram();
+        GLES20.glAttachShader(cubeProgram, vertexShaderCube);
+        GLES20.glAttachShader(cubeProgram, passthroughShader);
+        GLES20.glLinkProgram(cubeProgram);
+        GLES20.glUseProgram(cubeProgram);
+
+        checkGLError("Cube program");
+
+        cubePositionParam = GLES20.glGetAttribLocation(cubeProgram, "a_Position");
+        cubeNormalParam = GLES20.glGetAttribLocation(cubeProgram, "a_Normal");
+        cubeColorParam = GLES20.glGetAttribLocation(cubeProgram, "a_Color");
+
+        cubeModelParam = GLES20.glGetUniformLocation(cubeProgram, "u_Model");
+        cubeModelViewParam = GLES20.glGetUniformLocation(cubeProgram, "u_MVMatrix");
+        cubeModelViewProjectionParam = GLES20.glGetUniformLocation(cubeProgram, "u_MVP");
+        cubeLightPosParam = GLES20.glGetUniformLocation(cubeProgram, "u_LightPos");
+
+        GLES20.glEnableVertexAttribArray(cubePositionParam);
+        GLES20.glEnableVertexAttribArray(cubeNormalParam);
+        GLES20.glEnableVertexAttribArray(cubeColorParam);
+
+        checkGLError("Cube program params");
+
+        Matrix.setIdentityM(mModelCube, 0);
+        Matrix.translateM(mModelCube, 0, 0, 0, -objectDistance);
 
         ByteBuffer bb = ByteBuffer.allocateDirect(squareVertices.length * 4);
         bb.order(ByteOrder.nativeOrder());
@@ -199,58 +279,10 @@ public class TaskGameActivity extends CardboardActivity
         GLES20.glAttachShader(mProgram, fragmentShader); // add the fragment shader to program
         GLES20.glLinkProgram(mProgram);
 
-        ByteBuffer bbVertices = ByteBuffer.allocateDirect(WorldLayoutData.CUBE_COORDS.length * 4);
-        bbVertices.order(ByteOrder.nativeOrder());
-        cubeVertices = bbVertices.asFloatBuffer();
-        cubeVertices.put(WorldLayoutData.CUBE_COORDS);
-        cubeVertices.position(0);
-
-        ByteBuffer bbColors = ByteBuffer.allocateDirect(WorldLayoutData.CUBE_COLORS.length * 4);
-        bbColors.order(ByteOrder.nativeOrder());
-        cubeColors = bbColors.asFloatBuffer();
-        cubeColors.put(WorldLayoutData.CUBE_COLORS);
-        cubeColors.position(0);
-
-        ByteBuffer bbFoundColors = ByteBuffer.allocateDirect(
-                WorldLayoutData.CUBE_FOUND_COLORS.length * 4);
-        bbFoundColors.order(ByteOrder.nativeOrder());
-        cubeFoundColors = bbFoundColors.asFloatBuffer();
-        cubeFoundColors.put(WorldLayoutData.CUBE_FOUND_COLORS);
-        cubeFoundColors.position(0);
-
-        ByteBuffer bbNormals = ByteBuffer.allocateDirect(WorldLayoutData.CUBE_NORMALS.length * 4);
-        bbNormals.order(ByteOrder.nativeOrder());
-        cubeNormals = bbNormals.asFloatBuffer();
-        cubeNormals.put(WorldLayoutData.CUBE_NORMALS);
-        cubeNormals.position(0);
-
-        int vertexShaderCube = loadGLShader(GLES20.GL_VERTEX_SHADER, R.raw.light_vertex);
-        int passthroughShader = loadGLShader(GLES20.GL_FRAGMENT_SHADER, R.raw.passthrough_fragment);
-
-        cubeProgram = GLES20.glCreateProgram();
-        GLES20.glAttachShader(cubeProgram, vertexShaderCube);
-        GLES20.glAttachShader(cubeProgram, passthroughShader);
-        GLES20.glLinkProgram(cubeProgram);
-        GLES20.glUseProgram(cubeProgram);
-
-        cubePositionParam = GLES20.glGetAttribLocation(cubeProgram, "a_Position");
-        cubeNormalParam = GLES20.glGetAttribLocation(cubeProgram, "a_Normal");
-        cubeColorParam = GLES20.glGetAttribLocation(cubeProgram, "a_Color");
-
-        cubeModelParam = GLES20.glGetUniformLocation(cubeProgram, "u_Model");
-        cubeModelViewParam = GLES20.glGetUniformLocation(cubeProgram, "u_MVMatrix");
-        cubeModelViewProjectionParam = GLES20.glGetUniformLocation(cubeProgram, "u_MVP");
-        cubeLightPosParam = GLES20.glGetUniformLocation(cubeProgram, "u_LightPos");
-
-        GLES20.glEnableVertexAttribArray(cubePositionParam);
-        GLES20.glEnableVertexAttribArray(cubeNormalParam);
-        GLES20.glEnableVertexAttribArray(cubeColorParam);
-
         texture = createTexture();
         startCamera(texture);
 
-        Matrix.setIdentityM(mModelCube, 0);
-        Matrix.translateM(mModelCube, 0, 0, 0, -objectDistance);
+        checkGLError("onSurfaceCreated");
     }
 
     @Override
@@ -443,8 +475,8 @@ public class TaskGameActivity extends CardboardActivity
 
     public void drawCube() {
 
-        Log.d("Natalia", "draw Cube");
         GLES20.glUseProgram(cubeProgram);
+        checkGLError("Use program");
 
         GLES20.glUniform3fv(cubeLightPosParam, 1, lightPosInEyeSpace, 0);
 
@@ -466,11 +498,8 @@ public class TaskGameActivity extends CardboardActivity
         GLES20.glVertexAttribPointer(cubeColorParam, 4, GLES20.GL_FLOAT, false, 0, cubeColors);
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 36);
+
+        checkGLError("Drawing cube");
     }
-
-
-
-
-
 }
 

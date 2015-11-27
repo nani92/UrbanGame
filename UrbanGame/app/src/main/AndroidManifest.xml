@@ -111,6 +111,8 @@
         </activity>
         <activity android:name=".createTaskActivites.CreateTaskFindAndAnswer_AugmentScene" >
         </activity>
+        <activity android:name=".PlayGameMapScreen" >
+        </activity>
     </application>
 
 </manifest>

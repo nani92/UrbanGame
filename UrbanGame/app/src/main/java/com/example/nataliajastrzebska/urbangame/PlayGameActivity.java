@@ -1,5 +1,6 @@
 package com.example.nataliajastrzebska.urbangame;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,5 +29,6 @@ public class PlayGameActivity extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.spinner_PlayGameActivity);
         String game = (String) spinner.getSelectedItem();
         CurrentGame.getInstance().setGameInformation(GameStorage.getInstance().loadGame(game));
+        startActivity(new Intent(this, PlayGameMapScreen.class));
     }
 }
