@@ -100,4 +100,5 @@
 
     <!--PLAYING-->
     <string name="dialog_displayHint_title">Hint</string>
+    <string name="confirmAnswer">Confirm Answer</string>
 </resources>

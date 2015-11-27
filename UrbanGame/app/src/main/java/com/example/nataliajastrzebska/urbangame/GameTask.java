@@ -1,5 +1,7 @@
 package com.example.nataliajastrzebska.urbangame;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -56,7 +58,7 @@ public class GameTask {
             taskType = TaskType.ABCD;
             return;
         }
-        if(taskTypeString.equals("ThinkAndAnswer")){
+        if(taskTypeString.equals("thinkAndAnswer")){
             taskType = TaskType.THINKandANSWER;
             return;
         }
@@ -66,6 +68,8 @@ public class GameTask {
     public String toString() {
         return "GameTask{" +
                 "question='" + question + '\'' +
+                ", type =" + taskTypeString +
+                ", answer=" + answer +
                 ", answers=" + answers +
                 ", correctAnswer=" + correctAnswer +
                 '}';

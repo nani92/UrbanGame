@@ -113,6 +113,8 @@
         </activity>
         <activity android:name=".PlayGameMapScreen" >
         </activity>
+        <activity android:name=".DisplayTaskActivity" >
+        </activity>
     </application>
 
 </manifest>

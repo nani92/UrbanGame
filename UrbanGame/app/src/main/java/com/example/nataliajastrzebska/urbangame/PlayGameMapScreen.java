@@ -1,6 +1,7 @@
 package com.example.nataliajastrzebska.urbangame;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.GpsStatus;
@@ -24,13 +25,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayGameMapScreen extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, GoogleMap.OnMapClickListener,
-        LocationListener, GpsStatus.Listener, GoogleApiClient.ConnectionCallbacks{
+        LocationListener, GpsStatus.Listener, GoogleApiClient.ConnectionCallbacks {
 
     TextView gameTitle;
     private Location myLocation;
@@ -42,8 +44,12 @@ public class PlayGameMapScreen extends AppCompatActivity
     private LocationRequest mLocationRequest;
     private LatLng myPosition;
     private List<GamePoint> gamePointList;
-    private int currID= 0;
+    private int currID = 0;
     private int radius = 30;
+    private boolean displayedHint = false;
+
+    private int REQUEST_CODE_DISPLAY_TASK = 1010;
+    PolylineOptions rectOptions ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,7 @@ public class PlayGameMapScreen extends AppCompatActivity
         setContentView(R.layout.activity_play_game_map_screen);
 
         gameTitle = (TextView) findViewById(R.id.tv_playGameMapScreen_gameTitle);
-        Log.d("Natalia",String.valueOf(CurrentGame.getInstance().getGameInformation()));
+        Log.d("Natalia", String.valueOf(CurrentGame.getInstance().getGameInformation()));
         gameTitle.setText(CurrentGame.getInstance().getGameInformation().getName());
 
         gamePointList = CurrentGame.getInstance().getGameInformation().getPoints();
@@ -80,6 +86,8 @@ public class PlayGameMapScreen extends AppCompatActivity
         mGoogleApiClient.connect();
         pointItems = new ArrayList<>();
         displayHint();
+        rectOptions = new PolylineOptions();
+        Log.d("Natalia", "task type" + CurrentGame.getInstance().getGameInformation().getPoints().get(0).getGameTask().getTaskType());
     }
 
     void setMap() {
@@ -93,15 +101,15 @@ public class PlayGameMapScreen extends AppCompatActivity
 
 
     private void checkInternetConnection() {
-        if(!Services.getInstance().isNetworkAvailable(this)){//do i need this ???
+        if (!Services.getInstance().isNetworkAvailable(this)) {//do i need this ???
             showEnableInternetModeDialog();
         }
-        if(!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || !mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+        if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || !mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             showEnableGPSModeDialog();
         }
     }
 
-    protected synchronized void setmGoogleApiClient(){
+    protected synchronized void setmGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
@@ -121,11 +129,11 @@ public class PlayGameMapScreen extends AppCompatActivity
         enableGpsDialog.show(fm2, "dialog_enable_gps");
     }
 
-    void getLocation(){
+    void getLocation() {
         myPosition = null;
         myLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if(myLocation != null)
-            myPosition = new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
+        if (myLocation != null)
+            myPosition = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
 
     }
 
@@ -153,9 +161,11 @@ public class PlayGameMapScreen extends AppCompatActivity
     public void onLocationChanged(Location location) {
         mZoom = 18.0f;//mMap.getCameraPosition().zoom;
         myLocation = location;
-        myPosition = new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
+        myPosition = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
         showMyPosition();
         checkIfNearby();
+        rectOptions.add(new LatLng(location.getLatitude(), location.getLongitude()));
+        mMap.addPolyline(rectOptions);
     }
 
     @Override
@@ -165,7 +175,7 @@ public class PlayGameMapScreen extends AppCompatActivity
         getLocation();
     }
 
-    protected void setLocationUpdates(){
+    protected void setLocationUpdates() {
         mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequest.setInterval(10000);//10 seconds
@@ -173,7 +183,7 @@ public class PlayGameMapScreen extends AppCompatActivity
         mLocationRequest.setSmallestDisplacement(10);//10 meters
     }
 
-    protected void startLocationUpdates(){
+    protected void startLocationUpdates() {
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 
@@ -187,25 +197,47 @@ public class PlayGameMapScreen extends AppCompatActivity
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myPosition, mZoom));
     }
 
-    void checkIfNearby(){
+    void checkIfNearby() {
         Log.d("Natalia", "distance " + myLocation.distanceTo(getDestLocation()));
-        if (myLocation.distanceTo(getDestLocation()) < radius){
-            Toast.makeText(this, "You are here!", Toast.LENGTH_SHORT).show();
+        if (myLocation.distanceTo(getDestLocation()) < radius) {
+            Intent intent = new Intent(this, DisplayTaskActivity.class);
+            intent.putExtra("pointId", currID);
+            startActivityForResult(intent, REQUEST_CODE_DISPLAY_TASK);
         }
 
     }
 
-    Location getDestLocation(){
+    Location getDestLocation() {
         Location destinLocation = new Location("");
         destinLocation.setLatitude(gamePointList.get(currID).getCoordinateX());
         destinLocation.setLongitude(gamePointList.get(currID).getCoordinateY());
         return destinLocation;
     }
 
-    void displayHint(){
-        FragmentManager fm = getSupportFragmentManager();
-        DisplayHintDialog dh = new DisplayHintDialog();
-        dh.show(fm, "dialog_display_hint");
-        dh.setMessage(gamePointList.get(currID).getHint());
+    void displayHint() {
+        if (!displayedHint) {
+            FragmentManager fm = getSupportFragmentManager();
+            DisplayHintDialog dh = new DisplayHintDialog();
+            dh.show(fm, "dialog_display_hint");
+            dh.setMessage(gamePointList.get(currID).getHint());
+            displayedHint = true;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_CODE_DISPLAY_TASK) {
+            if (resultCode == Activity.RESULT_OK) {
+                currID++;
+                displayedHint = false;
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        displayHint();
     }
 }

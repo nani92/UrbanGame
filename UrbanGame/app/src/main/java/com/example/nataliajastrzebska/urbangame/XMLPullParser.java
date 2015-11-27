@@ -49,15 +49,20 @@ public class XMLPullParser {
                             gamePoint.setHint(xmlPullParser.getAttributeValue(null, "hint"));
                         } else if (tagname.equalsIgnoreCase("task")) {
                             gameTask = new GameTask();
-                            gameTask.getAnswers().add(xmlPullParser.getAttributeValue(null, "a"));
-                            gameTask.getAnswers().add(xmlPullParser.getAttributeValue(null, "b"));
-                            gameTask.getAnswers().add(xmlPullParser.getAttributeValue(null, "c"));
-                            gameTask.getAnswers().add(xmlPullParser.getAttributeValue(null, "d"));
+                            Log.d("Natalia", "xml type= " + xmlPullParser.getAttributeValue(null, "type"));
                             gameTask.setTaskType(xmlPullParser.getAttributeValue(null, "type"));
-                            if (gameTask.getTaskType() == TaskType.ABCD)
+                            if (gameTask.getTaskType() == TaskType.ABCD) {
+                                Log.d("Natalia", "ABCD");
+                                gameTask.getAnswers().add(xmlPullParser.getAttributeValue(null, "a"));
+                                gameTask.getAnswers().add(xmlPullParser.getAttributeValue(null, "b"));
+                                gameTask.getAnswers().add(xmlPullParser.getAttributeValue(null, "c"));
+                                gameTask.getAnswers().add(xmlPullParser.getAttributeValue(null, "d"));
                                 gameTask.setCorrectAnswer(Integer.parseInt(xmlPullParser.getAttributeValue(null, "answer")));
-                            else
+                            }
+                            else {
+                                Log.d("Natalia", "not ABCD");
                                 gameTask.setAnswer(xmlPullParser.getAttributeValue(null, "answer"));
+                            }
                             gameTask.setQuestion(xmlPullParser.getAttributeValue(null, "question"));
 
                         }
