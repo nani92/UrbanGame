@@ -10,7 +10,9 @@ import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -24,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlayGameMapScreen extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, GoogleMap.OnMapClickListener,
@@ -38,6 +41,9 @@ public class PlayGameMapScreen extends AppCompatActivity
     private float mZoom;
     private LocationRequest mLocationRequest;
     private LatLng myPosition;
+    private List<GamePoint> gamePointList;
+    private int currID= 0;
+    private int radius = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +51,10 @@ public class PlayGameMapScreen extends AppCompatActivity
         setContentView(R.layout.activity_play_game_map_screen);
 
         gameTitle = (TextView) findViewById(R.id.tv_playGameMapScreen_gameTitle);
+        Log.d("Natalia",String.valueOf(CurrentGame.getInstance().getGameInformation()));
         gameTitle.setText(CurrentGame.getInstance().getGameInformation().getName());
+
+        gamePointList = CurrentGame.getInstance().getGameInformation().getPoints();
 
         mLocationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
         //google api client doesn't have implemented gps monitoring and on gps status change information, that's why location manager needs to be used
@@ -70,6 +79,7 @@ public class PlayGameMapScreen extends AppCompatActivity
 
         mGoogleApiClient.connect();
         pointItems = new ArrayList<>();
+        displayHint();
     }
 
     void setMap() {
@@ -141,10 +151,11 @@ public class PlayGameMapScreen extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        mZoom = mMap.getCameraPosition().zoom;
+        mZoom = 18.0f;//mMap.getCameraPosition().zoom;
         myLocation = location;
         myPosition = new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
         showMyPosition();
+        checkIfNearby();
     }
 
     @Override
@@ -172,7 +183,29 @@ public class PlayGameMapScreen extends AppCompatActivity
     }
 
     void showMyPosition() {
-        mZoom = mMap.getCameraPosition().zoom;
+        mZoom = 18.0f;//mMap.getCameraPosition().zoom;
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myPosition, mZoom));
+    }
+
+    void checkIfNearby(){
+        Log.d("Natalia", "distance " + myLocation.distanceTo(getDestLocation()));
+        if (myLocation.distanceTo(getDestLocation()) < radius){
+            Toast.makeText(this, "You are here!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    Location getDestLocation(){
+        Location destinLocation = new Location("");
+        destinLocation.setLatitude(gamePointList.get(currID).getCoordinateX());
+        destinLocation.setLongitude(gamePointList.get(currID).getCoordinateY());
+        return destinLocation;
+    }
+
+    void displayHint(){
+        FragmentManager fm = getSupportFragmentManager();
+        DisplayHintDialog dh = new DisplayHintDialog();
+        dh.show(fm, "dialog_display_hint");
+        dh.setMessage(gamePointList.get(currID).getHint());
     }
 }

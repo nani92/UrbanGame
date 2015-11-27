@@ -37,12 +37,17 @@ public class XMLSerializer {
 
                 //TASK TAG SERIALIZATION
                 serializer.startTag("", "Task");
+                serializer.attribute("", "type", point.getGameTask().getTaskTypeString());
                 serializer.attribute("", "question", point.getGameTask().getQuestion());
-                serializer.attribute("", "answer", String.valueOf(point.getGameTask().getCorrectAnswer()));
-                serializer.attribute("", "a", point.getGameTask().getAnswers().get(0));
-                serializer.attribute("", "b", point.getGameTask().getAnswers().get(1));
-                serializer.attribute("", "c", point.getGameTask().getAnswers().get(2));
-                serializer.attribute("", "d", point.getGameTask().getAnswers().get(3));
+                if (point.getGameTask().getTaskType() == TaskType.ABCD ) {
+                    serializer.attribute("", "answer", String.valueOf(point.getGameTask().getCorrectAnswer()));
+                    serializer.attribute("", "a", point.getGameTask().getAnswers().get(0));
+                    serializer.attribute("", "b", point.getGameTask().getAnswers().get(1));
+                    serializer.attribute("", "c", point.getGameTask().getAnswers().get(2));
+                    serializer.attribute("", "d", point.getGameTask().getAnswers().get(3));
+                }
+                else
+                    serializer.attribute("", "answer", point.getGameTask().getAnswer());
 
                 serializer.endTag("", "Task");
                 serializer.endTag("", "Point");

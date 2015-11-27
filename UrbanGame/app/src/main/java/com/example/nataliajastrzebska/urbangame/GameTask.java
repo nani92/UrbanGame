@@ -10,6 +10,9 @@ public class GameTask {
     private String question;
     private ArrayList<String> answers;
     private int correctAnswer;
+    private String answer;
+    private TaskType taskType;
+    private String taskTypeString;
 
     public GameTask() {
         answers = new ArrayList<String>();
@@ -39,6 +42,25 @@ public class GameTask {
         this.answers = answers;
     }
 
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    public String getTaskTypeString() {
+        return taskTypeString;
+    }
+
+    public void setTaskType(String taskTypeString) {
+        this.taskTypeString = taskTypeString;
+        if(taskTypeString.equals("abcd")){
+            taskType = TaskType.ABCD;
+            return;
+        }
+        if(taskTypeString.equals("ThinkAndAnswer")){
+            taskType = TaskType.THINKandANSWER;
+            return;
+        }
+    }
 
     @Override
     public String toString() {
@@ -47,5 +69,13 @@ public class GameTask {
                 ", answers=" + answers +
                 ", correctAnswer=" + correctAnswer +
                 '}';
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 }

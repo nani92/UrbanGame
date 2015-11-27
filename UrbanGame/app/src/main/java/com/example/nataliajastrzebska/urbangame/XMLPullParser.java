@@ -1,5 +1,7 @@
 package com.example.nataliajastrzebska.urbangame;
 
+import android.util.Log;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -51,8 +53,13 @@ public class XMLPullParser {
                             gameTask.getAnswers().add(xmlPullParser.getAttributeValue(null, "b"));
                             gameTask.getAnswers().add(xmlPullParser.getAttributeValue(null, "c"));
                             gameTask.getAnswers().add(xmlPullParser.getAttributeValue(null, "d"));
-                            gameTask.setCorrectAnswer(Integer.parseInt(xmlPullParser.getAttributeValue(null, "answer")));
+                            gameTask.setTaskType(xmlPullParser.getAttributeValue(null, "type"));
+                            if (gameTask.getTaskType() == TaskType.ABCD)
+                                gameTask.setCorrectAnswer(Integer.parseInt(xmlPullParser.getAttributeValue(null, "answer")));
+                            else
+                                gameTask.setAnswer(xmlPullParser.getAttributeValue(null, "answer"));
                             gameTask.setQuestion(xmlPullParser.getAttributeValue(null, "question"));
+
                         }
                         break;
 
@@ -74,7 +81,7 @@ public class XMLPullParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        Log.d("Natalia", "return GI" + gameInformation);
         return gameInformation;
     }
 }

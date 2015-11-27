@@ -97,4 +97,7 @@
     <string name="dialog_choose_using_cardboard">Do you want to use cardboard?</string>
     <string name="yes">yes</string>
     <string name="no">no</string>
+
+    <!--PLAYING-->
+    <string name="dialog_displayHint_title">Hint</string>
 </resources>

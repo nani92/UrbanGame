@@ -11,5 +11,6 @@ public enum TaskType {
     AR_FINDandANSWER,
     MAKEaPHOTO,
     AR_FIND,
-    AR_GAME
+    AR_GAME,
+    ABCD
 }
