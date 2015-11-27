@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskFindAndAnswer_AddToScene_Cardboard;
 import com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskFindAndAnswer_AugmentScene;
+import com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskLookAndAnswer;
 import com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskThinkAndAnswer;
 import com.example.nataliajastrzebska.urbangame.taskGame.TaskGameActivity;
 
@@ -42,8 +43,13 @@ public class ChooseGameTaskTypeActivity extends AppCompatActivity {
                     case AR_FINDandANSWER:
                         startActivity(new Intent(ctx, CreateTaskFindAndAnswer_AugmentScene.class));
                         break;
+<<<<<<< HEAD
                     case AR_GAME:
                         startActivity(new Intent(ctx, TaskGameActivity.class));
+=======
+                    case LOOKandANSWER:
+                        startActivity(new Intent(ctx, CreateTaskLookAndAnswer.class));
+>>>>>>> 9e23c754f15b8a2dc113ffeb9b0e4a0741e6b8b2
                         break;
                 }
             }
