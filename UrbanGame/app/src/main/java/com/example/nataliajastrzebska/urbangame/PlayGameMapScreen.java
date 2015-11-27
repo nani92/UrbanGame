@@ -25,6 +25,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
@@ -47,6 +48,8 @@ public class PlayGameMapScreen extends AppCompatActivity
     private int currID = 0;
     private int radius = 30;
     private boolean displayedHint = false;
+    private boolean coughtInArea = false;
+    private boolean isEnd = false;
 
     private int REQUEST_CODE_DISPLAY_TASK = 1010;
     PolylineOptions rectOptions ;
@@ -163,9 +166,11 @@ public class PlayGameMapScreen extends AppCompatActivity
         myLocation = location;
         myPosition = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
         showMyPosition();
-        checkIfNearby();
-        rectOptions.add(new LatLng(location.getLatitude(), location.getLongitude()));
-        mMap.addPolyline(rectOptions);
+        if (!isEnd) {
+            checkIfNearby();
+            rectOptions.add(new LatLng(location.getLatitude(), location.getLongitude()));
+            mMap.addPolyline(rectOptions);
+        }
     }
 
     @Override
@@ -200,9 +205,7 @@ public class PlayGameMapScreen extends AppCompatActivity
     void checkIfNearby() {
         Log.d("Natalia", "distance " + myLocation.distanceTo(getDestLocation()));
         if (myLocation.distanceTo(getDestLocation()) < radius) {
-            Intent intent = new Intent(this, DisplayTaskActivity.class);
-            intent.putExtra("pointId", currID);
-            startActivityForResult(intent, REQUEST_CODE_DISPLAY_TASK);
+            displayTask();
         }
 
     }
@@ -230,7 +233,13 @@ public class PlayGameMapScreen extends AppCompatActivity
         if (requestCode == REQUEST_CODE_DISPLAY_TASK) {
             if (resultCode == Activity.RESULT_OK) {
                 currID++;
-                displayedHint = false;
+                if(isEndOfGame()){
+                    endGame();
+                }else {
+                    displayedHint = false;
+                    coughtInArea = false;
+                    isEnd = true;
+                }
             }
         }
     }
@@ -239,5 +248,31 @@ public class PlayGameMapScreen extends AppCompatActivity
     public void onResume() {
         super.onResume();
         displayHint();
+    }
+
+    private void displayTask(){
+        if (!coughtInArea) {
+            Intent intent = new Intent(this, DisplayTaskActivity.class);
+            intent.putExtra("pointId", currID);
+            startActivityForResult(intent, REQUEST_CODE_DISPLAY_TASK);
+            addPoint();
+            coughtInArea = true;
+        }
+    }
+
+    void addPoint(){
+        LatLng latLng = new LatLng(
+                gamePointList.get(currID).getCoordinateX(),
+                gamePointList.get(currID).getCoordinateY()
+        );
+        mMap.addMarker(new MarkerOptions().position(latLng).title("Start"));
+    }
+
+    private boolean isEndOfGame(){
+        return currID >= gamePointList.size();
+    }
+    private void endGame(){
+        startActivity(new Intent(this, SummaryScreen.class));
+        finish();
     }
 }
