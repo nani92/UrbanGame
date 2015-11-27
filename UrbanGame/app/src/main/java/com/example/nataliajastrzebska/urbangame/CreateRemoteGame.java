@@ -24,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -175,7 +176,7 @@ public class CreateRemoteGame extends AppCompatActivity
     };
 
     void addPoint(LatLng latLng){
-        mMap.addMarker(new MarkerOptions().position(latLng).title("Start"));
+        mMap.addMarker(new MarkerOptions().position(latLng).title("Start").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         pointItems.add(new PointListItem("Point"));
         listAdapter = new PointListAdapter(this, pointItems);
         listView.setAdapter(listAdapter);

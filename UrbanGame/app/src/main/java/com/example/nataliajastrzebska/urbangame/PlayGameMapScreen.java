@@ -24,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -50,14 +51,21 @@ public class PlayGameMapScreen extends AppCompatActivity
     private boolean displayedHint = false;
     private boolean coughtInArea = false;
     private boolean isEnd = false;
+    private long startMillis;
+    private long stopMillis;
+
+    private TextView timer;
+
 
     private int REQUEST_CODE_DISPLAY_TASK = 1010;
-    PolylineOptions rectOptions ;
+    PolylineOptions lineThin, lineThick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_game_map_screen);
+
+        startMillis = System.currentTimeMillis();
 
         gameTitle = (TextView) findViewById(R.id.tv_playGameMapScreen_gameTitle);
         Log.d("Natalia", String.valueOf(CurrentGame.getInstance().getGameInformation()));
@@ -89,8 +97,59 @@ public class PlayGameMapScreen extends AppCompatActivity
         mGoogleApiClient.connect();
         pointItems = new ArrayList<>();
         displayHint();
-        rectOptions = new PolylineOptions();
-        Log.d("Natalia", "task type" + CurrentGame.getInstance().getGameInformation().getPoints().get(0).getGameTask().getTaskType());
+        setPathObject();
+        setTimerTextView();
+    }
+
+    private void setTimerTextView() {
+        timer = (TextView) findViewById(R.id.tv_playGameMapScreen_timer);
+        Thread t = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setTime();
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+
+        t.start();
+    }
+
+    private void setTime() {
+        long diff = System.currentTimeMillis() - startMillis;
+        int seconds = (int) (diff / 1000) % 60 ;
+        int minutes = (int) ((diff / (1000*60)) % 60);
+        int hours   = (int) ((diff / (1000*60*60)) % 24);
+        String time ="";
+        if (hours < 10)
+            time+="0";
+        time+=hours;
+        time+=":";
+        if(minutes < 10)
+            time+="0";
+        time+=minutes;
+        time+=":";
+        if(seconds < 10)
+            time+="0";
+        time+=seconds;
+        timer.setText(time);
+    }
+
+    private void setPathObject() {
+        lineThin = new PolylineOptions();
+        lineThin.color(getResources().getColor(R.color.colorPrimaryDark));
+        lineThick = new PolylineOptions();
+        lineThick.color(getResources().getColor(R.color.colorPrimary)).width(13);
     }
 
     void setMap() {
@@ -165,11 +224,14 @@ public class PlayGameMapScreen extends AppCompatActivity
         mZoom = 18.0f;//mMap.getCameraPosition().zoom;
         myLocation = location;
         myPosition = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+        Toast.makeText(this, "location changed", Toast.LENGTH_SHORT).show();
         showMyPosition();
         if (!isEnd) {
             checkIfNearby();
-            rectOptions.add(new LatLng(location.getLatitude(), location.getLongitude()));
-            mMap.addPolyline(rectOptions);
+            lineThin.add(new LatLng(location.getLatitude(), location.getLongitude()));
+            lineThick.add(new LatLng(location.getLatitude(), location.getLongitude()));
+            mMap.addPolyline(lineThick);
+            mMap.addPolyline(lineThin);
         }
     }
 
@@ -265,7 +327,8 @@ public class PlayGameMapScreen extends AppCompatActivity
                 gamePointList.get(currID).getCoordinateX(),
                 gamePointList.get(currID).getCoordinateY()
         );
-        mMap.addMarker(new MarkerOptions().position(latLng).title("Start"));
+        mMap.addMarker(new MarkerOptions().position(latLng).title("Start")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
     }
 
     private boolean isEndOfGame(){

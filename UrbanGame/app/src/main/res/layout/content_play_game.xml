@@ -24,6 +24,7 @@
             android:layout_width="232dp"
             android:layout_height="wrap_content"
             android:text="@string/choose_game"
+            android:textSize="30dp"
             android:id="@+id/textView" />
 
         <Spinner
@@ -37,7 +38,13 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_startGame"
             android:id="@+id/btn_playGame"
-            android:onClick="startGameClicked"/>
+            android:onClick="startGameClicked"
+            android:textSize="30dp"
+            android:background="@color/btnColor"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_gravity="center"
+            android:textStyle="bold" />
 
 
     </LinearLayout>

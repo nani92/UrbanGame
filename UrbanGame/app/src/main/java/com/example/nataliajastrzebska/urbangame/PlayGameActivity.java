@@ -19,7 +19,7 @@ public class PlayGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play_game);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         Spinner spinner = (Spinner) findViewById(R.id.spinner_PlayGameActivity);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, GameStorage.getInstance().loadGamesNames());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.game_spinner_element, GameStorage.getInstance().loadGamesNames());
         spinner.setAdapter(adapter);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
