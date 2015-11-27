@@ -52,7 +52,7 @@ public class PlayGameMapScreen extends AppCompatActivity
     private boolean coughtInArea = false;
     private boolean isEnd = false;
     private long startMillis;
-    private long stopMillis;
+    private Location startLocation;
 
     private TextView timer;
 
@@ -126,6 +126,10 @@ public class PlayGameMapScreen extends AppCompatActivity
     }
 
     private void setTime() {
+        timer.setText(getTimeString());
+    }
+
+    private String getTimeString(){
         long diff = System.currentTimeMillis() - startMillis;
         int seconds = (int) (diff / 1000) % 60 ;
         int minutes = (int) ((diff / (1000*60)) % 60);
@@ -142,14 +146,14 @@ public class PlayGameMapScreen extends AppCompatActivity
         if(seconds < 10)
             time+="0";
         time+=seconds;
-        timer.setText(time);
+        return time;
     }
 
     private void setPathObject() {
         lineThin = new PolylineOptions();
         lineThin.color(getResources().getColor(R.color.colorPrimaryDark));
         lineThick = new PolylineOptions();
-        lineThick.color(getResources().getColor(R.color.colorPrimary)).width(13);
+        //lineThick.color(getResources().getColor(R.color.colorPrimary)).width(20);
     }
 
     void setMap() {
@@ -222,6 +226,8 @@ public class PlayGameMapScreen extends AppCompatActivity
     @Override
     public void onLocationChanged(Location location) {
         mZoom = 18.0f;//mMap.getCameraPosition().zoom;
+        if(myLocation == null)
+            startLocation = location;
         myLocation = location;
         myPosition = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
         Toast.makeText(this, "location changed", Toast.LENGTH_SHORT).show();
@@ -230,7 +236,7 @@ public class PlayGameMapScreen extends AppCompatActivity
             checkIfNearby();
             lineThin.add(new LatLng(location.getLatitude(), location.getLongitude()));
             lineThick.add(new LatLng(location.getLatitude(), location.getLongitude()));
-            mMap.addPolyline(lineThick);
+            //mMap.addPolyline(lineThick);
             mMap.addPolyline(lineThin);
         }
     }
@@ -335,7 +341,25 @@ public class PlayGameMapScreen extends AppCompatActivity
         return currID >= gamePointList.size();
     }
     private void endGame(){
-        startActivity(new Intent(this, SummaryScreen.class));
+        Intent intent = new Intent(this, SummaryScreen.class);
+        intent.putExtra("time", getTimeString());
+        intent.putExtra("distance",countDistance());
+        startActivity(intent);
         finish();
+    }
+
+    private long countDistance(){
+        long distance = 0;
+        Location locationOld = new Location("");
+        locationOld.setLatitude(lineThin.getPoints().get(0).latitude);
+        locationOld.setLongitude(lineThin.getPoints().get(0).longitude);
+        for(int i = 1; i < lineThin.getPoints().size(); i++){
+            Location locationNew = new Location("");
+            locationNew.setLatitude(lineThin.getPoints().get(i).latitude);
+            locationNew.setLongitude(lineThin.getPoints().get(i).longitude);
+            distance+=locationOld.distanceTo(locationNew);
+            locationOld = locationNew;
+        }
+        return distance;
     }
 }

@@ -103,4 +103,6 @@
     <string name="confirmAnswer">Confirm Answer</string>
     <string name="endGameTitle">Congratulations!</string>
     <string name="endGameMsg">You won!</string>
+    <string name="endGameTime">Your time is:</string>
+    <string name="endGameDistance">Distance is:</string>
 </resources>

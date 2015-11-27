@@ -27,4 +27,24 @@
         android:textSize="30dp"
         android:layout_below="@+id/tv_summaryScreenTitle"
         android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/endGameMsg"
+        android:id="@+id/tv_summaryScreenTime"
+        android:textSize="30dp"
+        android:layout_below="@+id/tv_summaryScreenDistance"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/endGameMsg"
+        android:id="@+id/tv_summaryScreenDistance"
+        android:textSize="30dp"
+        android:layout_below="@+id/tv_summaryScreenMsg"
+        android:layout_centerHorizontal="true" />
+
+
 </RelativeLayout>
