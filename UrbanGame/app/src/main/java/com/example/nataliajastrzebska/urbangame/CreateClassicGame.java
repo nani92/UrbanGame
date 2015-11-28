@@ -217,8 +217,8 @@ public class CreateClassicGame extends AppCompatActivity
     }
 
     private void setLeftSideMenu() {
-        leftSideList = (RelativeLayout) findViewById(R.id.activityCreateClassicGame_leftSidePointList);
-        listView = (ListView) findViewById(R.id.activityCreateClassicGame_pointListView);
+        leftSideList = (RelativeLayout) findViewById(R.id.rl_activityCreateClassicGame_leftSidePointList);
+        listView = (ListView) findViewById(R.id.lv_activityCreateClassicGame_pointListView);
         listAdapter = new PointListAdapter(this, pointItems);
         listView.setAdapter(listAdapter);
     }

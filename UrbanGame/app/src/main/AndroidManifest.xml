@@ -99,7 +99,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".createTaskActivites.CreateTaskFindAndAnswer_AugmentScene"></activity>
-        <activity android:name=".createTaskActivites.CreateTaskLookAndAnswer"></activity>
+        <activity android:name=".createTaskActivites.CreateTaskLookAndAnswer" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

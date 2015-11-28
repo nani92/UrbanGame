@@ -85,4 +85,6 @@
     <string name="task_answer_date">Data</string>
 
     <string name="task_add_button">Dodaj zadanie</string>
+    <string name="task_choosePicture_button">Wybierz zdjęcie</string>
+    <string name="task_takePicture_button">Zrób zdjęcie</string>
 </resources>

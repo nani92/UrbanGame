@@ -86,5 +86,6 @@
         android:textSize="30dp"
         android:background="@color/provideAnswerColor"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp" />
+        android:paddingBottom="10dp"
+        android:autoText="false" />
 </RelativeLayout>

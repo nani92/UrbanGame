@@ -40,19 +40,20 @@ public class CreateTaskThinkAndAnswer extends AppCompatActivity {
             text.setChecked(true);
             answer.setInputType(InputType.TYPE_CLASS_TEXT);
         }
-
-        switch(view.getId()) {
-            case R.id.cB_createThinkAndAnswerTask_isAnswerText:
-                unCheckBoxes(date, number);
-                answer.setInputType(InputType.TYPE_CLASS_TEXT);
-                break;
-            case R.id.cB_createThinkAndAnswerTask_isAnswerNumber:
-                unCheckBoxes(text, date);
-                answer.setInputType(InputType.TYPE_CLASS_NUMBER);
-                break;
-            case R.id.cB_createThinkAndAnswerTask_isAnswerDate:
-                unCheckBoxes(text, number);
-                answer.setInputType(InputType.TYPE_CLASS_DATETIME);
+        else{
+            switch(view.getId()) {
+                case R.id.cB_createThinkAndAnswerTask_isAnswerText:
+                    unCheckBoxes(date, number);
+                    answer.setInputType(InputType.TYPE_CLASS_TEXT);
+                    break;
+                case R.id.cB_createThinkAndAnswerTask_isAnswerNumber:
+                    unCheckBoxes(text, date);
+                    answer.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    break;
+                case R.id.cB_createThinkAndAnswerTask_isAnswerDate:
+                    unCheckBoxes(text, number);
+                    answer.setInputType(InputType.TYPE_CLASS_DATETIME);
+            }
         }
     }
 
