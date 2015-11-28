@@ -98,10 +98,9 @@
                 <category android:name="com.google.intent.category.CARDBOARD" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
+
         <activity android:name=".createTaskActivites.CreateTaskFindAndAnswer_AugmentScene"></activity>
         <activity android:name=".createTaskActivites.CreateTaskLookAndAnswer" android:screenOrientation="portrait"></activity>
-=======
         <activity
             android:name=".taskGame.TaskGameActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -110,17 +109,13 @@
                 <category android:name="com.google.intent.category.CARDBOARD" />
             </intent-filter>
         </activity>
-        <activity android:name=".createTaskActivites.CreateTaskFindAndAnswer_AugmentScene" >
-        </activity>
+
         <activity android:name=".PlayGameMapScreen" >
         </activity>
         <activity android:name=".DisplayTaskActivity" >
         </activity>
-        <activity android:name=".createTaskActivites.CreateTaskFindAndAnswer_AugmentScene" />
-        <activity android:name=".createTaskActivites.CreateTaskLookAndAnswer" />
         <activity android:name=".SummaryScreen" >
         </activity>
->>>>>>> 537113a734c10f48e016679af9ec23ff65aa0ec7
     </application>
 
 </manifest>

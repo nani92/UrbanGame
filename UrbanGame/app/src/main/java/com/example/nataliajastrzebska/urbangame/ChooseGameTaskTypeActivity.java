@@ -45,6 +45,7 @@ public class ChooseGameTaskTypeActivity extends AppCompatActivity {
                         break;
                     case AR_GAME:
                         startActivity(new Intent(ctx, TaskGameActivity.class));
+                        break;
                     case LOOKandANSWER:
                         startActivity(new Intent(ctx, CreateTaskLookAndAnswer.class));
                         break;
