@@ -1,5 +1,6 @@
 package com.example.nataliajastrzebska.urbangame;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,7 +19,7 @@ public class PlayGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play_game);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         Spinner spinner = (Spinner) findViewById(R.id.spinner_PlayGameActivity);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, GameStorage.getInstance().loadGamesNames());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.game_spinner_element, GameStorage.getInstance().loadGamesNames());
         spinner.setAdapter(adapter);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -28,5 +29,6 @@ public class PlayGameActivity extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.spinner_PlayGameActivity);
         String game = (String) spinner.getSelectedItem();
         CurrentGame.getInstance().setGameInformation(GameStorage.getInstance().loadGame(game));
+        startActivity(new Intent(this, PlayGameMapScreen.class));
     }
 }

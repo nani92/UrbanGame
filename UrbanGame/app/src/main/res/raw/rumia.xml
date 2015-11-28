@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+	<Game name="Rumia" author="Natalia" pointsNumber="3" isRPG="1" shouldShowDirection="1" >
+		<Point number="1" name ="Domek" xCoordinate="54.565717" yCoordinate="18.414595"
+			plot=""
+			hint="Dom Rodzinny.">
+			<Task type="thinkAndAnswer" question="Oksywska 1, jakiego koloru jest dom?"
+				answer="żółtego"></Task>
+		</Point>
+		<Point number="2" name ="Szkoła" xCoordinate="54.564920" yCoordinate="18.416339"
+			plot=""
+			hint="Najbliższe miejsce, gdzie dzieciaki spędzają dużą część swojego dzieciństwa">
+			<Task  type="abcd" question="W budynku nie mieści się szkoła" answer="2"
+				a="podstawowa" b="gimnazjum" c="liceum" d="nr 2"></Task>
+		</Point>
+		<Point number="3" name ="Piwo" xCoordinate="54.565581" yCoordinate="18.412599"
+			plot=""
+			hint="Nie czujesz się choro?">
+			<Task type="thinkAndAnswer" question="Ile punktów medycznych widzisz?"
+				answer="3"></Task>
+		</Point>
+	</Game>	

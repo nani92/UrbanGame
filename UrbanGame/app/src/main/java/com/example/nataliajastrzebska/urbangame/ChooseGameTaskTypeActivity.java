@@ -13,6 +13,7 @@ import com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskFi
 import com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskFindAndAnswer_AugmentScene;
 import com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskLookAndAnswer;
 import com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskThinkAndAnswer;
+import com.example.nataliajastrzebska.urbangame.taskGame.TaskGameActivity;
 
 public class ChooseGameTaskTypeActivity extends AppCompatActivity {
 
@@ -42,6 +43,8 @@ public class ChooseGameTaskTypeActivity extends AppCompatActivity {
                     case AR_FINDandANSWER:
                         startActivity(new Intent(ctx, CreateTaskFindAndAnswer_AugmentScene.class));
                         break;
+                    case AR_GAME:
+                        startActivity(new Intent(ctx, TaskGameActivity.class));
                     case LOOKandANSWER:
                         startActivity(new Intent(ctx, CreateTaskLookAndAnswer.class));
                         break;
@@ -58,14 +61,16 @@ public class ChooseGameTaskTypeActivity extends AppCompatActivity {
                 getString(R.string.task_lookAndAnswer_name),
                 getString(R.string.task_hearAndAnswer_name),
                 getString(R.string.task_watchAndAnswer_name),
-                getString(R.string.task_findAndAnswer_name)
+                getString(R.string.task_game_name)
+               // getString(R.string.task_findAndAnswer_name)
         };
         typeList = new TaskType[] {
                 TaskType.THINKandANSWER,
                 TaskType.LOOKandANSWER,
                 TaskType.HEARandANSWER,
                 TaskType.WATCHandANSWER,
-                TaskType.AR_FINDandANSWER
+                //TaskType.AR_FINDandANSWER
+                TaskType.AR_GAME
         };
         return  taskList;
     }

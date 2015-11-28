@@ -1,6 +1,7 @@
 package com.example.nataliajastrzebska.urbangame;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.android.gms.games.Game;
 
@@ -25,7 +26,9 @@ public class GameStorage {
         this.context = context;
         XMLPullParser parser = new XMLPullParser();
         InputStream is = context.getResources().openRawResource(context.getResources().getIdentifier("raw/example", "raw", context.getPackageName()));
+        Log.d("Natalia", "is" + is);
         GameInformation game = parser.parse(is);
+        Log.d("Natalia", "game" + game.getName());
         GameStorage.getInstance().saveGame(game);
     }
 
@@ -42,6 +45,7 @@ public class GameStorage {
         ArrayList<String> list = new ArrayList<String>();
         File[] files = context.getFilesDir().listFiles();
         for (File file : files) {
+            Log.d("Natalia", "file " + file.getName());
             if (file.getName().endsWith(".ginf")) {
                 list.add(file.getName());
             }
