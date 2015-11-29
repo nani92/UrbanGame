@@ -68,7 +68,7 @@ public class CreateTaskThinkAndAnswer extends AppCompatActivity {
     public void saveTaskThinkAndAnswer (View v){
 
         CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setGameTask(new GameTask());
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).getGameTask().setTaskType(TaskType.THINKandANSWER.toString());
+        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).getGameTask().setTaskType("thinkAndAnswer");
         CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).getGameTask().setAnswer(answer.getText().toString());
         CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).getGameTask().setQuestion(question.getText().toString());
         this.finish();
