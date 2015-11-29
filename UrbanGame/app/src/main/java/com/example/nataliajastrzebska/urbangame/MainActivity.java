@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.nataliajastrzebska.urbangame.laby.laby;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,8 +48,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void settingsClicked(View v) {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
+       /* Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);*/
+        startActivity(new Intent(this, laby.class));
     }
 
     public void sendNotification(String text) {

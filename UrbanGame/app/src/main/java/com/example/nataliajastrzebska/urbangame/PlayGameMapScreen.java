@@ -151,9 +151,10 @@ public class PlayGameMapScreen extends AppCompatActivity
 
     private void setPathObject() {
         lineThin = new PolylineOptions();
-        lineThin.color(getResources().getColor(R.color.colorPrimaryDark));
         lineThick = new PolylineOptions();
-        //lineThick.color(getResources().getColor(R.color.colorPrimary)).width(20);
+        lineThin.color(getResources().getColor(R.color.colorPrimaryDark));
+        lineThick.color(getResources().getColor(R.color.colorPrimary));
+        lineThick.width(20);
     }
 
     void setMap() {
@@ -235,8 +236,8 @@ public class PlayGameMapScreen extends AppCompatActivity
         if (!isEnd) {
             checkIfNearby();
             lineThin.add(new LatLng(location.getLatitude(), location.getLongitude()));
-            lineThick.add(new LatLng(location.getLatitude(), location.getLongitude()));
-            //mMap.addPolyline(lineThick);
+            lineThin.add(new LatLng(location.getLatitude(), location.getLongitude()));
+            mMap.addPolyline(lineThick);
             mMap.addPolyline(lineThin);
         }
     }
@@ -306,7 +307,6 @@ public class PlayGameMapScreen extends AppCompatActivity
                 }else {
                     displayedHint = false;
                     coughtInArea = false;
-                    isEnd = true;
                 }
             }
         }
@@ -345,6 +345,7 @@ public class PlayGameMapScreen extends AppCompatActivity
         intent.putExtra("time", getTimeString());
         intent.putExtra("distance",countDistance());
         startActivity(intent);
+        isEnd = true;
         finish();
     }
 

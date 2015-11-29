@@ -116,6 +116,8 @@
         <activity android:name=".createTaskActivites.CreateTaskLookAndAnswer" />
         <activity android:name=".SummaryScreen" >
         </activity>
+        <activity android:name=".laby.laby" >
+        </activity>
     </application>
 
 </manifest>
