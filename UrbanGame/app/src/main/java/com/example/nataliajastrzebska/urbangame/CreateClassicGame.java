@@ -1,6 +1,7 @@
 package com.example.nataliajastrzebska.urbangame;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.GpsStatus;
 import android.location.Location;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Game;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -46,6 +48,8 @@ public class CreateClassicGame extends AppCompatActivity
     private ListView listView;
     PointListAdapter listAdapter;
     ArrayList<PointListItem> pointItems;
+
+
 
     //TO DO onResume and onPause activities implementation
 
@@ -78,6 +82,7 @@ public class CreateClassicGame extends AppCompatActivity
         mGoogleApiClient.connect();
         pointItems = new ArrayList<>();
         setLeftSideMenu();
+
     }
 
     @Override
@@ -217,8 +222,8 @@ public class CreateClassicGame extends AppCompatActivity
     }
 
     private void setLeftSideMenu() {
-        leftSideList = (RelativeLayout) findViewById(R.id.activityCreateClassicGame_leftSidePointList);
-        listView = (ListView) findViewById(R.id.activityCreateClassicGame_pointListView);
+        leftSideList = (RelativeLayout) findViewById(R.id.rl_activityCreateClassicGame_leftSidePointList);
+        listView = (ListView) findViewById(R.id.lv_activityCreateClassicGame_pointListView);
         listAdapter = new PointListAdapter(this, pointItems);
         listView.setAdapter(listAdapter);
     }
@@ -233,7 +238,14 @@ public class CreateClassicGame extends AppCompatActivity
         pointItems.add(new PointListItem("Point"));
         listAdapter = new PointListAdapter(this, pointItems);
         listView.setAdapter(listAdapter);
-    }
+        CurrentGame.getInstance().getGameInformation().getPoints().add(new GamePoint());
+        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setNumber((CurrentGame.getInstance().getGameInformation().getPoints().size()));
+        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setCoordinateX(myLocation.getLatitude());
+        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setCoordinateY(myLocation.getLongitude());
+
+        Intent i = new Intent(this, PointInformationSetupActivity.class);
+        startActivity(i);
+       }
 
     public void putMarkerOnMyPosition(View view){
         getLocation();
@@ -246,6 +258,15 @@ public class CreateClassicGame extends AppCompatActivity
         myLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if(myLocation != null)
             myPosition = new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
+    }
+
+    public void saveGameClassicMode(View v){
+        CurrentGame.getInstance().getGameInformation().setNumberOfPoints(CurrentGame.getInstance().getGameInformation().getPoints().size());
+        Intent i = new Intent(this, SaveGameActivity.class);
+        startActivity(i);
+        finish();
+
+
 
     }
 

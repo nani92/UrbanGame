@@ -1,6 +1,7 @@
 package com.example.nataliajastrzebska.urbangame;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -180,6 +181,14 @@ public class CreateRemoteGame extends AppCompatActivity
         pointItems.add(new PointListItem("Point"));
         listAdapter = new PointListAdapter(this, pointItems);
         listView.setAdapter(listAdapter);
+
+        CurrentGame.getInstance().getGameInformation().getPoints().add(new GamePoint());
+        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setNumber((CurrentGame.getInstance().getGameInformation().getPoints().size()));
+        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setCoordinateX(latLng.latitude);
+        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setCoordinateY(latLng.longitude);
+
+        Intent i = new Intent(this, PointInformationSetupActivity.class);
+        startActivity(i);
     }
 
 
@@ -189,8 +198,11 @@ public class CreateRemoteGame extends AppCompatActivity
     }
 
     public void saveGameButtonClicked(View view) {
-        //TODO
+        CurrentGame.getInstance().getGameInformation().setNumberOfPoints(CurrentGame.getInstance().getGameInformation().getPoints().size());
+        Intent i = new Intent(this, SaveGameActivity.class);
+        startActivity(i);
         finish();
+
     }
 
     void checkInternetConnection(){

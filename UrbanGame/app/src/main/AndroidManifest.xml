@@ -98,6 +98,10 @@
                 <category android:name="com.google.intent.category.CARDBOARD" />
             </intent-filter>
         </activity>
+        <activity android:name=".createTaskActivites.CreateTaskFindAndAnswer_AugmentScene" />
+        <activity
+            android:name=".createTaskActivites.CreateTaskLookAndAnswer"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".taskGame.TaskGameActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -106,19 +110,19 @@
                 <category android:name="com.google.intent.category.CARDBOARD" />
             </intent-filter>
         </activity>
-        <activity android:name=".createTaskActivites.CreateTaskFindAndAnswer_AugmentScene" >
-        </activity>
         <activity android:name=".PlayGameMapScreen" >
         </activity>
         <activity android:name=".DisplayTaskActivity" >
         </activity>
-        <activity android:name=".createTaskActivites.CreateTaskFindAndAnswer_AugmentScene" />
-        <activity android:name=".createTaskActivites.CreateTaskLookAndAnswer" />
         <activity android:name=".SummaryScreen" >
         </activity>
         <activity android:name=".laby.laby" >
         </activity>
         <activity android:name=".createTaskActivites.CreateTaskABCD" >
+        </activity>
+        <activity android:name=".PointInformationSetupActivity" >
+        </activity>
+        <activity android:name=".SaveGameActivity" >
         </activity>
     </application>
 

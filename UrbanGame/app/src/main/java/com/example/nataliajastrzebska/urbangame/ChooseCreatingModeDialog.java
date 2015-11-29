@@ -22,31 +22,31 @@ public class ChooseCreatingModeDialog extends DialogFragment implements View.OnC
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.dialog_background);
 
-        Button classicModeBtn=(Button)v.findViewById(R.id.btn_chooseCreatingModeDialog_modeClassic);
+        Button classicModeBtn = (Button) v.findViewById(R.id.btn_chooseCreatingModeDialog_modeClassic);
         classicModeBtn.setOnClickListener(this);
-        Button remoteModeBtn=(Button)v.findViewById(R.id.btn_chooseCreatingModeDialog_modeRemote);
+        Button remoteModeBtn = (Button) v.findViewById(R.id.btn_chooseCreatingModeDialog_modeRemote);
         remoteModeBtn.setOnClickListener(this);
         return v;
     }
 
-    public void onRemoteModeClicked(){
-        Intent i = new Intent(getActivity(), GameSettingsActivity.class).putExtra("mode", CreatingModeEnum.REMOTE);
+
+    public void onRemoteModeClicked() {
+        Intent i = new Intent(getActivity(), GameSettingsActivity.class).putExtra("Mode","Remote");
         startActivity(i);
     }
 
-    public void onClassicModeClicked(){
-        //Intent i = new Intent(getActivity(),CreateClassicGame.class).putExtra("mode", CreatingModeEnum.CLASSIC);
-        Intent i = new Intent(getActivity(), ChooseGameTaskTypeActivity.class);
+    public void onClassicModeClicked() {
+        Intent i = new Intent(getActivity(), GameSettingsActivity.class).putExtra("Mode","Classic");
         startActivity(i);
     }
 
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btn_chooseCreatingModeDialog_modeClassic){
+        if (v.getId() == R.id.btn_chooseCreatingModeDialog_modeClassic) {
             onClassicModeClicked();
         }
-        if(v.getId() == R.id.btn_chooseCreatingModeDialog_modeRemote){
+        if (v.getId() == R.id.btn_chooseCreatingModeDialog_modeRemote) {
             onRemoteModeClicked();
         }
         this.dismiss();

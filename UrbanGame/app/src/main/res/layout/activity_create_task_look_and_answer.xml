@@ -1,43 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/back"
-    tools:context="com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskLookAndAnswer">
-
-    <ImageView
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/sv_createLookAndAnswerTask_scrollView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/back">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true" />
+        android:id="@+id/rl_createLookAndAnswerTask"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskLookAndAnswer"
+        android:clickable="true">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:gravity="center_horizontal">
-
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:onClick="whatever"
-            android:id="@+id/button" />
+            android:layout_alignParentStart="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button"
-            android:onClick="takeAPicture"
-            android:id="@+id/button2" />
+            <ImageView
+                android:adjustViewBounds="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_createLookAnsAnswerTask_image"
+                android:background="@android:drawable/ic_menu_camera" />
 
-    </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom|center">
 
-</RelativeLayout>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/task_choosePicture_button"
+                    android:onClick="chooseAPicture"
+                    android:id="@+id/btn_createLookAndAnswerTask_choosePicture"
+                    android:layout_gravity="bottom" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="takeAPicture"
+                    android:id="@+id/btn_createLookAndAnswerTask_takePicture"
+                    android:layout_gravity="bottom"
+                    android:text="@string/task_takePicture_button" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_createLookAndAnswerTask_question"
+                    android:hint="@string/task_provideQuestion"
+                    android:textSize="30dp"
+                    android:background="@color/provideAnswerColor" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/task_answer_text"
+                        android:id="@+id/cb_createLookAndAnswer_isAnswerText"
+                        android:onClick="onCheckBoxClicked_Look"/>
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/task_answer_number"
+                        android:id="@+id/cb_createLookAndAnswer_isAnswerNumber"
+                        android:onClick="onCheckBoxClicked_Look"/>
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/task_answer_date"
+                        android:id="@+id/cb_createLookAndAnswer_isAnswerDate"
+                        android:onClick="onCheckBoxClicked_Look"/>
+                </LinearLayout>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_createLookAndAnswerTask_answer"
+                    android:hint="@string/task_provideAnswer"
+                    android:textSize="30dp"
+                    android:background="@color/provideAnswerColor" />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/task_add_button"
+                android:id="@+id/btn_createLookAndAnswerTask_add" />
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+</ScrollView>

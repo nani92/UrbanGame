@@ -11,8 +11,8 @@ public class GamePoint {
     private String hint;
     private String plot;
     private int number;
-    private float coordinateX;
-    private float coordinateY;
+    private Double coordinateX;
+    private Double coordinateY;
     private GameTask gameTask;
 
     public GamePoint() {
@@ -51,19 +51,19 @@ public class GamePoint {
         this.plot = plot;
     }
 
-    public float getCoordinateX() {
+    public Double getCoordinateX() {
         return coordinateX;
     }
 
-    public void setCoordinateX(float coordinateX) {
+    public void setCoordinateX(Double coordinateX) {
         this.coordinateX = coordinateX;
     }
 
-    public float getCoordinateY() {
+    public Double getCoordinateY() {
         return coordinateY;
     }
 
-    public void setCoordinateY(float coordinateY) {
+    public void setCoordinateY(Double coordinateY) {
         this.coordinateY = coordinateY;
     }
 

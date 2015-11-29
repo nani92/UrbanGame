@@ -36,6 +36,7 @@
         android:id="@+id/btn_createThinkAndAnswerTaskActivity_add"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:onClick="saveTaskThinkAndAnswer"
         />
 
     <TextView
@@ -86,5 +87,6 @@
         android:textSize="30dp"
         android:background="@color/provideAnswerColor"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp" />
+        android:paddingBottom="10dp"
+        android:autoText="false" />
 </RelativeLayout>

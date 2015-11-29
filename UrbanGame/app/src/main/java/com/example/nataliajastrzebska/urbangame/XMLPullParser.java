@@ -43,8 +43,8 @@ public class XMLPullParser {
                             gamePoint = new GamePoint();
                             gamePoint.setName(xmlPullParser.getAttributeValue(null, "name"));
                             gamePoint.setNumber(Integer.parseInt(xmlPullParser.getAttributeValue(null, "number")));
-                            gamePoint.setCoordinateX(Float.parseFloat(xmlPullParser.getAttributeValue(null, "xCoordinate")));
-                            gamePoint.setCoordinateY(Float.parseFloat(xmlPullParser.getAttributeValue(null, "yCoordinate")));
+                            gamePoint.setCoordinateX(Double.parseDouble(xmlPullParser.getAttributeValue(null, "xCoordinate")));
+                            gamePoint.setCoordinateY(Double.parseDouble(xmlPullParser.getAttributeValue(null, "yCoordinate")));
                             gamePoint.setPlot(xmlPullParser.getAttributeValue(null, "plot"));
                             gamePoint.setHint(xmlPullParser.getAttributeValue(null, "hint"));
                         } else if (tagname.equalsIgnoreCase("task")) {
