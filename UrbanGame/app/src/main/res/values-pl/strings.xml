@@ -49,6 +49,7 @@
     <!--CREATE CLASSIC GAME ACTIVITY-->
     <string name="googleMap_marker_title">Twoja pozycja</string>
 
+
     <!--PLAY GAME ACTICITY-->
     <string name="title_activity_play_game">Graj</string>
     <string name="choose_game">Wybierz Grę</string>
@@ -87,4 +88,25 @@
     <string name="task_add_button">Dodaj zadanie</string>
     <string name="task_choosePicture_button">Wybierz zdjęcie</string>
     <string name="task_takePicture_button">Zrób zdjęcie</string>
+
+
+
+    <string name="btn_saveGame">Zapisz grę</string>
+    <string name="btn_addPoint">Dodaj punkt</string>
+
+
+    <string name="tv_point_name">Nazwa punktu</string>
+    <string name="et_point_name">Nazwa Punktu</string>
+    <string name="tv_point_hint">Wskazówka</string>
+    <string name="et_point_hint">Wpisz wskazówkę</string>
+    <string name="tv_point_plot">Fabuła</string>
+    <string name="et_point_plot">Podaj fabułę</string>
+
+    <string name="tv_game_save">Gratulacje!!! Stworzyłeś grę, podaj swoje imię aby zakończyć</string>
+    <string name="et_author_name">Imię</string>
+    <string name="btn_save_to_file">Zapisz grę do pliku</string>
+
+    <string name="game_created">Utworzono grę!</string>
+
+
 </resources>

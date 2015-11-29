@@ -39,19 +39,24 @@ public class ChooseGameTaskTypeActivity extends AppCompatActivity {
                 switch (typeList[position]) {
                     case THINKandANSWER:
                         startActivity(new Intent(ctx, CreateTaskThinkAndAnswer.class));
+                        finish();
                         break;
                     case AR_FINDandANSWER:
                         startActivity(new Intent(ctx, CreateTaskFindAndAnswer_AugmentScene.class));
+                        finish();
                         break;
                     case AR_GAME:
                         startActivity(new Intent(ctx, TaskGameActivity.class));
+                        finish();
                         break;
                     case LOOKandANSWER:
                         startActivity(new Intent(ctx, CreateTaskLookAndAnswer.class));
+                        finish();
                         break;
                 }
             }
         });
+
     }
 
 

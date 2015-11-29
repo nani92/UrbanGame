@@ -36,6 +36,7 @@
         android:id="@+id/btn_createThinkAndAnswerTaskActivity_add"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:onClick="saveTaskThinkAndAnswer"
         />
 
     <TextView

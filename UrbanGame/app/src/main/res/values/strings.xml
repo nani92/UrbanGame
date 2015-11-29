@@ -108,4 +108,25 @@
     <string name="endGameMsg">You won!</string>
     <string name="endGameTime">Your time is:</string>
     <string name="endGameDistance">Distance is:</string>
+
+
+
+    <string name="btn_saveGame">Save Game</string>
+    <string name="btn_addPoint">Add Point</string>
+
+    <string name="tv_point_name">Point Name:</string>
+    <string name="et_point_name">ExampleName</string>
+    <string name="tv_point_hint">Hint:</string>
+    <string name="et_point_hint">Write your hint</string>
+    <string name="tv_point_plot">Plot</string>
+    <string name="et_point_plot">Put some plot here :)</string>
+
+    <string name="tv_game_save">Congratulations you have created game!!!</string>
+    <string name="et_author_name">Name</string>
+    <string name="btn_save_to_file">Save to file</string>
+
+
+    <string name="game_created">Game created!</string>
+
+
 </resources>

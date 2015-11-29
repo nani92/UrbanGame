@@ -50,8 +50,9 @@
             android:checked="false"
             android:elegantTextHeight="false"
             android:enabled="true"
-            android:textSize="12dp"
-            android:onClick="RPGEnabled" />
+            android:textSize="12dp" />
+            <!--android:onClick="RPGEnabled" -->
+
 
         <CheckBox
             android:layout_width="match_parent"
@@ -63,8 +64,9 @@
             android:checked="false"
             android:elegantTextHeight="false"
             android:enabled="true"
-            android:textSize="12dp"
-            android:onClick="showingDirectionEnabled"/>
+            android:textSize="12dp"/>
+        <!--android:onClick="showingDirectionEnabled"-->
+
 
         <Spinner
             android:layout_width="match_parent"

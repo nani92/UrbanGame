@@ -9,35 +9,38 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 public class GameSettingsActivity extends AppCompatActivity {
     CreatingModeEnum creatingModeEnum;
     Spinner typeOfGame_spinner;
+    EditText name;
+    CheckBox isRPG, direction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_settings);
-
+/*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
 
-        setCreatingModeEnum(savedInstanceState);
-        setTypeOfGame_spinner();
-        setTypeOfGameSpinnerListener();
+        name = (EditText) findViewById(R.id.editText_gameSettingsActivity_gameName);
+        isRPG = (CheckBox) findViewById(R.id.checkBox_gameSettingsActivity_enabledRPG);
+        direction = (CheckBox) findViewById(R.id.checkBox_gameSettingsActivity_enabledDirection);
+
+
+       /* setTypeOfGame_spinner();
+        setTypeOfGameSpinnerListener();*/
 
     }
 
-    void setCreatingModeEnum(Bundle b) {
-        if(b == null) {
-            creatingModeEnum = (CreatingModeEnum) getIntent().getExtras().get("mode");
-        }
-    }
 
-    void setTypeOfGame_spinner() {
+
+  /*  void setTypeOfGame_spinner() {
         typeOfGame_spinner = (Spinner)findViewById(R.id.spinner_gameSettingsActivity_mode);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.spinner_gameMode, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -58,34 +61,33 @@ public class GameSettingsActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 
-    //Checking if Role-playing Game is enabled
-    public void RPGEnabled(View view) {
 
-        final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox_gameSettingsActivity_enabledRPG);
-        if(checkBox.isChecked()){
 
-        }
-        else {
 
-        }
-    }
-
-    //Checking if Showing The Direction during the game is allowed
-    public void showingDirectionEnabled(View view) {
-        final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox_gameSettingsActivity_enabledDirection);
-        if(checkBox.isChecked()){
-
-        }
-        else {
-
-        }
-    }
-
-    public void onCreateGameClicked(View view){
+    public void onCreateGameClicked(View view) {
         //TODO Put extra with settings
-        Intent i = new Intent(this, CreateRemoteGame.class);
-        startActivity(i);
+        CurrentGame.getInstance().setGameInformation(new GameInformation());
+        CurrentGame.getInstance().getGameInformation().setName(name.getText().toString());
+        if (isRPG.isChecked())
+            CurrentGame.getInstance().getGameInformation().setIsRPG(1);
+        else
+            CurrentGame.getInstance().getGameInformation().setIsRPG(0);
+        if (direction.isChecked())
+            CurrentGame.getInstance().getGameInformation().setShouldShowDirection(1);
+        else
+            CurrentGame.getInstance().getGameInformation().setShouldShowDirection(0);
+
+        if(getIntent().getStringExtra("Mode").equals("Classic")) {
+        Intent i = new Intent(this, CreateClassicGame.class);
+            startActivity(i);
+        }
+        else{
+            Intent i = new Intent(this, CreateRemoteGame.class);
+           startActivity(i);
+        }
+        finish();
+
     }
 }
