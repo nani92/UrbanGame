@@ -5,6 +5,137 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskABCD">
+    tools:context="com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskABCD"
+    android:background="@drawable/back">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_createTaskAbcd_question"
+            android:layout_gravity="center_horizontal"
+            android:textSize="30dp"
+            android:hint="@string/task_provideQuestion"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/task_answerA_helper"
+                android:id="@+id/tv_createTaskAbcd_ansA"
+                android:textSize="30dp"
+                android:onClick="onAnswerAIsCorrect"
+                android:background="@color/btnColor"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_createTaskAbcd_ansA"
+                android:layout_gravity="center_horizontal"
+                android:textSize="30dp"
+                android:hint="@string/task_provideAnswerA"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/task_answerB_helper"
+                android:id="@+id/tv_createTaskAbcd_ansB"
+                android:textSize="30dp"
+                android:onClick="onAnswerBIsCorrect"
+                android:background="@color/btnColor"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_createTaskAbcd_ansB"
+                android:layout_gravity="center_horizontal"
+                android:textSize="30dp"
+                android:hint="@string/task_provideAnswerB"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/task_answerC_helper"
+                android:id="@+id/tv_createTaskAbcd_ansC"
+                android:textSize="30dp"
+                android:onClick="onAnswerCIsCorrect"
+                android:background="@color/btnColor"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_createTaskAbcd_ansC"
+                android:layout_gravity="center_horizontal"
+                android:textSize="30dp"
+                android:hint="@string/task_provideAnswerC" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/task_answerD_helper"
+                android:id="@+id/tv_createTaskAbcd_ansD"
+                android:textSize="30dp"
+                android:onClick="onAnswerDIsCorrect"
+                android:background="@color/btnColor"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_createTaskAbcd_ansD"
+                android:layout_gravity="center_horizontal"
+                android:textSize="30dp"
+                android:hint="@string/task_provideAnswerD"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/task_ABCD_choose_correct_answer"
+            android:id="@+id/tv_chooseCorrectAnswer_abcd"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_add_button"
+            android:id="@+id/btn_save_abcd"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/btnColorNotTransparent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textSize="30dp"
+            android:onClick="saveABCD"/>
+
+    </LinearLayout>
 </RelativeLayout>

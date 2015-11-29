@@ -84,14 +84,27 @@
     <string name="task_findAndAnswer_hint">You can upload an image and place it on a building using AR. You can write a question and provide proper answer.</string>
     <string name="task_game_name">Game</string>
     <string name="task_game_hint">You can let user to play game and score some points.</string>
+    <string name="task_abcd_name">ABCD</string>
+    <string name="task_abcd_hint">You can let user to choose one correct answer.</string>
 
 
     <string name="task_provideQuestion">Here should be your question.</string>
     <string name="task_provideAnswer">Here should be proper answer.</string>
+    <string name="task_provideAnswerA">Answer A</string>
+    <string name="task_provideAnswerB">Answer B</string>
+    <string name="task_provideAnswerC">Answer C</string>
+    <string name="task_provideAnswerD">Answer D</string>
+    <string name="task_answerA_helper">A:</string>
+    <string name="task_answerB_helper">B:</string>
+    <string name="task_answerC_helper">C:</string>
+    <string name="task_answerD_helper">D:</string>
     <string name="task_whatShouldAnswerBe">What answer should be?</string>
     <string name="task_answer_text">Text</string>
     <string name="task_answer_number">Number</string>
     <string name="task_answer_date">Date</string>
+    <string name="task_ABCD_choose_correct_answer">Choose correct answer by tapping on A, B, C or D next to your answers.</string>
+    <string name="task_ABCD_chooseCorrectMsg">Please choose correct answer</string>
+    <string name="task_ABCD_correct_answer_is">Correct answer is:</string>
 
     <string name="task_add_button">Add task</string>
     <string name="task_choosePicture_button">Choose a picture</string>
@@ -127,6 +140,7 @@
 
 
     <string name="game_created">Game created!</string>
+
 
 
 </resources>

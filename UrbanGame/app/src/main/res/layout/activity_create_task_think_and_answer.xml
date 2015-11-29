@@ -37,6 +37,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="saveTaskThinkAndAnswer"
+        android:background="@color/btnColorNotTransparent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         />
 
     <TextView

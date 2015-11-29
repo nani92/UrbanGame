@@ -40,7 +40,7 @@
             android:id="@+id/btn_playGame"
             android:onClick="startGameClicked"
             android:textSize="30dp"
-            android:background="@color/btnColor"
+            android:background="@color/btnColorNotTransparent"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:layout_gravity="center"

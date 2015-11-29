@@ -8,4 +8,5 @@
     <color name="grayTransparent">#7ffce6e6</color>
     <color name="dialogTitleColor">#7cc685</color>
     <color name="provideAnswerColor">#bfb5eabc</color>
+    <color name="grey">#777777</color>
 </resources>

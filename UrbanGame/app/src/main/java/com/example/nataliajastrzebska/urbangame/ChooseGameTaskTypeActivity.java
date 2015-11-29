@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskABCD;
 import com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskFindAndAnswer_AddToScene_Cardboard;
 import com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskFindAndAnswer_AugmentScene;
 import com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskLookAndAnswer;
@@ -53,6 +54,10 @@ public class ChooseGameTaskTypeActivity extends AppCompatActivity {
                         startActivity(new Intent(ctx, CreateTaskLookAndAnswer.class));
                         finish();
                         break;
+                    case ABCD:
+                        startActivity(new Intent(ctx, CreateTaskABCD.class));
+                        finish();
+                        break;
                 }
             }
         });
@@ -67,7 +72,8 @@ public class ChooseGameTaskTypeActivity extends AppCompatActivity {
                 getString(R.string.task_lookAndAnswer_name),
                 getString(R.string.task_hearAndAnswer_name),
                 getString(R.string.task_watchAndAnswer_name),
-                getString(R.string.task_game_name)
+                getString(R.string.task_game_name),
+                getString(R.string.task_abcd_name)
                // getString(R.string.task_findAndAnswer_name)
         };
         typeList = new TaskType[] {
@@ -76,7 +82,8 @@ public class ChooseGameTaskTypeActivity extends AppCompatActivity {
                 TaskType.HEARandANSWER,
                 TaskType.WATCHandANSWER,
                 //TaskType.AR_FINDandANSWER
-                TaskType.AR_GAME
+                TaskType.AR_GAME,
+                TaskType.ABCD
         };
         return  taskList;
     }
