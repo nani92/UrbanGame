@@ -56,11 +56,19 @@ public class laby extends AppCompatActivity implements GoogleApiClient.Connectio
     Location myLocation;
     int PLACE_PICKER_REQUEST = 1;
     PolylineOptions mPolyOptions;
+    PolylineOptions actualPolyOptions;
     private ArrayList<Polyline> polylines;
     private int[] colors = new int[]{Color.RED,Color.BLACK,Color.BLUE,Color.CYAN,Color.DKGRAY};
     private List<LatLng> waypoints;
     int wayIndex = 0;
     private boolean navigating = false;
+
+    DirectionsView directionsView;
+    private int direction=0;
+    Direction directionEn = Direction.NO;
+
+    double longDif = 0, latDiff =0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +108,11 @@ public class laby extends AppCompatActivity implements GoogleApiClient.Connectio
         }
 
         mPolyOptions = new PolylineOptions();
+        actualPolyOptions = new PolylineOptions();
+        actualPolyOptions.color(getResources().getColor(R.color.colorPrimaryDark));
+        actualPolyOptions.width(3);
         polylines =new ArrayList<>();
+        directionsView = (DirectionsView) findViewById(R.id.dirView);
     }
 
     protected synchronized void setmGoogleApiClient(){
@@ -203,8 +215,10 @@ public class laby extends AppCompatActivity implements GoogleApiClient.Connectio
         if(location != null) {
             myLocation = location;
             showMyPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+            actualPolyOptions.add(new LatLng(location.getLatitude(), location.getLongitude()));
+            mMap.addPolyline(actualPolyOptions);
             if(navigating)
-                checkIfNearby(2);
+                checkIfNearby(30);
         }
     }
 
@@ -257,7 +271,9 @@ public class laby extends AppCompatActivity implements GoogleApiClient.Connectio
         waypoints = route.get(0).getPoints();
         wayIndex = 0;
         navigating = true;
-        Toast.makeText(this, getDirectionMsg(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getDirectionMsg(0), Toast.LENGTH_SHORT).show();
+        directionsView.setMsg(getDirectionMsg(0));
+        directionsView.invalidate();
         //add route(s) to the map.
         for (int i = 0; i <route.size(); i++) {
 
@@ -284,17 +300,26 @@ public class laby extends AppCompatActivity implements GoogleApiClient.Connectio
         Log.d("Natalia", "distance " + myLocation.distanceTo(getDestLocation()));
         if (myLocation.distanceTo(getDestLocation()) < radius) {
             wayIndex++;
-            Toast.makeText(this, getDirectionMsg(), Toast.LENGTH_SHORT);
+            directionsView.setDirection(directionEn);
+            directionsView.setMsg(getDirectionMsg(1));
+            directionsView.invalidate();
+            Toast.makeText(this, getDirectionMsg(1), Toast.LENGTH_SHORT);
         }
 
     }
 
-    private String getDirectionMsg() {
+    private String getDirectionMsg(int i) {
         String string = "Idź ";
         double dist = Math.floor(myLocation.distanceTo(getDestLocation()) * 100) / 100;
         string+= dist;
-        string+= "m na ";
-        string+=getDirection(myLocation);
+        if (i == 0) {
+            string += "m na ";
+            string += getDirection(myLocation);
+        }
+        else{
+            string += "m na ";
+            string += getTurn(myLocation);
+        }
         return string;
     }
 
@@ -309,18 +334,25 @@ public class laby extends AppCompatActivity implements GoogleApiClient.Connectio
         Location destLocation = new Location("");
         destLocation.setLatitude(waypoints.get(wayIndex).latitude);
         destLocation.setLongitude(waypoints.get(wayIndex).longitude);
+        longDif = newLocation.getLongitude() - destLocation.getLongitude();
         if (newLocation.getLongitude() > destLocation.getLongitude()){
+
             return "W";
         }
-        else if ( newLocation.getLongitude() == destLocation.getLongitude())
+        else if ( newLocation.getLongitude() == destLocation.getLongitude()){
+
             return "";
-        else
+        }
+        else {
+
             return "E";
+        }
     }
     String getLatitudeDirection( Location newLocation){
         Location destLocation = new Location("");
         destLocation.setLatitude(waypoints.get(wayIndex).latitude);
         destLocation.setLongitude(waypoints.get(wayIndex).longitude);
+        latDiff = newLocation.getLatitude() - destLocation.getLatitude();
         if (newLocation.getLatitude() > destLocation.getLatitude()){
             return "S";
         }
@@ -328,6 +360,49 @@ public class laby extends AppCompatActivity implements GoogleApiClient.Connectio
             return "";
         else
             return "N";
+    }
+
+
+    String getTurn(Location newLocaton){
+        double oldLatDif = latDiff;
+        double oldLonDif = longDif;
+        String dir = getDirection(newLocaton);
+        int oldDirection = direction;
+        if (dir == "N")
+            direction = 0;
+        if (dir == "NE")
+            direction = 1;
+        if(dir == "E")
+            direction = 2;
+        if (dir == "SE")
+            direction = 3;
+        if (dir == "S")
+            direction = 4;
+        if (dir == "SW")
+            direction = 5;
+        if (dir == "W")
+            direction = 6;
+        if (dir == "NW")
+            direction = 7;
+
+        if(direction > oldDirection) {
+            directionEn = Direction.RIGHT;
+            return dir + " i skręć w prawo";
+        }
+        if (direction <oldDirection) {
+            directionEn = Direction.LEFT;
+            return dir +  " i skręć w lewo";
+        }
+
+        if(oldLatDif > latDiff || oldLonDif > longDif){
+            directionEn = Direction.LEFT;
+            return dir +  " i skręć w lewo";
+        }
+        else {
+            directionEn = Direction.LEFT;
+            return dir +  " i skręć w lewo";
+        }
+
     }
 
     String getDirection (Location newLocation){
