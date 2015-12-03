@@ -1,5 +1,7 @@
 package com.example.nataliajastrzebska.urbangame.createTaskActivites;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -59,12 +61,16 @@ public class CreateTaskABCD extends AppCompatActivity {
         anss.add(etAnsC.getText().toString());
         anss.add(etAnsD.getText().toString());
 
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setGameTask(new GameTask());
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).getGameTask().setTaskType("abcd");
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).getGameTask().setAnswers(anss);
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).getGameTask().setCorrectAnswer(correctAns);
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).getGameTask().setQuestion(etQuestion.getText().toString());
-        this.finish();
+        int pointNumber = CurrentGame.getInstance().getGameInformation().getPoints().size() - 1;
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).setGameTask(new GameTask());
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).getGameTask().setTaskType("abcd");
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).getGameTask().setAnswers(anss);
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).getGameTask().setCorrectAnswer(correctAns);
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).getGameTask().setQuestion(etQuestion.getText().toString());
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
+
     }
 
     public void onAnswerDIsCorrect(View v){

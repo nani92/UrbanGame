@@ -3,7 +3,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/drawerLayoutRemote"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/back">
 
 
     <!--Side menu-->
@@ -43,7 +44,7 @@
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="389dp"
+            android:layout_height="350dp"
             android:id="@+id/map_creatingRemoteGame"
             tools:context=".MapsActivity"
             android:name="com.google.android.gms.maps.MapFragment"

@@ -15,7 +15,8 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="com.example.nataliajastrzebska.urbangame.createTaskActivites.CreateTaskLookAndAnswer"
-        android:clickable="true">
+        android:clickable="true"
+        android:background="@drawable/back">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/et_createLookAndAnswerTask_question"
                     android:hint="@string/task_provideQuestion"
-                    android:textSize="30dp"
+                    android:textSize="20dp"
                     android:background="@color/provideAnswerColor" />
 
                 <LinearLayout
@@ -100,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/et_createLookAndAnswerTask_answer"
                     android:hint="@string/task_provideAnswer"
-                    android:textSize="30dp"
+                    android:textSize="20dp"
                     android:background="@color/provideAnswerColor" />
             </LinearLayout>
 

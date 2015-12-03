@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/et_createTaskAbcd_question"
             android:layout_gravity="center_horizontal"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:hint="@string/task_provideQuestion"/>
 
         <LinearLayout
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/task_answerA_helper"
                 android:id="@+id/tv_createTaskAbcd_ansA"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:onClick="onAnswerAIsCorrect"
                 android:background="@color/btnColor"/>
 
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/et_createTaskAbcd_ansA"
                 android:layout_gravity="center_horizontal"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:hint="@string/task_provideAnswerA"/>
         </LinearLayout>
         <LinearLayout
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/task_answerB_helper"
                 android:id="@+id/tv_createTaskAbcd_ansB"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:onClick="onAnswerBIsCorrect"
                 android:background="@color/btnColor"/>
 
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/et_createTaskAbcd_ansB"
                 android:layout_gravity="center_horizontal"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:hint="@string/task_provideAnswerB"/>
         </LinearLayout>
         <LinearLayout
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/task_answerC_helper"
                 android:id="@+id/tv_createTaskAbcd_ansC"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:onClick="onAnswerCIsCorrect"
                 android:background="@color/btnColor"/>
 
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/et_createTaskAbcd_ansC"
                 android:layout_gravity="center_horizontal"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:hint="@string/task_provideAnswerC" />
         </LinearLayout>
         <LinearLayout
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/task_answerD_helper"
                 android:id="@+id/tv_createTaskAbcd_ansD"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:onClick="onAnswerDIsCorrect"
                 android:background="@color/btnColor"/>
 
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/et_createTaskAbcd_ansD"
                 android:layout_gravity="center_horizontal"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:hint="@string/task_provideAnswerD"
                 />
         </LinearLayout>
@@ -134,7 +134,7 @@
             android:background="@color/btnColorNotTransparent"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:onClick="saveABCD"/>
 
     </LinearLayout>

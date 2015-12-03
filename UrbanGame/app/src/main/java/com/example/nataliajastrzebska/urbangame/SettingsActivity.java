@@ -44,14 +44,4 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
-    //TEST METHODS
-    public void testSound2(View v) {
-        SoundPlayer.getInstance().playSound(this, Sound.gun);
-    }
-
-    public void testVibrate(View v) {
-        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibe.vibrate(150);
-    }
-    //END OF TEST METHODS
 }

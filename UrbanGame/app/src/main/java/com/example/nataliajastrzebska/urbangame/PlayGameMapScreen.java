@@ -231,7 +231,6 @@ public class PlayGameMapScreen extends AppCompatActivity
             startLocation = location;
         myLocation = location;
         myPosition = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-        Toast.makeText(this, "location changed", Toast.LENGTH_SHORT).show();
         showMyPosition();
         if (!isEnd) {
             checkIfNearby();

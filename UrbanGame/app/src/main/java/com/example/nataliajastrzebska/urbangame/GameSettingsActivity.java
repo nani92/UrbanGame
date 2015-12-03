@@ -23,51 +23,16 @@ public class GameSettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_settings);
-/*
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
+
 
         name = (EditText) findViewById(R.id.editText_gameSettingsActivity_gameName);
         isRPG = (CheckBox) findViewById(R.id.checkBox_gameSettingsActivity_enabledRPG);
         direction = (CheckBox) findViewById(R.id.checkBox_gameSettingsActivity_enabledDirection);
-
-
-       /* setTypeOfGame_spinner();
-        setTypeOfGameSpinnerListener();*/
-
     }
-
-
-
-  /*  void setTypeOfGame_spinner() {
-        typeOfGame_spinner = (Spinner)findViewById(R.id.spinner_gameSettingsActivity_mode);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.spinner_gameMode, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeOfGame_spinner.setAdapter(adapter);
-    }
-
-    void setTypeOfGameSpinnerListener() {
-        typeOfGame_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int pos, long id) {
-                // An item was selected. You can retrieve the selected item by using:
-                // parent.getItemAtPosition(pos)
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }*/
-
 
 
 
     public void onCreateGameClicked(View view) {
-        //TODO Put extra with settings
         CurrentGame.getInstance().setGameInformation(new GameInformation());
         CurrentGame.getInstance().getGameInformation().setName(name.getText().toString());
         if (isRPG.isChecked())

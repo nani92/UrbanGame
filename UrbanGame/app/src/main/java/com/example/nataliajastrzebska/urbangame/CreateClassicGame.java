@@ -1,6 +1,7 @@
 package com.example.nataliajastrzebska.urbangame;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.GpsStatus;
@@ -49,6 +50,8 @@ public class CreateClassicGame extends AppCompatActivity
     PointListAdapter listAdapter;
     ArrayList<PointListItem> pointItems;
 
+    private  LatLng coordsToSave = null;
+
 
 
     //TO DO onResume and onPause activities implementation
@@ -83,6 +86,22 @@ public class CreateClassicGame extends AppCompatActivity
         pointItems = new ArrayList<>();
         setLeftSideMenu();
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        int pointNumber = CurrentGame.getInstance().getGameInformation().getPoints().size() - 1;
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                mMap.addMarker(new MarkerOptions().position(coordsToSave).title(String.valueOf(pointNumber + 1)));
+                String pointName =  CurrentGame.getInstance().getGameInformation().getPoints().get(CurrentGame.getInstance().getGameInformation().getPoints().size() - 1).getName();
+                pointItems.add(new PointListItem(pointName));
+                listAdapter = new PointListAdapter(this, pointItems);
+                listView.setAdapter(listAdapter);
+            }
+            else
+                CurrentGame.getInstance().getGameInformation().getPoints().remove(pointNumber);
+        }
     }
 
     @Override
@@ -234,17 +253,16 @@ public class CreateClassicGame extends AppCompatActivity
     }
 
     void addPoint(LatLng latLng){
-        mMap.addMarker(new MarkerOptions().position(latLng).title("Start"));
-        pointItems.add(new PointListItem("Point"));
-        listAdapter = new PointListAdapter(this, pointItems);
-        listView.setAdapter(listAdapter);
-        CurrentGame.getInstance().getGameInformation().getPoints().add(new GamePoint());
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setNumber((CurrentGame.getInstance().getGameInformation().getPoints().size()));
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setCoordinateX(myLocation.getLatitude());
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setCoordinateY(myLocation.getLongitude());
 
+        CurrentGame.getInstance().getGameInformation().getPoints().add(new GamePoint());
+        int pointNumber = CurrentGame.getInstance().getGameInformation().getPoints().size() - 1;
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).setNumber(pointNumber + 1);
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).setCoordinateX(latLng.latitude);
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).setCoordinateY(latLng.longitude);
+        coordsToSave = latLng;
         Intent i = new Intent(this, PointInformationSetupActivity.class);
-        startActivity(i);
+        startActivityForResult(i, 1);
+
        }
 
     public void putMarkerOnMyPosition(View view){

@@ -100,13 +100,15 @@ public class DisplayTaskActivity extends AppCompatActivity {
     }
 
     private void correctAnswer(){
-        Toast.makeText(this, "Good!", Toast.LENGTH_SHORT).show();
+        String string = this.getString(R.string.answer_ok);
+        Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
         setResult(Activity.RESULT_OK);
         finish();
     }
 
     private void wrongAnswer(){
-        Toast.makeText(this, "Wrong Answer, try again.", Toast.LENGTH_SHORT).show();
+        String string = this.getString(R.string.answer_wrong);
+        Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
     }
 
 }

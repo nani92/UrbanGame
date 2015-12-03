@@ -1,5 +1,6 @@
 package com.example.nataliajastrzebska.urbangame;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
@@ -49,6 +50,8 @@ public class CreateRemoteGame extends AppCompatActivity
     private static final LatLngBounds BOUNDS = new LatLngBounds(
             new LatLng(-34.041458, 150.790100), new LatLng(-33.682247, 151.383362));
 
+    private  LatLng coordsToSave = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,22 @@ public class CreateRemoteGame extends AppCompatActivity
 
         pointItems = new ArrayList<>();
         setLeftSideMenu();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        int pointNumber = CurrentGame.getInstance().getGameInformation().getPoints().size() - 1;
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                mMap.addMarker(new MarkerOptions().position(coordsToSave).title(String.valueOf(pointNumber + 1)));
+                String pointName =  CurrentGame.getInstance().getGameInformation().getPoints().get(CurrentGame.getInstance().getGameInformation().getPoints().size() - 1).getName();
+                pointItems.add(new PointListItem(pointName));
+                listAdapter = new PointListAdapter(this, pointItems);
+                listView.setAdapter(listAdapter);
+            }
+            else
+                CurrentGame.getInstance().getGameInformation().getPoints().remove(pointNumber);
+        }
     }
 
 
@@ -94,9 +113,6 @@ public class CreateRemoteGame extends AppCompatActivity
             PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi
                     .getPlaceById(mGoogleApiClient, placeId);
             placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
-
-            Toast.makeText(getApplicationContext(), "Clicked: " + primaryText,
-                    Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -177,18 +193,16 @@ public class CreateRemoteGame extends AppCompatActivity
     };
 
     void addPoint(LatLng latLng){
-        mMap.addMarker(new MarkerOptions().position(latLng).title("Start").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        pointItems.add(new PointListItem("Point"));
-        listAdapter = new PointListAdapter(this, pointItems);
-        listView.setAdapter(listAdapter);
 
         CurrentGame.getInstance().getGameInformation().getPoints().add(new GamePoint());
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setNumber((CurrentGame.getInstance().getGameInformation().getPoints().size()));
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setCoordinateX(latLng.latitude);
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setCoordinateY(latLng.longitude);
-
+        int pointNumber = CurrentGame.getInstance().getGameInformation().getPoints().size() - 1;
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).setNumber(pointNumber + 1);
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).setCoordinateX(latLng.latitude);
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).setCoordinateY(latLng.longitude);
+        coordsToSave = latLng;
         Intent i = new Intent(this, PointInformationSetupActivity.class);
-        startActivity(i);
+        startActivityForResult(i, 1);
+
     }
 
 
@@ -198,7 +212,8 @@ public class CreateRemoteGame extends AppCompatActivity
     }
 
     public void saveGameButtonClicked(View view) {
-        CurrentGame.getInstance().getGameInformation().setNumberOfPoints(CurrentGame.getInstance().getGameInformation().getPoints().size());
+        int pointNumber = CurrentGame.getInstance().getGameInformation().getPoints().size();
+        CurrentGame.getInstance().getGameInformation().setNumberOfPoints(pointNumber);
         Intent i = new Intent(this, SaveGameActivity.class);
         startActivity(i);
         finish();

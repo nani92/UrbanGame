@@ -1,5 +1,6 @@
 package com.example.nataliajastrzebska.urbangame;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -36,32 +37,42 @@ public class ChooseGameTaskTypeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(ctx, "Clicked " + position, Toast.LENGTH_SHORT).show();
                 switch (typeList[position]) {
                     case THINKandANSWER:
-                        startActivity(new Intent(ctx, CreateTaskThinkAndAnswer.class));
-                        finish();
+                        startActivityForResult(new Intent(ctx, CreateTaskThinkAndAnswer.class),1);
                         break;
                     case AR_FINDandANSWER:
-                        startActivity(new Intent(ctx, CreateTaskFindAndAnswer_AugmentScene.class));
-                        finish();
+                        startActivityForResult(new Intent(ctx, CreateTaskFindAndAnswer_AugmentScene.class),1);
                         break;
                     case AR_GAME:
-                        startActivity(new Intent(ctx, TaskGameActivity.class));
-                        finish();
+                        startActivityForResult(new Intent(ctx, TaskGameActivity.class),1);
                         break;
                     case LOOKandANSWER:
-                        startActivity(new Intent(ctx, CreateTaskLookAndAnswer.class));
-                        finish();
+                        startActivityForResult(new Intent(ctx, CreateTaskLookAndAnswer.class),1);
                         break;
                     case ABCD:
-                        startActivity(new Intent(ctx, CreateTaskABCD.class));
-                        finish();
+                        startActivityForResult(new Intent(ctx, CreateTaskABCD.class),1);
                         break;
                 }
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
+            }
+            else {
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_CANCELED, returnIntent);
+                finish();
+            }
+        }
     }
 
 

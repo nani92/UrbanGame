@@ -77,19 +77,45 @@
     <string name="task_watchAndAnswer_hint">Możesz wgrać plik wideo, zadać pytanie i podać prawidłową odpowiedź.</string>
     <string name="task_findAndAnswer_name">Znajdź i odpowiedz</string>
     <string name="task_findAndAnswer_hint">Możesz wgrać obrazek i umieścić go na jakimś budynku używając modułu rozszerzonej rzeczywistości.</string>
+    <string name="task_game_name">Gra</string>
+    <string name="task_game_hint">Pozawól użytkownikowi na rozegranie gry w celu zodobycia punktów</string>
+    <string name="task_abcd_name">ABCD</string>
+    <string name="task_abcd_hint">Daj użytkownikowi możliwośc wybrania jednej z czterech odpowiedzi</string>
+
 
     <string name="task_provideQuestion">Tutaj powinno znaleźć się pytanie.</string>
     <string name="task_provideAnswer">Tutaj powinna być odpowiedź.</string>
+    <string name="task_provideAnswerA">Odpowiedź A</string>
+    <string name="task_provideAnswerB">Odpowiedź B</string>
+    <string name="task_provideAnswerC">Odpowiedź C</string>
+    <string name="task_provideAnswerD">Odpowiedź D</string>
+    <string name="task_answerA_helper">A:</string>
+    <string name="task_answerB_helper">B:</string>
+    <string name="task_answerC_helper">C:</string>
+    <string name="task_answerD_helper">D:</string>
     <string name="task_whatShouldAnswerBe">Jak powinna wyglądać odpowiedź</string>
     <string name="task_answer_text">Tekst</string>
     <string name="task_answer_number">Liczba</string>
     <string name="task_answer_date">Data</string>
+    <string name="task_ABCD_choose_correct_answer">Wybierz prawidłową odpowiedź poprzez nciśnięcie odpowiedniej litery obok odpowiedzi</string>
+    <string name="task_ABCD_chooseCorrectMsg">Wybierz prawidłową odpowiedź</string>
+    <string name="task_ABCD_correct_answer_is">Dobra odpowiedź to:</string>
 
     <string name="task_add_button">Dodaj zadanie</string>
     <string name="task_choosePicture_button">Wybierz zdjęcie</string>
     <string name="task_takePicture_button">Zrób zdjęcie</string>
 
+    <string name="dialog_choose_using_cardboard">Chcesz użyć Cardborda?</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
 
+    <!--PLAYING-->
+    <string name="dialog_displayHint_title">Wskazówka</string>
+    <string name="confirmAnswer">Potwierdź odpowiedź</string>
+    <string name="endGameTitle">Gratulacje!</string>
+    <string name="endGameMsg">Wygrałes!</string>
+    <string name="endGameTime">Skończyłeś grę w czasie:</string>
+    <string name="endGameDistance">Pokonałeś dystans:</string>
 
     <string name="btn_saveGame">Zapisz grę</string>
     <string name="btn_addPoint">Dodaj punkt</string>
@@ -108,5 +134,9 @@
 
     <string name="game_created">Utworzono grę!</string>
 
+
+    <string name="answer_ok">Dobra odpowiedź!</string>
+    <string name="answer_wrong">Zła odpowiedź, spróbuj jeszcez raz!</string>
+    <string name="answer_question">Udziel odpowiedzi na pytanie:</string>
 
 </resources>

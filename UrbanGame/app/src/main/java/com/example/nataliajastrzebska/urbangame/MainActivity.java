@@ -48,25 +48,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void settingsClicked(View v) {
-       /* Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);*/
-        startActivity(new Intent(this, laby.class));
-    }
-
-    public void sendNotification(String text) {
-        Integer mId = 0;
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.notification_icon_small)
-                        .setContentTitle("Urban Game")
-                        .setContentText(text);
-        Notification note = mBuilder.build();
-        if (Settings.getInstance().getVibrationEnabled())
-            note.defaults |= Notification.DEFAULT_VIBRATE;
-        note.defaults |= Notification.DEFAULT_SOUND;
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(mId, note);
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 }
 

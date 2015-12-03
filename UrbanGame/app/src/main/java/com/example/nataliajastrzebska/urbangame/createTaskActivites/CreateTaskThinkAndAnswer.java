@@ -1,5 +1,7 @@
 package com.example.nataliajastrzebska.urbangame.createTaskActivites;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -67,11 +69,16 @@ public class CreateTaskThinkAndAnswer extends AppCompatActivity {
 
     public void saveTaskThinkAndAnswer (View v){
 
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).setGameTask(new GameTask());
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).getGameTask().setTaskType("thinkAndAnswer");
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).getGameTask().setAnswer(answer.getText().toString());
-        CurrentGame.getInstance().getGameInformation().getPoints().get((CurrentGame.getInstance().getGameInformation().getPoints().size() - 1)).getGameTask().setQuestion(question.getText().toString());
-        this.finish();
+        int pointNumber = CurrentGame.getInstance().getGameInformation().getPoints().size() - 1;
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).setGameTask(new GameTask());
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).getGameTask().setTaskType("thinkAndAnswer");
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).getGameTask().setAnswer(answer.getText().toString());
+        CurrentGame.getInstance().getGameInformation().getPoints().get(pointNumber).getGameTask().setQuestion(question.getText().toString());
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
+
+
     }
 
 

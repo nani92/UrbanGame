@@ -141,6 +141,9 @@
 
     <string name="game_created">Game created!</string>
 
+    <string name="answer_ok">Good answer!</string>
+    <string name="answer_wrong">Wrong answer,try again!</string>
+    <string name="answer_question">Answer question:</string>
 
 
 </resources>
