@@ -35,7 +35,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 public class CreateClassicGame extends AppCompatActivity
-        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener, OnMapReadyCallback, LocationListener, GpsStatus.Listener {
+        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, LocationListener, GpsStatus.Listener {
 
     protected GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
@@ -118,20 +118,12 @@ public class CreateClassicGame extends AppCompatActivity
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {//TO DO(?)
+    public void onConnectionFailed(ConnectionResult connectionResult) {
         //contains all possible errors while connecting to google play services
         //https://developers.google.com/android/reference/com/google/android/gms/common/ConnectionResult
         Toast.makeText(getApplicationContext(),"Google Api Connection Fail",Toast.LENGTH_SHORT).show();finish();
     }
 
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-//        if(marker.equals(myPositionMarker))
-//            marker.showInfoWindow();
-//        else
-//            marker.remove();
-        return false;
-    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -234,7 +226,6 @@ public class CreateClassicGame extends AppCompatActivity
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map_creatingClassicGame);
         mMap = mapFragment.getMap();
         mapFragment.getMapAsync(this);
-        mMap.setOnMarkerClickListener(this);
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setAllGesturesEnabled(false);//blocks every touch reaction on map
         mMap.setMyLocationEnabled(true);

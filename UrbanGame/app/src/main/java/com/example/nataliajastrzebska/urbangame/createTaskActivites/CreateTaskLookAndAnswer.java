@@ -147,7 +147,6 @@ public class CreateTaskLookAndAnswer extends AppCompatActivity {
         String tmp = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
         cursor.close();
         return tmp;
-
     }
 
 
