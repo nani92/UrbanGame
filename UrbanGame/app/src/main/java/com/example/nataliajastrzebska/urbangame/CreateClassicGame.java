@@ -50,7 +50,7 @@ public class CreateClassicGame extends AppCompatActivity
     PointListAdapter listAdapter;
     ArrayList<PointListItem> pointItems;
 
-    private  LatLng coordsToSave = null;
+    private LatLng coordsToSave = null;
 
 
 
