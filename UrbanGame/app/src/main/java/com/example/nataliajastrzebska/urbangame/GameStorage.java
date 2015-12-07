@@ -14,14 +14,14 @@ import java.util.ArrayList;
 /**
  * Created by Przemysław on 2015-11-15.
  */
-public class GameStorage {
 
+
+public class GameStorage {
+    //Singletone
     private static GameStorage gameStorageInstance = null;
     private static Context context = null;
-
     private GameStorage() {
     }
-
     public void init(Context context) {
         this.context = context;
         XMLPullParser parser = new XMLPullParser();
@@ -31,7 +31,6 @@ public class GameStorage {
         Log.d("Natalia", "game" + game.getName());
         GameStorage.getInstance().saveGame(game);
     }
-
     //Instance getter
     public static GameStorage getInstance() {
         if (gameStorageInstance == null) {
@@ -39,8 +38,7 @@ public class GameStorage {
         }
         return gameStorageInstance;
     }
-
-
+    //Retrun list of available games
     public ArrayList<String> loadGamesNames() {
         ArrayList<String> list = new ArrayList<String>();
         File[] files = context.getFilesDir().listFiles();
@@ -52,7 +50,7 @@ public class GameStorage {
         }
         return list;
     }
-
+    //Saving game from GameInformation object to file
     public void saveGame(GameInformation gameInformation) {
         XMLSerializer serializer = new XMLSerializer();
         FileOutputStream outputStream;
@@ -69,7 +67,7 @@ public class GameStorage {
             e.printStackTrace();
         }
     }
-
+    //Load game with given name
     public GameInformation loadGame(String gameName) {
         XMLPullParser parser = new XMLPullParser();
         GameInformation gameInforamtion = null;
@@ -82,5 +80,6 @@ public class GameStorage {
         }
         return null;
     }
-
 }
+
+

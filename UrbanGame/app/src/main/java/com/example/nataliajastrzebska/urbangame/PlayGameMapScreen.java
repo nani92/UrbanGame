@@ -319,6 +319,7 @@ public class PlayGameMapScreen extends AppCompatActivity
 
     private void displayTask(){
         if (!coughtInArea) {
+            NotificationSender.getInstance().sendNotification("Dotarłeś do punktu",null,this);
             Intent intent = new Intent(this, DisplayTaskActivity.class);
             intent.putExtra("pointId", currID);
             startActivityForResult(intent, REQUEST_CODE_DISPLAY_TASK);

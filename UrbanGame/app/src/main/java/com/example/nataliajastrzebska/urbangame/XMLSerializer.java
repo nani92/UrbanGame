@@ -9,8 +9,10 @@ import java.io.StringWriter;
 /**
  * Created by Przemysław on 2015-10-20.
  */
-public class XMLSerializer {
 
+
+
+public class XMLSerializer {
     public String serialize(GameInformation game) {
         XmlSerializer serializer = Xml.newSerializer();
         StringWriter writer = new StringWriter();

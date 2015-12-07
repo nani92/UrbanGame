@@ -14,11 +14,9 @@ import java.io.InputStream;
  * Created by Przemysław on 2015-10-20.
  */
 public class XMLPullParser {
-
     private GameInformation gameInformation;
     private GamePoint gamePoint;
     private GameTask gameTask;
-
     public GameInformation parse(InputStream is) {
         try {
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();

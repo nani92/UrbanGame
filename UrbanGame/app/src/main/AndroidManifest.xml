@@ -4,8 +4,12 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.NFC" />
+
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
     <uses-permission android:name="android.permission.CAMERA" />
 
     <!--
@@ -115,8 +119,6 @@
         <activity android:name=".DisplayTaskActivity" >
         </activity>
         <activity android:name=".SummaryScreen" >
-        </activity>
-        <activity android:name=".laby.laby" >
         </activity>
         <activity android:name=".createTaskActivites.CreateTaskABCD" >
         </activity>
