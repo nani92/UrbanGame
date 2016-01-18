@@ -91,7 +91,6 @@ public class CreateTaskLookAndAnswer extends AppCompatActivity {
         startActivityForResult(galleryChooser, SELECT_IMAGE_REQUEST_CODE);
     }
 
-
     public void takeAPicture(View view){
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if(takePictureIntent.resolveActivity(getPackageManager()) != null){

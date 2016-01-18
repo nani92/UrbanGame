@@ -62,16 +62,8 @@ public class CreateClassicGame extends AppCompatActivity
         setContentView(R.layout.activity_create_classic_game);
 
         mLocationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-        //google api client doesn't have implemented gps monitoring and on gps status change information, that's why location manager needs to be used
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for Activity#requestPermissions for more details.
                 return;
             }
         }
